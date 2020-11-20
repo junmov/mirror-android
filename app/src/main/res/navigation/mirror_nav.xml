@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/page_home">
+
+    <fragment
+        android:id="@+id/page_home"
+        android:name="cn.junmov.mirror.home.ui.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/page_budget"
+        android:name="cn.junmov.mirror.budget.ui.BudgetFragment"
+        android:label="BudgetFragment" />
+    <fragment
+        android:id="@+id/page_account"
+        android:name="cn.junmov.mirror.account.ui.AccountFragment"
+        android:label="AccountFragment" />
+</navigation>
