@@ -1,5 +1,6 @@
 package cn.junmov.mirror.account.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.account.domain.CreateAccountUseCase
 import cn.junmov.mirror.account.domain.FlowAllNoLeafAccountUseCase
@@ -8,7 +9,7 @@ import cn.junmov.mirror.core.data.entity.Account
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.launch
 
-class AccountFormViewModel(
+class AccountFormViewModel @ViewModelInject constructor(
     private val flowAllNoLeafAccount: FlowAllNoLeafAccountUseCase,
     private val createAccount: CreateAccountUseCase
 ) : ViewModel() {

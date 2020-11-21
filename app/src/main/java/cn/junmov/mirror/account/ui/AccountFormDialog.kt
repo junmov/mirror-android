@@ -13,7 +13,9 @@ import cn.junmov.mirror.core.utility.onClickItem
 import cn.junmov.mirror.core.utility.setupDismiss
 import cn.junmov.mirror.core.widget.FullScreenDialog
 import cn.junmov.mirror.databinding.DialogAccountFormBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AccountFormDialog : FullScreenDialog() {
 
     private val viewModel: AccountFormViewModel by viewModels()
