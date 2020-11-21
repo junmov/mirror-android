@@ -5,11 +5,14 @@
         <item name="colorPrimaryVariant">@color/mirror_green_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/mirror_yellow_500</item>
+        <item name="textInputStyle">@style/Theme.Mirror.TextField</item>
     </style>
+
     <style name="Theme.Mirror.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.Mirror.IconButton">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:clickable">true</item>
@@ -17,4 +20,11 @@
         <item name="tint">?attr/colorOnSurface</item>
     </style>
 
+    <style name="Theme.Mirror.TextField" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="Theme.Mirror.Spinner" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+    </style>
 </resources>

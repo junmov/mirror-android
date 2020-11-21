@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cn.junmov.mirror.account.ui.AccountFormViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".account.ui.AccountFormDialog">
+
+        <cn.junmov.mirror.core.widget.SheetTitle
+            android:id="@+id/title_account_form"
+            onDone="@{() -> vm.submitAccount()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="编辑账户" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_account_type"
+            style="@style/Theme.Mirror.Spinner"
+            notEmptyField="@{vm.typeOk}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_account_name"
+            app:layout_constraintStart_toStartOf="@+id/il_account_name"
+            app:layout_constraintTop_toBottomOf="@+id/il_account_parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_account_type"
+                hideKeyboardOnFocus="@{true}"
+                noFilterText="@{vm.accountType.toString()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="账户类型"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_account_name"
+            notEmptyField="@{vm.nameOk}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_account_form">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="账户名称"
+                android:maxLines="1"
+                android:text="@={vm.accountName}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_account_parent"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_account_name"
+            app:layout_constraintStart_toStartOf="@+id/il_account_name"
+            app:layout_constraintTop_toBottomOf="@+id/il_account_name">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_account_parent"
+                hideKeyboardOnFocus="@{true}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="上级账户"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cb_account_is_leaf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:checked="@={vm.leaf}"
+            android:text="可交易账户"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_account_type" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
