@@ -1,16 +1,10 @@
 package cn.junmov.mirror.core.utility
 
 import android.content.Context
-import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
-import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import androidx.databinding.BindingAdapter
-import cn.junmov.mirror.R
 import cn.junmov.mirror.core.widget.SheetTitle
 import com.google.android.material.textfield.TextInputLayout
 
@@ -43,4 +37,9 @@ fun bindNotEmptyField(view: TextInputLayout, isOk: Boolean) {
     } else {
         view.error = "必填字段"
     }
+}
+
+@BindingAdapter("isGone")
+fun bindGone(view: View, isGone: Boolean) {
+    view.visibility = if (isGone) View.GONE else View.VISIBLE
 }

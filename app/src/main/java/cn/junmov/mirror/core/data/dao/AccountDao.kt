@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import cn.junmov.mirror.account.data.AccountWithChildren
 import cn.junmov.mirror.core.data.entity.Account
 import cn.junmov.mirror.core.data.entity.Budget
 import kotlinx.coroutines.flow.Flow
@@ -22,4 +23,9 @@ interface AccountDao : BaseDao<Account> {
 
     @Insert
     suspend fun insertBudget(budget: Budget)
+
+    @Transaction
+    @Query("select * from account where row_id = :id and is_deleted = 0 ")
+    fun flowAccountWithChildren(id: Long): Flow<AccountWithChildren>
+
 }

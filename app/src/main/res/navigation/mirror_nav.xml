@@ -19,8 +19,22 @@
         <action
             android:id="@+id/action_page_account_to_account_form_dialog"
             app:destination="@id/account_form_dialog" />
+        <action
+            android:id="@+id/action_page_account_to_account_detail_fragment"
+            app:destination="@id/account_detail_fragment" />
     </fragment>
     <dialog
         android:id="@+id/account_form_dialog"
         android:name="cn.junmov.mirror.account.ui.AccountFormDialog" />
+    <fragment
+        android:id="@+id/account_detail_fragment"
+        android:name="cn.junmov.mirror.account.ui.AccountDetailFragment"
+        android:label="{title}" >
+        <argument
+            android:name="account_id"
+            app:argType="long" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

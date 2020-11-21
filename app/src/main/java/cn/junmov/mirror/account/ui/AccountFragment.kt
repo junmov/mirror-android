@@ -18,7 +18,11 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAccountBinding.inflate(inflater, container, false)
-        val adapter = ParentAccountListAdapter { id, title -> }
+        val adapter = ParentAccountListAdapter { id, title ->
+            findNavController().navigate(
+                AccountFragmentDirections.actionPageAccountToAccountDetailFragment(id, title)
+            )
+        }
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@AccountFragment
