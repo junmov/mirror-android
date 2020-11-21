@@ -7,7 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import cn.junmov.mirror.R
 import cn.junmov.mirror.databinding.FragmentAccountBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
 
     private val viewModel: AccountViewModel by viewModels()
