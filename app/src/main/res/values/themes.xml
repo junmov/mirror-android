@@ -10,6 +10,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <style name="Theme.Mirror.IconButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/margin_extra_small</item>
+        <item name="tint">?attr/colorOnSurface</item>
+    </style>
 
 </resources>
