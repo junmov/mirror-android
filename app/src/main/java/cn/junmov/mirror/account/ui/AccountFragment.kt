@@ -16,6 +16,14 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAccountBinding.inflate(inflater, container, false)
+        val adapter = ParentAccountListAdapter { id, title -> }
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = this@AccountFragment
+            listAccounts.adapter = adapter
+        }
+        viewModel.loadData()
+        viewModel.accounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
         setHasOptionsMenu(true)
         return binding.root
     }
