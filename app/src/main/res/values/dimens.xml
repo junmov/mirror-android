@@ -5,6 +5,7 @@
 
     <dimen name="single_line_height">48dp</dimen>
     <dimen name="two_line_min_height">64dp</dimen>
+    <dimen name="subtitle_size">14sp</dimen>>
     <dimen name="sheet_title_size">20sp</dimen>
     <dimen name="sheet_title_height">56dp</dimen>
 </resources>

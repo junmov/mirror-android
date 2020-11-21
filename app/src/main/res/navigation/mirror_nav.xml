@@ -7,13 +7,20 @@
     <fragment
         android:id="@+id/page_home"
         android:name="cn.junmov.mirror.home.ui.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="交易流水" />
     <fragment
         android:id="@+id/page_budget"
         android:name="cn.junmov.mirror.budget.ui.BudgetFragment"
-        android:label="BudgetFragment" />
+        android:label="我的预算" />
     <fragment
         android:id="@+id/page_account"
         android:name="cn.junmov.mirror.account.ui.AccountFragment"
-        android:label="AccountFragment" />
+        android:label="我的账户" >
+        <action
+            android:id="@+id/action_page_account_to_account_form_dialog"
+            app:destination="@id/account_form_dialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/account_form_dialog"
+        android:name="cn.junmov.mirror.account.ui.AccountFormDialog" />
 </navigation>
