@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/page_account"
-        android:name="cn.junmov.mirror.account.ui.AccountFragment"
+        android:name="cn.junmov.mirror.account.ui.AccountTabFragment"
         android:label="我的账户">
         <action
             android:id="@+id/action_page_account_to_account_form_dialog"

@@ -1,9 +1,6 @@
 package cn.junmov.mirror.account
 
-import cn.junmov.mirror.account.domain.AdjustAccountBalanceUseCase
-import cn.junmov.mirror.account.domain.CreateAccountUseCase
-import cn.junmov.mirror.account.domain.FlowAccountWithChildrenUseCase
-import cn.junmov.mirror.account.domain.FlowAllAccountByLeafUseCase
+import cn.junmov.mirror.account.domain.*
 import cn.junmov.mirror.core.data.MirrorDatabase
 import dagger.Module
 import dagger.Provides
@@ -34,5 +31,15 @@ object AccountModule {
     @Provides
     fun flowAllAccountByLeafUseCase(database: MirrorDatabase) =
         FlowAllAccountByLeafUseCase(database.accountDao())
+
+    @Singleton
+    @Provides
+    fun flowAllBalanceAccountUseCase(database: MirrorDatabase) =
+        FlowAllBalanceAccountUseCase(database.accountDao())
+
+    @Singleton
+    @Provides
+    fun flowAllCategoryAccountUseCase(database: MirrorDatabase) =
+        FlowAllCategoryAccountUseCase(database.accountDao())
 
 }
