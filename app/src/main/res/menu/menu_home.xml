@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@id/voucher_form_fragment"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="记账"
+        app:showAsAction="always" />
     <item
         android:id="@id/thing_fragment"
         android:title="项目" />

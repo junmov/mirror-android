@@ -4,8 +4,8 @@ import cn.junmov.mirror.core.data.dao.AccountDao
 import cn.junmov.mirror.core.data.entity.Account
 import kotlinx.coroutines.flow.Flow
 
-class FlowAllNoLeafAccountUseCase(private val dao: AccountDao) {
-    operator fun invoke(): Flow<List<Account>> {
-        return dao.flowAllByLeaf(false)
+class FlowAllAccountByLeafUseCase(private val dao: AccountDao) {
+    operator fun invoke(isLeaf: Boolean = false): Flow<List<Account>> {
+        return dao.flowAllByLeaf(isLeaf)
     }
 }

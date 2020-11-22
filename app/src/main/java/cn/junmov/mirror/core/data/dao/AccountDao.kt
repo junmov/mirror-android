@@ -28,4 +28,6 @@ interface AccountDao : BaseDao<Account> {
     @Query("select * from account where row_id = :id and is_deleted = 0 ")
     fun flowAccountWithChildren(id: Long): Flow<AccountWithChildren>
 
+    @Query("select * from account where row_id in (:ids) and is_deleted = 0")
+    suspend fun findAllById(ids: List<Long>): List<Account>
 }

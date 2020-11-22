@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/page_home">
 
@@ -80,4 +79,19 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/voucher_detail_fragment"
+        android:name="cn.junmov.mirror.voucher.ui.VoucherDetailFragment"
+        android:label="交易详情">
+        <argument
+            android:name="voucher_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/voucher_form_fragment"
+        android:name="cn.junmov.mirror.voucher.ui.VoucherFormFragment"
+        android:label="记账" />
+    <action
+        android:id="@+id/action_global_voucher_detail_fragment"
+        app:destination="@id/voucher_detail_fragment" />
 </navigation>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cn.junmov.mirror.voucher.ui.VoucherFormViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".voucher.ui.VoucherFormFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_voucher_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="摘要"
+                android:text="@={vm.inputVoucher.summary}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_voucher_event"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_voucher_summary">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_voucher_event"
+                hideKeyboardOnFocus="@{true}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="项目"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_voucher_time_at"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/il_voucher_event">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="时间"
+                android:inputType="datetime"
+                android:text="@={vm.inputOccurAt}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_save_voucher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:contentDescription="@string/empty_image_content"
+            android:onClick="@{() -> vm.audit()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_baseline_done_24" />
+
+        <ImageView
+            android:id="@+id/btn_submit_split"
+            style="@style/Theme.Mirror.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/empty_image_content"
+            android:onClick="@{() -> vm.submitSplit()}"
+            app:layout_constraintBottom_toBottomOf="@+id/il_split_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/il_split_amount"
+            app:srcCompat="@drawable/ic_baseline_arrow_downward_24" />
+
+        <CheckBox
+            android:id="@+id/cb_split_debit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:checked="@={vm.inputSplit.debit}"
+            android:text="借"
+            app:layout_constraintBottom_toBottomOf="@+id/il_split_account"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/il_split_account" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_split_account"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cb_split_debit"
+            app:layout_constraintTop_toBottomOf="@+id/il_voucher_event">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_split_account"
+                hideKeyboardOnFocus="@{true}"
+                noFilterText="@{vm.inputSplit.accountName}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="账户"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_split_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_submit_split"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_split_account">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="金额"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputSplitAmount}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/label_total_debit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{vm.totalDebit}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_split_amount"
+            tools:text="借：222.9" />
+
+        <TextView
+            android:id="@+id/label_total_credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{vm.totalCredit}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_total_debit"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="贷：4000" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_voucher_split"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_total_debit"
+            tools:itemCount="4"
+            tools:listitem="@layout/list_item_split" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

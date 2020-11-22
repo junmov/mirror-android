@@ -16,6 +16,7 @@ import cn.junmov.mirror.core.data.entity.*
 @TypeConverters(DataTypeConverters::class)
 abstract class MirrorDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
+    abstract fun auditDao(): AuditDao
     abstract fun budgetDao(): BudgetDao
     abstract fun thingDao(): ThingDao
     abstract fun voucherDao(): VoucherDao
