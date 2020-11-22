@@ -6,4 +6,5 @@
     <string name="budget_account_total">总预算: %s</string>
     <string name="budget_used">已用: %s</string>
     <string name="budget_use_able">可用: %s</string>
+    <string name="error_thing_name_no_change">重复的项目名</string>
 </resources>
