@@ -2,4 +2,8 @@
     <string name="app_name">Mirror</string>
     <string name="empty_image_content" />
     <string name="error_balance_not_format">金额格式不对</string>
+    <string name="budget_account_use_able">可用: %s</string>
+    <string name="budget_account_total">总预算: %s</string>
+    <string name="budget_used">已用: %s</string>
+    <string name="budget_use_able">可用: %s</string>
 </resources>

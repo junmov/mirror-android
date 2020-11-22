@@ -11,7 +11,11 @@
     <fragment
         android:id="@+id/page_budget"
         android:name="cn.junmov.mirror.budget.ui.BudgetFragment"
-        android:label="我的预算" />
+        android:label="我的预算" >
+        <action
+            android:id="@+id/action_page_budget_to_budget_secondary_fragment"
+            app:destination="@id/budget_secondary_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/page_account"
         android:name="cn.junmov.mirror.account.ui.AccountFragment"
@@ -36,5 +40,24 @@
         <argument
             android:name="title"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/budget_form_fragment"
+        android:name="cn.junmov.mirror.budget.ui.BudgetFormFragment"
+        android:label="BudgetFormFragment" >
+        <argument
+            android:name="budget_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/budget_secondary_fragment"
+        android:name="cn.junmov.mirror.budget.ui.BudgetSecondaryFragment"
+        android:label="BudgetSecondaryFragment" >
+        <argument
+            android:name="budget_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_budget_secondary_fragment_to_budget_form_fragment"
+            app:destination="@id/budget_form_fragment" />
     </fragment>
 </navigation>
