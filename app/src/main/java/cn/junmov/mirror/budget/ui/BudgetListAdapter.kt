@@ -34,7 +34,7 @@ class BudgetListAdapter : ListAdapter<Budget, BudgetViewHolder>(BudgetDiffCallBa
                     )
                 } else {
                     it.findNavController().navigate(
-                        BudgetSecondaryFragmentDirections.actionBudgetSecondaryFragmentToBudgetFormFragment(
+                        BudgetSecondaryFragmentDirections.actionBudgetSecondaryFragmentToBudgetFormDialog(
                             data.id
                         )
                     )

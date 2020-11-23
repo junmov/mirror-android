@@ -47,14 +47,13 @@
             android:id="@+id/action_account_detail_fragment_to_account_trading_fragment"
             app:destination="@id/account_trading_fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/budget_form_fragment"
-        android:name="cn.junmov.mirror.budget.ui.BudgetFormFragment"
-        android:label="修改预算">
+    <dialog
+        android:id="@+id/budget_form_dialog"
+        android:name="cn.junmov.mirror.budget.ui.BudgetFormDialog">
         <argument
             android:name="budget_id"
             app:argType="long" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/budget_secondary_fragment"
         android:name="cn.junmov.mirror.budget.ui.BudgetSecondaryFragment"
@@ -62,12 +61,12 @@
         <argument
             android:name="budget_id"
             app:argType="long" />
-        <action
-            android:id="@+id/action_budget_secondary_fragment_to_budget_form_fragment"
-            app:destination="@id/budget_form_fragment" />
         <argument
             android:name="title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_budget_secondary_fragment_to_budget_form_dialog"
+            app:destination="@id/budget_form_dialog" />
     </fragment>
     <fragment
         android:id="@+id/thing_fragment"
