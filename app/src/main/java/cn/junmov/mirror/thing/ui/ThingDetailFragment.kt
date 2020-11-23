@@ -7,7 +7,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import cn.junmov.mirror.MainNavDirections
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.adapter.TwoLinePagingAdapter
 import cn.junmov.mirror.core.utility.setupSnackBar
@@ -26,6 +28,9 @@ class ThingDetailFragment : Fragment() {
     private val viewModel: ThingDetailViewModel by viewModels()
 
     private val adapter = TwoLinePagingAdapter { id, _ ->
+        findNavController().navigate(
+            MainNavDirections.actionGlobalVoucherDetailFragment(id)
+        )
     }
 
     override fun onCreateView(
