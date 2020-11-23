@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.utility.setupSnackBar
@@ -28,6 +29,11 @@ class AccountDetailFragment : Fragment() {
     ): View? {
         val binding = FragmentAccountDetailBinding.inflate(inflater, container, false)
         val adapter = ChildAccountListAdapter { id, title ->
+            findNavController().navigate(
+                AccountDetailFragmentDirections.actionAccountDetailFragmentToAccountTradingFragment(
+                    accountId = id, title = title
+                )
+            )
         }
         binding.apply {
             vm = viewModel

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_page_account_to_account_detail_fragment"
             app:destination="@id/account_detail_fragment" />
+        <action
+            android:id="@+id/action_page_account_to_account_trading_fragment"
+            app:destination="@id/account_trading_fragment" />
     </fragment>
     <dialog
         android:id="@+id/account_form_dialog"
@@ -40,6 +43,9 @@
         <argument
             android:name="title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_account_detail_fragment_to_account_trading_fragment"
+            app:destination="@id/account_trading_fragment" />
     </fragment>
     <fragment
         android:id="@+id/budget_form_fragment"
@@ -94,4 +100,15 @@
     <action
         android:id="@+id/action_global_voucher_detail_fragment"
         app:destination="@id/voucher_detail_fragment" />
+    <fragment
+        android:id="@+id/account_trading_fragment"
+        android:name="cn.junmov.mirror.statistics.ui.AccountTradingFragment"
+        android:label="{title}" >
+        <argument
+            android:name="account_id"
+            app:argType="long" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>
