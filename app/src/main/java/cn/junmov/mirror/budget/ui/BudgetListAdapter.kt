@@ -28,7 +28,9 @@ class BudgetListAdapter : ListAdapter<Budget, BudgetViewHolder>(BudgetDiffCallBa
             itemView.setOnClickListener {
                 if (data.parentId == 0L) {
                     it.findNavController().navigate(
-                        BudgetFragmentDirections.actionPageBudgetToBudgetSecondaryFragment(data.id)
+                        BudgetFragmentDirections.actionPageBudgetToBudgetSecondaryFragment(
+                            budgetId = data.id, title = data.accountName
+                        )
                     )
                 } else {
                     it.findNavController().navigate(
