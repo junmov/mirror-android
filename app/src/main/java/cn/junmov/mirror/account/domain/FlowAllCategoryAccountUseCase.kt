@@ -10,7 +10,7 @@ class FlowAllCategoryAccountUseCase(private val dao: AccountDao) {
     operator fun invoke(): Flow<List<Account>> {
         return dao.flowAllByTypeAndLeaf(
             isLeaf = false,
-            AccountType.CONSUME, AccountType.EXPENSE, AccountType.SUPPLIES,
+            AccountType.CONSUME, AccountType.EXPENSE,
             AccountType.ACTIVE, AccountType.PASSIVE
         )
     }

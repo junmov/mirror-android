@@ -40,6 +40,11 @@ class AccountFormViewModel @ViewModelInject constructor(
         val currentType = accountType.value ?: return
         val currentIsLeaf = leaf.value ?: return
         val currentParent = accountParent.value
+        if (currentParent == null && currentIsLeaf) {
+            if (!currentType.hasNormalBalance()) {
+                return
+            }
+        }
         viewModelScope.launch {
             val fullMame: String
             val parentId: Long

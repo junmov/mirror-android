@@ -21,7 +21,7 @@ class CreateAccountUseCase(
         // 支出应预算、负债应偿还、资产应买入、收入应规划，
         // 资金则按用途分日常开销、应急、投资
         when (account.type) {
-            AccountType.SUPPLIES, AccountType.CONSUME -> {
+            AccountType.CONSUME, AccountType.EXPENSE -> {
                 budget = createBudget(account)
             }
             else -> {

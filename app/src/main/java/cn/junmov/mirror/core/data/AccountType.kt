@@ -38,12 +38,6 @@ enum class AccountType(private val typeName: String) {
     CONSUME("消费支出"),
 
     /**
-     * 购买长期使用的物品所产生的支出
-     * 如家具、家电、工具、设备、电子产品等
-     */
-    SUPPLIES("物资支出"),
-
-    /**
      * 不应该或可避免的费用支出
      * 如利息、手续费、税费、维修费等
      */
@@ -65,7 +59,7 @@ enum class AccountType(private val typeName: String) {
 
     fun balanceInDebit(): Boolean {
         return when (this) {
-            FUND, RECEIVABLE, INVEST, SUPPLIES,
+            FUND, RECEIVABLE, INVEST,
             EXPENSE, CONSUME -> true
             DEBT, PAYABLE, ACTIVE, PASSIVE -> false
         }
@@ -101,7 +95,7 @@ enum class AccountType(private val typeName: String) {
 
     fun isExpend(): Boolean {
         return when (this) {
-            SUPPLIES, EXPENSE, CONSUME -> true
+            EXPENSE, CONSUME -> true
             else -> false
         }
     }

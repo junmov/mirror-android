@@ -108,7 +108,7 @@ class AuditVoucherUseCase(
 
     private suspend fun getBudget(accounts: List<Account>, month: YearMonth): List<Budget> {
         val accountIds = accounts.filter {
-            it.type == AccountType.CONSUME || it.type == AccountType.SUPPLIES
+            it.type == AccountType.CONSUME || it.type == AccountType.EXPENSE
         }.map { it.id }
         return budgetDao.findAllByAccountId(accountIds, month)
     }
