@@ -51,7 +51,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
         )
         inputSplit.value = Split(
             id = ids[1], voucherId = ids[0], amount = 0, isDebit = false,
-            accountId = 0, accountName = "", accountType = AccountType.DEBT,
+            accountId = 0, accountName = "", accountType = AccountType.DEBT, accountParentId = 0L,
             createAt = now, modifiedAt = now
         )
         inputOccurAt.value = TimeUtils.dateTimeToString(now)
@@ -67,6 +67,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
         inputSplit.value?.accountId = account.id
         inputSplit.value?.accountName = account.fullName
         inputSplit.value?.accountType = account.type
+        inputSplit.value?.accountParentId = account.parentId
     }
 
     fun submitSplit() {
@@ -84,7 +85,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
             _totalCredit.value = _totalCredit.value?.plus(cent)
         }
         val emptySplit = Split(
-            SnowFlakeUtil.genId(), inputVoucher.value!!.id, 0, false, 0, "", AccountType.DEBT
+            SnowFlakeUtil.genId(), inputVoucher.value!!.id, 0, false, 0, 0, "", AccountType.DEBT
         )
         val oldSplits = inputSplits.value ?: emptyList()
         val splits = oldSplits.plus(oldSplit)

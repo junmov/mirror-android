@@ -21,4 +21,7 @@ interface SplitEntity : CommonField {
 
     /** 账户类型 */
     var accountType: AccountType
+
+    /** 上级账户ID */
+    var accountParentId: Long
 }

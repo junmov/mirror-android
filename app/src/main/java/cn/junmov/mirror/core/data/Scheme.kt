@@ -37,6 +37,7 @@ object Scheme {
         const val IS_DEBIT = "is_debit"
         const val AMOUNT = "amount"
         const val ACCOUNT_ID = "account_id"
+        const val ACCOUNT_PARENT_ID = "account_parent_id"
         const val ACCOUNT_NAME = "account_name"
         const val ACCOUNT_TYPE = "account_type"
     }

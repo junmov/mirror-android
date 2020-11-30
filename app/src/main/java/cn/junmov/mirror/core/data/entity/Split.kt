@@ -24,11 +24,12 @@ data class Split(
     @ColumnInfo(name = Scheme.Split.AMOUNT) override var amount: Int,
     @ColumnInfo(name = Scheme.Split.IS_DEBIT) override var isDebit: Boolean,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_ID) override var accountId: Long,
+    @ColumnInfo(name = Scheme.Split.ACCOUNT_PARENT_ID) override var accountParentId: Long,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_NAME) override var accountName: String,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_TYPE) override var accountType: AccountType,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
+    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false,
 ) : SplitEntity, SingleLineAble {
 
     override fun toSingleLineUiModel(): SingleLineModel.UiData = SingleLineModel.UiData(
