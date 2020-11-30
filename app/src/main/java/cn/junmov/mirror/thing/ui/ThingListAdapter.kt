@@ -11,7 +11,7 @@ class ThingListAdapter : AbstractSingleLineListAdapter<Thing>(diff) {
 
     override fun trans(data: Thing): SingleLineModel.UiData = data.toSingleLineUiModel()
 
-    override fun click(data: Thing): View.OnClickListener? = View.OnClickListener {
+    override fun click(data: Thing): View.OnClickListener = View.OnClickListener {
         it.findNavController().navigate(
             ThingFragmentDirections.actionThingFragmentToThingDetailFragment(data.id, data.name)
         )

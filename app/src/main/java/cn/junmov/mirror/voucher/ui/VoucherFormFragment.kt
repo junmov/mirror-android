@@ -26,7 +26,7 @@ class VoucherFormFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentVoucherFormBinding.inflate(inflater, container, false)
         val thingAdapter: ArrayAdapter<Thing> =
             ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item)

@@ -20,7 +20,7 @@ class BudgetSecondaryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentBudgetSecondaryBinding.inflate(inflater, container, false)
         val adapter = BudgetListAdapter()
         binding.apply {

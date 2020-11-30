@@ -21,7 +21,7 @@ class BudgetFormDialog : FullScreenDialog() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DialogBudgetFormBinding.inflate(inflater, container, false)
         binding.apply {
             vm = viewModel

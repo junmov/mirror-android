@@ -26,7 +26,7 @@ class AccountDetailFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentAccountDetailBinding.inflate(inflater, container, false)
         val adapter = ChildAccountListAdapter { id, title ->
             findNavController().navigate(

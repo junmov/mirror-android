@@ -13,7 +13,7 @@ class ChildAccountListAdapter(
 
     override fun trans(data: Account): SingleLineModel.UiData = data.toSingleLineUiModel()
 
-    override fun click(data: Account): View.OnClickListener? {
+    override fun click(data: Account): View.OnClickListener {
         return View.OnClickListener { navClick.click(data.id, data.fullName) }
     }
 

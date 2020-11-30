@@ -37,7 +37,7 @@ class ThingDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentThingDetailBinding.inflate(inflater, container, false)
         binding.listThingVoucher.adapter = adapter
         fetchData(args.thingId)

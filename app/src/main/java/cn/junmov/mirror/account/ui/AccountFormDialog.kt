@@ -22,7 +22,7 @@ class AccountFormDialog : FullScreenDialog() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DialogAccountFormBinding.inflate(inflater, container, false)
         val typeAdapter = ArrayAdapter(
             requireContext(), R.layout.support_simple_spinner_dropdown_item,

@@ -25,7 +25,7 @@ class VoucherDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentVoucherDetailBinding.inflate(inflater, container, false)
         binding.apply {
             vm = viewModel
