@@ -13,7 +13,6 @@ class TwoLineListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val primary: TextView = itemView.findViewById(R.id.two_line_primary_text)
     private val secondary: TextView = itemView.findViewById(R.id.two_line_secondary_text)
     private val action: TextView = itemView.findViewById(R.id.two_line_action_text)
-    private var onClick: View.OnClickListener? = null
 
     fun bind(data: TwoLineModel.UiData) {
         primary.text = data.primary
@@ -21,9 +20,10 @@ class TwoLineListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         action.text = data.action
     }
 
-    fun onListItemClick(click: View.OnClickListener) {
-        onClick = click
-        itemView.setOnClickListener(onClick)
+    fun bind(first: String, second: String, third: String) {
+        primary.text = first
+        secondary.text = second
+        action.text = third
     }
 
     companion object {

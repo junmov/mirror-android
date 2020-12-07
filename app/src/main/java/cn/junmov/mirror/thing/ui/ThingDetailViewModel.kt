@@ -27,7 +27,7 @@ class ThingDetailViewModel @ViewModelInject constructor(
 
     fun fetchData(id: Long): Flow<PagingData<TwoLineModel>> {
         val newData = pagingVoucherByThing(id).map { data ->
-            data.map { it.toTwoLineUiModel() }
+            data.map { it.twoLineData() }
                 .insertSeparators { before, after ->
                     when {
                         before == null -> after?.let { TwoLineModel.Separator(it.separator) }

@@ -5,11 +5,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import cn.junmov.mirror.core.data.dao.ThingDao
 import cn.junmov.mirror.core.data.entity.Voucher
+import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 
 class PagingVoucherByThingUseCase(private val dao: ThingDao) {
 
-    operator fun invoke(thingId: Long, size: Int = 20): Flow<PagingData<Voucher>> {
+    operator fun invoke(thingId: Long, size: Int = 20): Flow<PagingData<ItemVoucher>> {
         return Pager(PagingConfig(size)) { dao.pagingVoucherByThing(thingId) }.flow
     }
 }

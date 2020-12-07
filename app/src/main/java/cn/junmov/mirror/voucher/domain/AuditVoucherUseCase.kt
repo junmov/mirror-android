@@ -1,124 +1,82 @@
 package cn.junmov.mirror.voucher.domain
 
-import cn.junmov.mirror.core.data.AccountType
 import cn.junmov.mirror.core.data.dao.AccountDao
 import cn.junmov.mirror.core.data.dao.AuditDao
-import cn.junmov.mirror.core.data.dao.BudgetDao
 import cn.junmov.mirror.core.data.entity.*
-import cn.junmov.mirror.core.utility.MoneyUtils
+import cn.junmov.mirror.core.data.model.VoucherAndSplits
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-import java.time.YearMonth
 
-class AuditVoucherUseCase(
-    private val dao: AuditDao, private val accountDao: AccountDao, private val budgetDao: BudgetDao
-) {
+class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: AccountDao) {
 
-    suspend operator fun invoke(voucher: Voucher, splits: List<Split>) {
+    suspend operator fun invoke(voucherInfo: VoucherAndSplits) {
+        val voucher = voucherInfo.voucher
+        val splits = voucherInfo.splits
         val now = LocalDateTime.now()
-        val voucherMonth = YearMonth.from(voucher.dateAt)
-        val accounts = mutableListOf<Account>()
-        val budgets = mutableListOf<Budget>()
         val trades = mutableListOf<Trade>()
+        val accountIds = analysisAccount(splits)
+        val accounts = accountDao.findAllById(accountIds)
 
-        val childrenAccountIds = splits.map { it.accountId }.distinct()
-        val childrenAccount = getAccount(childrenAccountIds)
-        val parentAccount = getParentAccount(childrenAccount)
-
-        val secondaryBudgets = getBudget(childrenAccount, voucherMonth)
-        val firstBudgets = getBudget(parentAccount, voucherMonth)
-
-        val childrenAccountBalanceDelta = computeBalanceDelta(childrenAccountIds, splits)
-        withContext(Dispatchers.IO) {
-            val ids = SnowFlakeUtil.genIds(childrenAccountIds.size)
-            var idIndex = 0
-            for (entry in childrenAccountBalanceDelta.entries) {
-                for (account in childrenAccount) {
-                    if (entry.key != account.id) continue
-                    if (account.type.isIncome()) {
-                        voucher.profit += entry.value
-                    } else if (account.type.isExpend()) {
-                        voucher.profit -= entry.value
-                    }
-                    account.balance += entry.value
-                    account.sortKey += 1
-                    for (parent in parentAccount) {
-                        if (account.isSonOf(parent)) {
-                            parent.balance += entry.value
-                        }
-                    }
+        val map = accountIds.associateWith { 0 }.toMutableMap()
+        splits.forEach { split ->
+            val delta = split.balanceDelta()
+            if (split.accountType.isIncome()) {
+                voucher.profit += delta
+            } else if (split.accountType.isExpend()) {
+                voucher.profit -= delta
+            }
+            var first = false
+            var second = split.accountParentId == 0L
+            for (entry in map.entries) {
+                if (first && second) break
+                if (!first && split.accountId == entry.key) {
+                    entry.setValue(entry.value + delta)
+                    first = true
+                }
+                if (!second && split.accountParentId == entry.key) {
+                    entry.setValue(entry.value + delta)
+                    second = true
+                }
+            }
+        }
+        val ids = SnowFlakeUtil.genIds(accounts.size)
+        accounts.forEachIndexed { index, account ->
+            for (entry in map.entries) {
+                if (entry.key == account.id) {
                     val trade = Trade(
-                        id = ids[idIndex], amount = entry.value,
-                        accountId = entry.key, accountType = account.type, voucherId = voucher.id,
-                        dateAt = voucher.dateAt, createAt = now, modifiedAt = now
+                        id = ids[index], voucherId = voucher.id, accountId = account.id,
+                        accountType = account.type, amount = entry.value, dateAt = voucher.dateAt,
+                        createAt = now, modifiedAt = now, isDeleted = false
                     )
                     trades.add(trade)
-                    idIndex++
-                }
-                for (budget in secondaryBudgets) {
-                    if (entry.key != budget.accountId) continue
-                    budget.used += entry.value
-                    for (parent in firstBudgets) {
-                        if (budget.isSonOf(parent)) {
-                            parent.used += entry.value
-                        }
-                    }
+                    account.modifiedAt = now
+                    account.tradeCount++
+                    account.plusAmount(entry.value)
+                    break
                 }
             }
         }
-        budgets.addAll(secondaryBudgets)
-        budgets.addAll(firstBudgets)
-        budgets.forEach { it.modifiedAt = now }
-        accounts.addAll(childrenAccount)
-        accounts.addAll(parentAccount)
-        accounts.forEach { it.modifiedAt = now }
+        voucher.isAudited = true
         voucher.modifiedAt = now
-        applyChange(voucher, splits, accounts, trades, budgets)
+        applyChange(voucher, accounts, trades)
     }
 
-    private suspend fun computeBalanceDelta(ids: List<Long>, splits: List<Split>): Map<Long, Int> {
-        val map = ids.associateWith { 0 }.toMutableMap()
-        withContext(Dispatchers.Default) {
-            splits.forEach { split ->
-                val balanceDelta =
-                    MoneyUtils.computeBalanceDelta(
-                        split.accountType, split.isDebit, split.amount
-                    )
-                for (entry in map.entries) {
-                    if (entry.key == split.accountId) {
-                        entry.setValue(entry.value + balanceDelta)
-                        break
-                    }
-                }
-            }
+    private fun analysisAccount(splits: List<Split>): List<Long> {
+        val accountIds = mutableListOf<Long>()
+        for (s in splits) {
+            accountIds.add(s.accountId)
+            if (s.accountParentId != 0L) accountIds.add(s.accountParentId)
         }
-        return map
-    }
-
-    private suspend fun getAccount(ids: List<Long>): List<Account> {
-        return accountDao.findAllById(ids)
-    }
-
-    private suspend fun getParentAccount(childrenAccount: List<Account>): List<Account> {
-        val ids = childrenAccount.map { it.parentId }.distinct()
-        return accountDao.findAllById(ids)
-    }
-
-    private suspend fun getBudget(accounts: List<Account>, month: YearMonth): List<Budget> {
-        val accountIds = accounts.filter {
-            it.type == AccountType.CONSUME || it.type == AccountType.EXPENSE
-        }.map { it.id }
-        return budgetDao.findAllByAccountId(accountIds, month)
+        return accountIds.distinct()
     }
 
     private suspend fun applyChange(
-        voucher: Voucher, splits: List<Split>,
-        accounts: List<Account>, trades: List<Trade>, budgets: List<Budget>
+        voucher: Voucher, accounts: List<Account>, trades: List<Trade>
     ) {
         withContext(Dispatchers.IO) {
-            dao.auditTransaction(voucher, splits, accounts, trades, budgets)
+            dao.auditTransaction(voucher, accounts, trades)
         }
     }
 

@@ -4,11 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import cn.junmov.mirror.core.adapter.TwoLineAble
-import cn.junmov.mirror.core.adapter.TwoLineModel
 import cn.junmov.mirror.core.data.Scheme
-import cn.junmov.mirror.core.utility.MoneyUtils
-import cn.junmov.mirror.core.utility.TimeUtils
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -27,16 +23,9 @@ data class Voucher(
     @ColumnInfo(name = Scheme.Voucher.THING_ID) override var thingId: Long,
     @ColumnInfo(name = Scheme.Voucher.THING_NAME) override var thingName: String,
     @ColumnInfo(name = Scheme.Voucher.PROFIT) override var profit: Int,
+    @ColumnInfo(name = Scheme.Voucher.IS_AUDITED) override var isAudited: Boolean,
+    @ColumnInfo(name = Scheme.Voucher.IS_TEMPLATE) override var isTemplate: Boolean,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
-) : VoucherEntity, TwoLineAble {
-
-    override fun toTwoLineUiModel(): TwoLineModel.UiData = TwoLineModel.UiData(
-        id = id, primary = summary,
-        secondary = "$thingName ${TimeUtils.dateToString(dateAt)}",
-        action = MoneyUtils.centToYuan(profit), title = thingName,
-        separator = TimeUtils.dateToString(dateAt)
-    )
-
-}
+    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false,
+) : VoucherEntity

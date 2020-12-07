@@ -18,7 +18,7 @@ data class Thing(
     @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
 ) : ThingEntity, SingleLineAble {
 
-    override fun toSingleLineUiModel(): SingleLineModel.UiData = SingleLineModel.UiData(
+    override fun singleLineData(): SingleLineModel.UiData = SingleLineModel.UiData(
         id = id, primary = name, action = "", title = name,
         separator = TimeUtils.dateToString(modifiedAt.toLocalDate())
     )

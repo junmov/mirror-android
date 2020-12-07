@@ -9,7 +9,7 @@ import cn.junmov.mirror.core.data.entity.Thing
 
 class ThingListAdapter : AbstractSingleLineListAdapter<Thing>(diff) {
 
-    override fun trans(data: Thing): SingleLineModel.UiData = data.toSingleLineUiModel()
+    override fun trans(data: Thing): SingleLineModel.UiData = data.singleLineData()
 
     override fun click(data: Thing): View.OnClickListener = View.OnClickListener {
         it.findNavController().navigate(

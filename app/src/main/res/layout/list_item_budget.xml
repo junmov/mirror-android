@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:minHeight="@dimen/three_line_min_height">
 
     <TextView
@@ -14,38 +15,39 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:maxLines="1"
-        tools:text="餐饮美食"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         app:layout_constraintEnd_toStartOf="@+id/label_budget_account_use_able"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="餐饮美食" />
 
     <TextView
         android:id="@+id/label_budget_account_use_able"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        tools:text="@string/budget_account_use_able"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_budget_account_name"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/budget_account_use_able" />
 
     <TextView
         android:id="@+id/label_budget_account_total"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="@string/budget_account_total"
         app:layout_constraintEnd_toEndOf="@+id/label_budget_account_use_able"
         app:layout_constraintStart_toStartOf="@+id/label_budget_account_name"
-        app:layout_constraintTop_toBottomOf="@+id/pb_budget_account" />
+        app:layout_constraintTop_toBottomOf="@+id/pb_budget_account"
+        tools:text="@string/budget_account_total" />
 
     <ProgressBar
         android:id="@+id/pb_budget_account"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:max="300"
-        tools:progress="300"
+        android:clickable="false"
         app:layout_constraintEnd_toEndOf="@+id/label_budget_account_use_able"
         app:layout_constraintStart_toStartOf="@+id/label_budget_account_name"
-        app:layout_constraintTop_toBottomOf="@+id/label_budget_account_name" />
+        app:layout_constraintTop_toBottomOf="@+id/label_budget_account_name"
+        tools:max="300"
+        tools:progress="300" />
 </androidx.constraintlayout.widget.ConstraintLayout>

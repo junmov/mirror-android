@@ -8,28 +8,22 @@ enum class AccountType(private val typeName: String) {
     FUND("资金账户"),
 
     /**
-     * 未来应收到现金或现金等价物的资产
-     * 如借出款、押金、政府补贴、垫付等
-     */
-    RECEIVABLE("应收账户"),
-
-    /**
      * 可产生被动收入的资产
      * 如基金、股票等
      */
     INVEST("投资账户"),
 
     /**
+     * 未来应收到现金或现金等价物的资产
+     * 如借出款、押金、政府补贴、垫付等
+     */
+    RECEIVABLE("应收账户"),
+
+    /**
      * 未来应支付现金或现金等价物的负债
      * 如欠款等
      */
     PAYABLE("应付账户"),
-
-    /**
-     * 随时间增加而产生利息的负债
-     * 如蚂蚁花呗、蚂蚁借呗、信用卡等
-     */
-    DEBT("债务账户"),
 
     /**
      * 日常消费产生的支出
@@ -61,13 +55,13 @@ enum class AccountType(private val typeName: String) {
         return when (this) {
             FUND, RECEIVABLE, INVEST,
             EXPENSE, CONSUME -> true
-            DEBT, PAYABLE, ACTIVE, PASSIVE -> false
+            PAYABLE, ACTIVE, PASSIVE -> false
         }
     }
 
     fun hasNormalBalance(): Boolean {
         return when (this) {
-            FUND, DEBT, PAYABLE, RECEIVABLE, INVEST -> true
+            FUND, PAYABLE, RECEIVABLE, INVEST -> true
             else -> false
         }
     }
@@ -81,7 +75,7 @@ enum class AccountType(private val typeName: String) {
 
     fun isLiability(): Boolean {
         return when (this) {
-            DEBT, PAYABLE -> true
+            PAYABLE -> true
             else -> false
         }
     }
@@ -100,4 +94,8 @@ enum class AccountType(private val typeName: String) {
         }
     }
 
+    companion object {
+        val wallets = arrayOf(FUND, PAYABLE, RECEIVABLE, INVEST)
+        val categorys = arrayOf(CONSUME, EXPENSE, ACTIVE, PASSIVE)
+    }
 }

@@ -1,7 +1,9 @@
 package cn.junmov.mirror.home
 
 import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.home.domain.PagingVoucherUseCase
+import cn.junmov.mirror.home.domain.DoneTodoUseCase
+import cn.junmov.mirror.home.domain.FlowAllTodayDoneTodoUseCase
+import cn.junmov.mirror.home.domain.FlowLastThreeVoucherUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +16,17 @@ object HomeModule {
 
     @Singleton
     @Provides
-    fun pagingVoucherUseCase(database: MirrorDatabase) =
-        PagingVoucherUseCase(database.voucherDao())
+    fun doneTodoUseCase(database: MirrorDatabase) =
+        DoneTodoUseCase(database.toDoDao())
+
+    @Singleton
+    @Provides
+    fun flowAllTodayDoneTodoUseCase(database: MirrorDatabase) =
+        FlowAllTodayDoneTodoUseCase(database.toDoDao())
+
+    @Singleton
+    @Provides
+    fun flowLastThreeVoucherUseCase(database: MirrorDatabase) =
+        FlowLastThreeVoucherUseCase(database.voucherDao())
 
 }

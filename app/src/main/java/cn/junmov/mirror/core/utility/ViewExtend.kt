@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -34,4 +36,10 @@ fun View.setupNavigateUp(lifecycleOwner: LifecycleOwner, observeUpdated: LiveDat
 
 fun TextView.setString(@StringRes res: Int, vararg args: Any) {
     this.text = context.getString(res, *args)
+}
+
+fun View.navTo(navDirections: NavDirections) {
+    this.setOnClickListener(
+        Navigation.createNavigateOnClickListener(navDirections)
+    )
 }

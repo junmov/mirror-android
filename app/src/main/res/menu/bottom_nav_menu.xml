@@ -10,8 +10,8 @@
         android:icon="@drawable/ic_baseline_tune_24"
         android:title="预算" />
     <item
-        android:id="@id/page_account"
+        android:id="@id/page_wallet"
         android:icon="@drawable/ic_outline_account_balance_wallet_24"
-        android:title="账户" />
+        android:title="钱包" />
 
 </menu>

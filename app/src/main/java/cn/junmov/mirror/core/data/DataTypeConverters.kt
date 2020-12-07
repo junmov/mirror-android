@@ -34,9 +34,15 @@ class DataTypeConverters {
     fun strToYearMonth(time: String): YearMonth = TimeUtils.stringToYearMonth(time)
 
     @TypeConverter
-    fun accountTypeToString(type: AccountType): String = type.name
+    fun accountTypeToStr(type: AccountType): String = type.name
 
     @TypeConverter
-    fun stringToAccountType(type: String): AccountType = AccountType.valueOf(type)
+    fun strToAccountType(type: String): AccountType = AccountType.valueOf(type)
+
+    @TypeConverter
+    fun periodTypeToStr(type: PeriodType): String = type.name
+
+    @TypeConverter
+    fun strToPeriodType(type: String): PeriodType = PeriodType.valueOf(type)
 
 }

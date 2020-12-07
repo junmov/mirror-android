@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cn.junmov.mirror.wallet.ui.WalletFormViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".wallet.ui.WalletFormDialog">
+
+        <cn.junmov.mirror.core.widget.SheetTitle
+            android:id="@+id/title_wallet_form"
+            onDone="@{() -> vm.submitWallet()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="钱包编辑">
+
+        </cn.junmov.mirror.core.widget.SheetTitle>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_wallet_type"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_wallet_name"
+            app:layout_constraintStart_toStartOf="@+id/il_wallet_name"
+            app:layout_constraintTop_toBottomOf="@+id/title_wallet_form">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_wallet_type"
+                hideKeyboardOnFocus="@{true}"
+                noFilterText="@{vm.inputType.toString()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="钱包类型"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_wallet_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_wallet_type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="钱包名称"
+                android:maxLines="1"
+                android:text="@={vm.inputName}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_wallet_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_wallet_name"
+            app:layout_constraintStart_toStartOf="@+id/il_wallet_name"
+            app:layout_constraintTop_toBottomOf="@+id/il_wallet_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="初始余额"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputBalance}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -7,8 +7,12 @@
     <string name="budget_used">已用: %s</string>
     <string name="budget_use_able">可用: %s</string>
     <string name="error_thing_name_no_change">重复的项目名</string>
-    <string name="error_debit_credit_inequality">借贷不相等</string>
-    <string name="error_debit_credit_reconcile">有借必有贷</string>
-    <string name="error_no_split">没有交易分录</string>
-    <string name="success_copy_voucher">复制成功</string>
+    <string name="error_audit_voucher">有借必有贷，借贷必相等</string>
+    <string name="success_copy_voucher">复制成功,需手动入账</string>
+    <string name="repay_no_settled">待还</string>
+    <string name="repay_settled">已还</string>
+    <string name="repay_tertiary">还款日:%s</string>
+    <string name="repay_secondary">应还: %s (本金:%s，利息:%s)</string>
+    <string name="todo_next_run">将于%s提醒</string>
+    <string name="todo_done_times">已完成%d次</string>
 </resources>

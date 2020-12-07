@@ -32,9 +32,10 @@ data class Split(
     @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false,
 ) : SplitEntity, SingleLineAble {
 
-    override fun toSingleLineUiModel(): SingleLineModel.UiData = SingleLineModel.UiData(
+    override fun singleLineData(): SingleLineModel.UiData = SingleLineModel.UiData(
         id = id, primary = if (isDebit) "借: $accountName" else "贷: $accountName",
         action = MoneyUtils.centToYuan(amount), separator = "", title = ""
     )
 
+    fun balanceDelta(): Int = MoneyUtils.computeBalanceDelta(accountType, isDebit, amount)
 }

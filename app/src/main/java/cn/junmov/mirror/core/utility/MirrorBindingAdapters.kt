@@ -3,8 +3,10 @@ package cn.junmov.mirror.core.utility
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.BindingAdapter
+import cn.junmov.mirror.R
 import cn.junmov.mirror.core.widget.SheetTitle
 import com.google.android.material.textfield.TextInputLayout
 
@@ -42,4 +44,10 @@ fun bindNotEmptyField(view: TextInputLayout, isOk: Boolean) {
 @BindingAdapter("isGone")
 fun bindGone(view: View, isGone: Boolean) {
     view.visibility = if (isGone) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("arrayRes")
+fun bindArrayRes(view: AutoCompleteTextView, array: Array<String>) {
+    val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, array)
+    view.setAdapter(adapter)
 }

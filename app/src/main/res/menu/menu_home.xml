@@ -8,5 +8,17 @@
         app:showAsAction="always" />
     <item
         android:id="@id/thing_fragment"
-        android:title="项目" />
+        android:title="项目账本" />
+    <item
+        android:id="@id/audit_plan_fragment"
+        android:title="入账计划" />
+    <item
+        android:id="@id/bill_tab_fragment"
+        android:title="我的债务" />
+    <item
+        android:id="@id/asset_fragment"
+        android:title="我的投资" />
+    <item
+        android:id="@id/todo_fragment"
+        android:title="我的计划"/>
 </menu>

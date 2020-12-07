@@ -13,7 +13,7 @@ import cn.junmov.mirror.core.data.entity.Split
 import cn.junmov.mirror.core.utility.MoneyUtils
 
 class SplitEditAdapter(
-    private val viewModel: VoucherFormViewModel
+    private val viewModel: SplitFormViewModel
 ) : ListAdapter<Split, SplitEditAdapter.SplitViewHolder>(DIFF_CALL_BACK) {
 
     override fun onCreateViewHolder(
@@ -21,7 +21,6 @@ class SplitEditAdapter(
     ): SplitViewHolder = SplitViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.list_item_split, parent, false)
     )
-
 
     override fun onBindViewHolder(holder: SplitViewHolder, position: Int) {
         val data = getItem(position)

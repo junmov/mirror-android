@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/two_line_min_height"
+    android:background="?attr/selectableItemBackground">
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/sw_schedule_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_schedule_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_schedule_summary" />
+
+    <TextView
+        android:id="@+id/tv_schedule_summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        tools:text="网购-新华字典"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintEnd_toStartOf="@+id/sw_schedule_enable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_schedule_next_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/todo_next_run"
+        app:layout_constraintStart_toStartOf="@+id/tv_schedule_summary"
+        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_summary" />
+
+    <TextView
+        android:id="@+id/tv_schedule_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        tools:text="@string/todo_done_times"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_schedule_next_run"
+        app:layout_constraintEnd_toStartOf="@+id/sw_schedule_enable"
+        app:layout_constraintStart_toEndOf="@+id/tv_schedule_next_run" />
+</androidx.constraintlayout.widget.ConstraintLayout>

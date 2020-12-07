@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import cn.junmov.mirror.core.adapter.SingleLineAble
-import cn.junmov.mirror.core.adapter.SingleLineModel
 import cn.junmov.mirror.core.adapter.TwoLineAble
 import cn.junmov.mirror.core.adapter.TwoLineModel
 import cn.junmov.mirror.core.data.AccountType
@@ -22,30 +20,37 @@ import java.time.LocalDateTime
 )
 data class Account(
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
-    @ColumnInfo(name = Scheme.Account.NAME) override var name: String,
-    @ColumnInfo(name = Scheme.Account.FULL_NAME) override var fullName: String,
+    @ColumnInfo(name = Scheme.Account.NAME) override val name: String,
+    @ColumnInfo(name = Scheme.Account.FULL_NAME) override val fullName: String,
     @ColumnInfo(name = Scheme.Account.TYPE) override val type: AccountType,
-    @ColumnInfo(name = Scheme.Account.SORT_KEY) override var sortKey: Int,
-    @ColumnInfo(name = Scheme.Account.PARENT_ID) override var parentId: Long,
-    @ColumnInfo(name = Scheme.Account.IS_LEAF) override val isLeaf: Boolean,
-    @ColumnInfo(name = Scheme.Account.BALANCE) override var balance: Int,
+    @ColumnInfo(name = Scheme.Account.PARENT_ID) override val parentId: Long,
+    @ColumnInfo(name = Scheme.Account.TRAD_ABLE) override val tradAble: Boolean,
+    @ColumnInfo(name = Scheme.Account.TRADE_COUNT) override var tradeCount: Int,
+    @ColumnInfo(name = Scheme.Account.BASE) override var base: Int,
+    @ColumnInfo(name = Scheme.Account.INFLOW) override var inflow: Int,
+    @ColumnInfo(name = Scheme.Account.OUTFLOW) override var outflow: Int,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
-) : AccountEntity, SingleLineAble, TwoLineAble {
+) : AccountEntity, TwoLineAble {
 
-    fun isSonOf(parent: Account): Boolean = parentId == parent.id
-
-    override fun toTwoLineUiModel(): TwoLineModel.UiData = TwoLineModel.UiData(
+    override fun twoLineData(): TwoLineModel.UiData = TwoLineModel.UiData(
         id = id, primary = name, secondary = type.toString(),
-        action = MoneyUtils.centToYuan(balance), title = name, separator = ""
+        action = MoneyUtils.centToYuan(base + inflow - outflow), title = name, separator = ""
     )
 
-    override fun toSingleLineUiModel(): SingleLineModel.UiData = SingleLineModel.UiData(
-        id = id, primary = name, action = MoneyUtils.centToYuan(balance), title = name,
-        separator = ""
-    )
-
+    fun plusAmount(amount: Int) {
+        if (AccountType.wallets.contains(type)) {
+            base += amount
+            if (amount >= 0) {
+                inflow += amount
+            } else {
+                outflow += amount
+            }
+        } else {
+            outflow += amount
+        }
+    }
 
     override fun toString(): String = fullName
 

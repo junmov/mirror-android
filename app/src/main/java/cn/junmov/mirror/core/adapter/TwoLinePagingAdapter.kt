@@ -29,7 +29,7 @@ open class TwoLinePagingAdapter(
             item?.let {
                 holder.bind(it as TwoLineModel.UiData)
                 if (listener != null) {
-                    holder.onListItemClick { _ -> listener.click(it.id, it.title) }
+                    holder.itemView.setOnClickListener { _ -> listener.click(it.id, it.title) }
                 }
             }
         } else if (holder is SeparatorViewHolder) {

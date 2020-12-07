@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cn.junmov.mirror.asset.ui.AssetLogFormViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".asset.ui.AssetLogFormDialog">
+
+        <cn.junmov.mirror.core.widget.SheetTitle
+            android:id="@+id/asset_log_form_title"
+            onDone="@{() -> vm.submit()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="买卖资产" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_asset_unit_price"
+            app:layout_constraintStart_toStartOf="@+id/il_asset_unit_price"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_unit_price">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="确认份额"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputCount}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_unit_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_asset_amount"
+            app:layout_constraintStart_toStartOf="@+id/cb_asset_is_buy"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_amount">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="市场单价"
+                android:inputType="numberDecimal"
+                android:text="@={vm.assetLog.unitPrice}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cb_asset_is_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:checked="@={vm.assetLog.buy}"
+            android:text="买入"
+            app:layout_constraintBottom_toBottomOf="@+id/il_asset_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/il_asset_amount" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cb_asset_is_buy"
+            app:layout_constraintTop_toBottomOf="@+id/asset_log_form_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="金额"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputAmount}" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

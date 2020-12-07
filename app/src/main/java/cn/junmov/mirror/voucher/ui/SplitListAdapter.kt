@@ -7,7 +7,7 @@ import cn.junmov.mirror.core.data.entity.Split
 
 class SplitListAdapter : AbstractSingleLineListAdapter<Split>(DIFF_CALL_BACK) {
 
-    override fun trans(data: Split): SingleLineModel.UiData = data.toSingleLineUiModel()
+    override fun trans(data: Split): SingleLineModel.UiData = data.singleLineData()
 
     companion object {
         private val DIFF_CALL_BACK = object : DiffUtil.ItemCallback<Split>() {

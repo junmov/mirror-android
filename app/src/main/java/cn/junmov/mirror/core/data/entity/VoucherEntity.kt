@@ -19,6 +19,12 @@ interface VoucherEntity : CommonField {
     /** 项目名称 */
     var thingName: String
 
+    /** 是否已入账 */
+    var isAudited: Boolean
+
+    /** 是否为模板 */
+    var isTemplate: Boolean
+
     /**
      * 此交易产生的利润
      * 利润 = 收入 - 支出

@@ -1,5 +1,5 @@
 package cn.junmov.mirror.core.adapter
 
 interface SingleLineAble {
-    fun toSingleLineUiModel(): SingleLineModel.UiData
+    fun singleLineData(): SingleLineModel.UiData
 }

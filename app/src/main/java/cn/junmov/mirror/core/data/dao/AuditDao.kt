@@ -1,27 +1,27 @@
 package cn.junmov.mirror.core.data.dao
 
-import androidx.room.*
-import cn.junmov.mirror.core.data.entity.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Transaction
+import androidx.room.Update
+import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.entity.Trade
+import cn.junmov.mirror.core.data.entity.Voucher
 
 @Dao
 interface AuditDao {
     @Transaction
     suspend fun auditTransaction(
-        voucher: Voucher, splits: List<Split>, accounts: List<Account>,
-        trades: List<Trade>, budgets: List<Budget>
+        voucher: Voucher, accounts: List<Account>, trades: List<Trade>
     ) {
-        insertVoucher(voucher)
-        insertSplits(splits)
+        updateVoucher(voucher)
         updateAccounts(accounts)
         insertTrades(trades)
-        updateBudgets(budgets)
     }
 
     @Update
-    suspend fun updateBudgets(budgets: List<Budget>)
+    suspend fun updateVoucher(voucher: Voucher)
 
-    @Insert
-    suspend fun insertSplits(splits: List<Split>)
 
     @Insert
     suspend fun insertTrades(trades: List<Trade>)
@@ -29,6 +29,4 @@ interface AuditDao {
     @Update
     suspend fun updateAccounts(accounts: List<Account>)
 
-    @Insert
-    suspend fun insertVoucher(voucher: Voucher)
 }

@@ -8,7 +8,11 @@ import cn.junmov.mirror.core.data.entity.*
 
 @Database(
     entities = [
-        Account::class, Budget::class, Split::class, Thing::class, Trade::class, Voucher::class
+        Account::class, Balance::class, Voucher::class, Split::class,
+        Thing::class, Trade::class,
+        Debt::class, Repay::class, Bill::class,
+        Asset::class, AssetLog::class,
+        Todo::class
     ],
     version = Scheme.DATABASE_VERSION,
     exportSchema = false,
@@ -16,11 +20,13 @@ import cn.junmov.mirror.core.data.entity.*
 @TypeConverters(DataTypeConverters::class)
 abstract class MirrorDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
-    abstract fun budgetDao(): BudgetDao
+    abstract fun balanceDao(): BalanceDao
     abstract fun thingDao(): ThingDao
     abstract fun voucherDao(): VoucherDao
     abstract fun tradeDao(): TradeDao
-
     abstract fun auditDao(): AuditDao
-    abstract fun statisticsDao():StatisticsDao
+    abstract fun debtDao(): DebtDao
+    abstract fun billDao(): BillDao
+    abstract fun assetDao(): AssetDao
+    abstract fun toDoDao(): TodoDao
 }

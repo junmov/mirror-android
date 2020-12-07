@@ -18,7 +18,7 @@ class AccountTradingViewModel @ViewModelInject constructor(
 
     fun loadData(accountId: Long): Flow<PagingData<TwoLineModel>> {
         return pagingAccountTrading(accountId).map { value ->
-            value.map { it.toTwoLineUiModel() }.insertSeparators { before, after ->
+            value.map { it.twoLineData() }.insertSeparators { before, after ->
                 when {
                     before == null -> after?.let { TwoLineModel.Separator(it.separator) }
                     after == null -> null

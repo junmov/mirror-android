@@ -1,6 +1,7 @@
 package cn.junmov.mirror.budget
 
-import cn.junmov.mirror.budget.domain.FlowAllBudgetByParentUseCase
+import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
+import cn.junmov.mirror.budget.domain.FlowAllSecondaryBudgetUseCase
 import cn.junmov.mirror.budget.domain.FlowBudgetUseCase
 import cn.junmov.mirror.budget.domain.UpdateBudgetUseCase
 import cn.junmov.mirror.core.data.MirrorDatabase
@@ -16,17 +17,22 @@ object BudgetModule {
 
     @Singleton
     @Provides
-    fun flowBudgetUseCase(database: MirrorDatabase) =
-        FlowBudgetUseCase(database.budgetDao())
+    fun flowAllFirstBudgetUseCase(database: MirrorDatabase) =
+        FlowAllFirstBudgetUseCase(database.accountDao())
 
     @Singleton
     @Provides
-    fun flowAllBudgetUseCase(database: MirrorDatabase) =
-        FlowAllBudgetByParentUseCase(database.budgetDao())
+    fun flowAllSecondaryBudgetUseCase(database: MirrorDatabase) =
+        FlowAllSecondaryBudgetUseCase(database.accountDao())
+
+    @Singleton
+    @Provides
+    fun flowBudgetUseCase(database: MirrorDatabase) =
+        FlowBudgetUseCase(database.accountDao())
 
     @Singleton
     @Provides
     fun updateBudgetUseCase(database: MirrorDatabase) =
-        UpdateBudgetUseCase(database.budgetDao())
+        UpdateBudgetUseCase(database.accountDao())
 
 }

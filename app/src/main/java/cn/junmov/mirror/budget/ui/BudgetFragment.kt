@@ -1,11 +1,11 @@
 package cn.junmov.mirror.budget.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import cn.junmov.mirror.R
 import cn.junmov.mirror.databinding.FragmentBudgetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +26,23 @@ class BudgetFragment : Fragment() {
         }
         viewModel.loadData()
         viewModel.budgets.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_create, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_create -> {
+                findNavController().navigate(
+                    BudgetFragmentDirections.actionPageBudgetToBudgetFormDialog()
+                )
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
