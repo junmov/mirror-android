@@ -25,7 +25,8 @@ object Scheme {
 
     object Balance {
         const val TABLE_NAME = "balance"
-        const val MONTH_AT = "month_at"
+        const val START_AT = "start_at"
+        const val END_AT = "end_at"
         const val ACCOUNT_ID = "account_id"
         const val NAME = "name"
         const val BASE = "base"

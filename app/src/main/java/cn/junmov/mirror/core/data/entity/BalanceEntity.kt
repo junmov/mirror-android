@@ -1,6 +1,6 @@
 package cn.junmov.mirror.core.data.entity
 
-import java.time.YearMonth
+import java.time.LocalDate
 
 /**
  * 月度账户余额快照
@@ -8,7 +8,10 @@ import java.time.YearMonth
 interface BalanceEntity : CommonField {
 
     /** 月份 */
-    val monthAt: YearMonth
+    val startAt: LocalDate
+
+    /** 月份 */
+    val endAt: LocalDate
 
     /** 账户 */
     val accountId: Long

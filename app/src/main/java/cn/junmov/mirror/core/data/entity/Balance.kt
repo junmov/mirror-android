@@ -5,21 +5,22 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import cn.junmov.mirror.core.data.Scheme
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.YearMonth
 
 @Entity(
     tableName = Scheme.Balance.TABLE_NAME,
     indices = [
         Index(
-            value = [Scheme.Balance.MONTH_AT, Scheme.Balance.ACCOUNT_ID],
+            value = [Scheme.Balance.START_AT, Scheme.Balance.ACCOUNT_ID],
             unique = true
         )
     ]
 )
 data class Balance(
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
-    @ColumnInfo(name = Scheme.Balance.MONTH_AT) override val monthAt: YearMonth,
+    @ColumnInfo(name = Scheme.Balance.START_AT) override val startAt: LocalDate,
+    @ColumnInfo(name = Scheme.Balance.END_AT) override val endAt: LocalDate,
     @ColumnInfo(name = Scheme.Balance.ACCOUNT_ID) override val accountId: Long,
     @ColumnInfo(name = Scheme.Balance.NAME) override val name: String,
     @ColumnInfo(name = Scheme.Balance.BASE) override val base: Int,
