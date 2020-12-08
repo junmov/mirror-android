@@ -20,7 +20,9 @@ object CoreModule {
     fun provideDataBase(@ApplicationContext context: Context): MirrorDatabase {
         return Room.databaseBuilder(
             context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-        ).build()
+        )
+            .createFromAsset("database/mirror.db")
+            .build()
     }
 
 }
