@@ -15,19 +15,17 @@ class BudgetListAdapter : ListAdapter<Category, BudgetViewHolder>(DIFF_CALL_BACK
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val data = getItem(position)
         with(holder) {
-            bind(data.account.name, data.budgetTotal, data.budgetUseAble)
-            itemView.setOnClickListener {
-                val navTo = if (data.account.tradAble) {
-                    BudgetSecondaryFragmentDirections.actionBudgetSecondaryFragmentToBudgetDeltaFragment(
-                        data.account.id, title = data.account.name
-                    )
-                } else {
-                    BudgetFragmentDirections.actionPageBudgetToBudgetSecondaryFragment(
-                        budgetId = data.account.id, title = data.account.name
-                    )
-                }
-                it.navTo(navTo)
+            val direction = if (data.account.tradAble) {
+                BudgetSecondaryFragmentDirections.actionBudgetSecondaryFragmentToBudgetDeltaFragment(
+                    data.account.id, title = data.account.name
+                )
+            } else {
+                BudgetFragmentDirections.actionPageBudgetToBudgetSecondaryFragment(
+                    budgetId = data.account.id, title = data.account.name
+                )
             }
+            bind(data.account.name, data.budgetTotal, data.budgetUseAble)
+            itemView.navTo(direction)
         }
     }
 

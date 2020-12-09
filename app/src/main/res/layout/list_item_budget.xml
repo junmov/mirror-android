@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:minHeight="@dimen/three_line_min_height">
+    android:minHeight="@dimen/two_line_min_height">
 
     <TextView
         android:id="@+id/label_budget_account_name"
@@ -28,26 +28,20 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/label_budget_account_name"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@string/budget_account_use_able" />
-
-    <TextView
-        android:id="@+id/label_budget_account_total"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/label_budget_account_use_able"
-        app:layout_constraintStart_toStartOf="@+id/label_budget_account_name"
-        app:layout_constraintTop_toBottomOf="@+id/pb_budget_account"
-        tools:text="@string/budget_account_total" />
+        tools:text="100" />
 
     <ProgressBar
         android:id="@+id/pb_budget_account"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        app:layout_constraintEnd_toEndOf="@+id/label_budget_account_use_able"
-        app:layout_constraintStart_toStartOf="@+id/label_budget_account_name"
-        app:layout_constraintTop_toBottomOf="@+id/label_budget_account_name"
-        tools:max="300"
-        tools:progress="300" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        tools:max="1000"
+        tools:progress="800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_budget_account_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

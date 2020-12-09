@@ -8,19 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.utility.MoneyUtils
-import cn.junmov.mirror.core.utility.setString
 
 class BudgetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val labelAccount = itemView.findViewById<TextView>(R.id.label_budget_account_name)
     private val labelUseAble = itemView.findViewById<TextView>(R.id.label_budget_account_use_able)
-    private val labelTotal = itemView.findViewById<TextView>(R.id.label_budget_account_total)
     private val progress = itemView.findViewById<ProgressBar>(R.id.pb_budget_account)
 
     fun bind(name: String, total: Int, useAble: Int) {
         labelAccount.text = name
-        labelTotal.setString(R.string.budget_account_total, MoneyUtils.centToYuan(total))
-        labelUseAble.setString(R.string.budget_account_use_able, MoneyUtils.centToYuan(useAble))
+        labelUseAble.text = MoneyUtils.centToYuan(useAble)
         progress.max = total
         progress.progress = useAble
     }
