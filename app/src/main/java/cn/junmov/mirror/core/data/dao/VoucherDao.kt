@@ -37,7 +37,10 @@ interface VoucherDao : BaseDao<Voucher> {
         insertSplit(*splits.toTypedArray())
     }
 
-    @Query("select row_id, summary, thing_name, date_at, time_at, profit, is_audited from voucher where date_at between :start and :end ")
+    @Query(
+        """select row_id, summary, thing_name, date_at, time_at, profit, is_audited 
+        from voucher where date_at between :start and :end order by date_at desc, time_at desc"""
+    )
     fun flowAllVoucherBetween(start: LocalDate, end: LocalDate): Flow<List<ItemVoucher>>
 
 }
