@@ -1,10 +1,7 @@
 package cn.junmov.mirror.wallet
 
 import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.wallet.domain.CreateAccountUseCase
-import cn.junmov.mirror.wallet.domain.FlowAllWalletUseCase
-import cn.junmov.mirror.wallet.domain.FlowWalletTradeLimitUseCase
-import cn.junmov.mirror.wallet.domain.FlowWalletUseCase
+import cn.junmov.mirror.wallet.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +32,9 @@ object WalletModule {
     fun flowWalletUseCase(database: MirrorDatabase) =
         FlowWalletUseCase(database.accountDao())
 
+    @Singleton
+    @Provides
+    fun updateWalletBalanceUseCase(database: MirrorDatabase) =
+        UpdateWalletBalanceUseCase(database.balanceDao())
 
 }

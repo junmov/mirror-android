@@ -8,10 +8,13 @@ import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import cn.junmov.mirror.wallet.domain.FlowWalletTradeLimitUseCase
 import cn.junmov.mirror.wallet.domain.FlowWalletUseCase
+import cn.junmov.mirror.wallet.domain.UpdateWalletBalanceUseCase
+import kotlinx.coroutines.launch
 
 class WalletDetailViewModel @ViewModelInject constructor(
     private val flowWalletTradeLimit: FlowWalletTradeLimitUseCase,
-    private val flowWallet: FlowWalletUseCase
+    private val flowWallet: FlowWalletUseCase,
+    private val updateBalance: UpdateWalletBalanceUseCase
 ) : ViewModel() {
 
     private val _walletId = MutableLiveData<Long>()
@@ -37,8 +40,13 @@ class WalletDetailViewModel @ViewModelInject constructor(
         _walletId.value = id
     }
 
-    fun submitBalance(newBalance: String) {
-
+    fun submitBalance(text: String) {
+        if (!MoneyUtils.isFormat(text)) return
+        val currentWallet = wallet.value ?: return
+        val newBalance = MoneyUtils.yuanToCent(text)
+        viewModelScope.launch {
+            updateBalance(currentWallet.account, newBalance)
+        }
     }
 
 }

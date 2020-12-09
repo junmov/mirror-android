@@ -23,7 +23,7 @@ data class Balance(
     @ColumnInfo(name = Scheme.Balance.END_AT) override val endAt: LocalDate,
     @ColumnInfo(name = Scheme.Balance.ACCOUNT_ID) override val accountId: Long,
     @ColumnInfo(name = Scheme.Balance.NAME) override val name: String,
-    @ColumnInfo(name = Scheme.Balance.BASE) override val base: Int,
+    @ColumnInfo(name = Scheme.Balance.BASE) override var base: Int,
     @ColumnInfo(name = Scheme.Balance.INFLOW) override val inflow: Int,
     @ColumnInfo(name = Scheme.Balance.OUTFLOW) override val outflow: Int,
     @ColumnInfo(name = Scheme.Balance.TRADE_COUNT) override val tradeCount: Int,
