@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import cn.junmov.mirror.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -62,7 +63,7 @@ fun View.setupInputDialog(title: String, positive: String, function: (String) ->
     }
 }
 
-fun Fragment.showInputDialog(title: String, positive: String, function: (String) -> Unit) {
+fun Fragment.showInputDialog(title: String, positive: String, function: (String) -> Unit): Boolean {
     MaterialAlertDialogBuilder(this.requireContext())
         .setTitle(title)
         .setView(R.layout.dialog_single_edit)
@@ -72,4 +73,10 @@ fun Fragment.showInputDialog(title: String, positive: String, function: (String)
         }
         .setNegativeButton("取消", null)
         .show()
+    return true
+}
+
+fun Fragment.navTo(navDirections: NavDirections): Boolean {
+    this.findNavController().navigate(navDirections)
+    return true
 }

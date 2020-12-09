@@ -3,9 +3,9 @@ package cn.junmov.mirror.debt.ui
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cn.junmov.mirror.R
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.AbstractTabFragment
 
 class BillTabFragment : AbstractTabFragment() {
@@ -26,12 +26,7 @@ class BillTabFragment : AbstractTabFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_create -> {
-                findNavController().navigate(
-                    BillTabFragmentDirections.actionBillTabFragmentToDebtFormDialog()
-                )
-                true
-            }
+            R.id.option_create -> navTo(BillTabFragmentDirections.actionBillTabFragmentToDebtFormDialog())
             else -> super.onOptionsItemSelected(item)
         }
     }

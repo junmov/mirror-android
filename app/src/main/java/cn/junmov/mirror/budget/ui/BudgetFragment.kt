@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import cn.junmov.mirror.R
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.databinding.FragmentBudgetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,12 +36,7 @@ class BudgetFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_create -> {
-                findNavController().navigate(
-                    BudgetFragmentDirections.actionPageBudgetToBudgetFormDialog()
-                )
-                true
-            }
+            R.id.option_create -> navTo(BudgetFragmentDirections.actionPageBudgetToBudgetFormDialog())
             else -> super.onOptionsItemSelected(item)
         }
     }

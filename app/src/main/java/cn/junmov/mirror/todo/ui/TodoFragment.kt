@@ -5,10 +5,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.AbstractListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,12 +31,7 @@ class TodoFragment : AbstractListFragment<Todo>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_create -> {
-                findNavController().navigate(
-                    TodoFragmentDirections.actionTodoFragmentToTodoFormDialog()
-                )
-                true
-            }
+            R.id.option_create -> navTo(TodoFragmentDirections.actionTodoFragmentToTodoFormDialog())
             else -> super.onOptionsItemSelected(item)
         }
     }

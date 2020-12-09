@@ -53,7 +53,6 @@ class ThingDetailFragment : PagedListFragment<TwoLineModel>() {
                 showInputDialog("重命名项目", "重命名") {
                     viewModel.submitName(it, args.thingId, args.title)
                 }
-                true
             }
             else -> false
         }

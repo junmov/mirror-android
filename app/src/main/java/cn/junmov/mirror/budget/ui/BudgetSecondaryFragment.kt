@@ -30,7 +30,6 @@ class BudgetSecondaryFragment : Fragment() {
         }
         viewModel.loadData(args.budgetId)
         viewModel.secondaryBudgets.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        setHasOptionsMenu(true)
         return binding.root
     }
 

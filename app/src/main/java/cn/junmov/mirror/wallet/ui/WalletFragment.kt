@@ -5,10 +5,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.model.Wallet
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.AbstractListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,12 +29,7 @@ class WalletFragment : AbstractListFragment<Wallet>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_create -> {
-                findNavController().navigate(
-                    WalletFragmentDirections.actionPageAccountToAccountFormDialog()
-                )
-                true
-            }
+            R.id.option_create -> navTo(WalletFragmentDirections.actionPageAccountToAccountFormDialog())
             else -> false
         }
     }

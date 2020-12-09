@@ -29,10 +29,7 @@ class ThingFragment : AbstractListFragment<Thing>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_create -> {
-                showInputDialog("创建项目账本", "创建") { viewModel.submitName(it) }
-                true
-            }
+            R.id.option_create -> showInputDialog("创建项目账本", "创建") { viewModel.submitName(it) }
             else -> false
         }
     }
