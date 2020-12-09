@@ -37,4 +37,14 @@ data class Debt(
         separator = "", title = ""
     )
 
+    fun repay(repay: Repay) {
+        capitalRepay += repay.capital
+        interestRepay += repay.interest
+        countRepay++
+        if (capitalRepay == capital) {
+            isSettled = true
+        }
+        modifiedAt = repay.modifiedAt
+    }
+
 }

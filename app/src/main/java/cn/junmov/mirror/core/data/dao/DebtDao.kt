@@ -6,7 +6,9 @@ import cn.junmov.mirror.core.data.entity.Bill
 import cn.junmov.mirror.core.data.entity.Debt
 import cn.junmov.mirror.core.data.entity.Repay
 import cn.junmov.mirror.core.data.model.DebtInfo
+import cn.junmov.mirror.debt.data.RepayAndDebt
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 @Dao
 interface DebtDao : BaseDao<Debt> {
@@ -75,4 +77,15 @@ interface DebtDao : BaseDao<Debt> {
 
     @Update
     suspend fun updateBill(bill: Bill)
+
+    @Transaction
+    @Query("select * from repay where date_at = :dateAt")
+    suspend fun findAllRepayAndDebtByDate(dateAt: LocalDate): List<RepayAndDebt>
+
+    @Transaction
+    suspend fun payBillTransaction(bill: Bill, debts: List<Debt>, repays: List<Repay>) {
+        updateBill(bill)
+        update(*debts.toTypedArray())
+        updateAllRepay(repays)
+    }
 }

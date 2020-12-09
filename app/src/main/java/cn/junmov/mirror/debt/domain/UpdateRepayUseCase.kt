@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class UpdateRepayUseCase(private val dao: DebtDao, private val billDao: BillDao) {
     suspend operator fun invoke(repay: Repay, amount: Int, interest: Int) {
         val now = LocalDateTime.now()
-        val bill = billDao.find(repay.dateAt)
+        val bill = billDao.findByDateAt(repay.dateAt)
         bill.amount = bill.amount + amount - repay.capital + interest - repay.interest
         bill.modifiedAt = now
         repay.capital = amount

@@ -24,8 +24,9 @@ data class Bill(
 ) : BillEntity, SingleLineAble {
     override fun singleLineData(): SingleLineModel.UiData = SingleLineModel.UiData(
         id = id,
-        primary = "${dateAt.monthValue}月${dateAt.dayOfMonth}日 应还:${MoneyUtils.centToYuan(amount)}",
+        primary = "${dateAt.dayOfMonth}日 应还:${MoneyUtils.centToYuan(amount)}",
         action = if (isSettled) "已还" else "待还",
-        separator = TimeUtils.yearMonthToString(YearMonth.from(dateAt)), title = ""
+        separator = TimeUtils.yearMonthToString(YearMonth.from(dateAt)),
+        title = "${TimeUtils.dateToString(dateAt)} 应还:${MoneyUtils.centToYuan(amount)}"
     )
 }

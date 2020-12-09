@@ -48,6 +48,11 @@ object DebtModule {
 
     @Singleton
     @Provides
+    fun settleBillUseCase(database: MirrorDatabase) =
+        PayBillUseCase(database.billDao(), database.debtDao())
+
+    @Singleton
+    @Provides
     fun stopLossUseCase(database: MirrorDatabase) =
         StopLossUseCase(database.debtDao(), database.billDao())
 

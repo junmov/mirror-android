@@ -9,11 +9,14 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import cn.junmov.mirror.core.adapter.SingleLineModel
 import cn.junmov.mirror.debt.domain.PagingBillBySettledUseCase
+import cn.junmov.mirror.debt.domain.PayBillUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class BillViewModel @ViewModelInject constructor(
-    private val pagingBill: PagingBillBySettledUseCase
+    private val pagingBill: PagingBillBySettledUseCase,
+    private val payBill: PayBillUseCase
 ) : ViewModel() {
 
     val bills: Flow<PagingData<SingleLineModel>> = pagingBill(false).map { value ->
@@ -26,4 +29,8 @@ class BillViewModel @ViewModelInject constructor(
             }
         }
     }.cachedIn(viewModelScope)
+
+    fun submitSettled(billId: Long) {
+        viewModelScope.launch { payBill(billId) }
+    }
 }

@@ -9,7 +9,7 @@ import cn.junmov.mirror.core.widget.SeparatorViewHolder
 import cn.junmov.mirror.core.widget.SingleLineListItemViewHolder
 
 class SingleLinePagingAdapter(
-    private val listener: OnNavListener?
+    private val listener: (Long, String) -> Unit
 ) : PagingDataAdapter<SingleLineModel, RecyclerView.ViewHolder>(SingleLineModelComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
@@ -28,9 +28,7 @@ class SingleLinePagingAdapter(
         if (holder is SingleLineListItemViewHolder) {
             item?.let {
                 holder.bind(item as SingleLineModel.UiData)
-                if (listener != null) {
-                    holder.onListItemClick { listener.click(item.id, item.title) }
-                }
+                holder.onListItemClick { listener(item.id, item.title) }
             }
         } else if (holder is SeparatorViewHolder) {
             item?.let { holder.bind(it as SingleLineModel.Separator) }
