@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import cn.junmov.mirror.core.data.dao.TradeDao
-import cn.junmov.mirror.core.data.entity.Voucher
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 

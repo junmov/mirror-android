@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.utility.setupInputDialog
 import cn.junmov.mirror.core.utility.setupSnackBar
 import cn.junmov.mirror.databinding.FragmentWalletDetailBinding
@@ -34,6 +35,11 @@ class WalletDetailFragment : Fragment() {
             btnAdjustWalletBalance.setupInputDialog("调整余额", "调整") {
                 viewModel.submitBalance(it)
             }
+            linkWalletAllTrade.navTo(
+                WalletDetailFragmentDirections.actionAccountDetailFragmentToAccountTradingFragment(
+                    accountId = args.accountId, title = args.title
+                )
+            )
         }
         viewModel.loadData(args.accountId)
         viewModel.vouchers.observe(viewLifecycleOwner) { adapter.submitList(it) }
