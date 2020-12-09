@@ -10,77 +10,105 @@
             type="cn.junmov.mirror.wallet.ui.WalletDetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="cn.junmov.mirror.wallet.ui.WalletDetailFragment">
 
-
-        <TextView
-            android:id="@+id/label_wallet_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="账户余额"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_wallet_balance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{vm.balance}"
-            android:textAppearance="?attr/textAppearanceHeadline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_wallet_balance"
-            tools:text="60000" />
-
-        <TextView
-            android:id="@+id/tv_wallet_type"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{vm.wallet.account.type.toString()}"
-            app:layout_constraintStart_toStartOf="@+id/label_wallet_balance"
-            app:layout_constraintTop_toBottomOf="@+id/tv_wallet_balance"
-            tools:text="资金账户" />
-
-        <TextView
-            android:id="@+id/tv_wallet_create_at"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@{vm.createAt}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_wallet_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="创建于2020-09-13" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_last_ten_voucher"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_last_ten_voucher"
-            tools:itemCount="6"
-            tools:listitem="@layout/list_item_single_line" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/label_last_ten_voucher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="账户最近交易"
-            app:layout_constraintStart_toStartOf="@+id/label_wallet_balance"
-            app:layout_constraintTop_toBottomOf="@+id/tv_wallet_type" />
+            <TextView
+                android:id="@+id/label_wallet_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="账户余额"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/wallet_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{vm.balance}"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                app:layout_constraintEnd_toStartOf="@+id/btn_adjust_wallet_balance"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_wallet_balance"
+                tools:text="60000" />
+
+            <TextView
+                android:id="@+id/wallet_type"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{vm.wallet.account.type.toString()}"
+                app:layout_constraintStart_toStartOf="@+id/label_wallet_balance"
+                app:layout_constraintTop_toBottomOf="@+id/wallet_balance"
+                tools:text="资金账户" />
+
+            <TextView
+                android:id="@+id/wallet_create_at"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@{vm.createAt}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/wallet_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="创建于2020-09-13" />
+
+            <TextView
+                android:id="@+id/label_wallet_last_trade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{@string/wallet_last_voucher_size(vm.lastSize)}"
+                app:layout_constraintStart_toStartOf="@+id/label_wallet_balance"
+                app:layout_constraintTop_toBottomOf="@+id/wallet_type"
+                tools:text="@string/wallet_last_voucher_size" />
+
+            <TextView
+                android:id="@+id/link_wallet_all_trade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@{@string/wallet_all_trade_size(vm.allSize)}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/label_wallet_last_trade"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/wallet_all_trade_size" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_wallet_last_trade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_wallet_last_trade"
+                tools:itemCount="6"
+                tools:listitem="@layout/list_item_single_line" />
+
+            <Button
+                android:id="@+id/btn_adjust_wallet_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_marginEnd="8dp"
+                android:text="调整余额"
+                app:layout_constraintBottom_toBottomOf="@+id/wallet_balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wallet_balance" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -15,4 +15,6 @@
     <string name="repay_secondary">应还: %s (本金:%s，利息:%s)</string>
     <string name="todo_next_run">将于%s提醒</string>
     <string name="todo_done_times">已完成%d次</string>
+    <string name="wallet_last_voucher_size">最近交易(%d)</string>
+    <string name="wallet_all_trade_size">全部交易(%d)</string>
 </resources>

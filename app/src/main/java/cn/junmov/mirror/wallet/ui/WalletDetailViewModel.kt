@@ -23,13 +23,22 @@ class WalletDetailViewModel @ViewModelInject constructor(
     }
 
     val balance: LiveData<String> = wallet.map { MoneyUtils.centToYuan(it.balance()) }
+
     val createAt: LiveData<String> =
-        wallet.map { TimeUtils.dateToString(it.account.createAt.toLocalDate()) }
+        wallet.map { "创建于${TimeUtils.dateToString(it.account.createAt.toLocalDate())}" }
+
+    val lastSize: LiveData<Int> = vouchers.map { it.size }
+
+    val allSize: LiveData<Int> = wallet.map { it.account.tradeCount }
 
     val message = MutableLiveData<Int>()
 
     fun loadData(id: Long) {
         _walletId.value = id
+    }
+
+    fun submitBalance(newBalance: String) {
+
     }
 
 }
