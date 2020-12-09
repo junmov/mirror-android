@@ -26,7 +26,7 @@ class BudgetDetailFragment : Fragment() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@BudgetDetailFragment
-            btnSetupBudget.setupInputDialog("设置预算", "设置") { viewModel.submitBudget(it) }
+            btnAdjustBudget.setupInputDialog("调整预算", "调整") { viewModel.submitBudget(it) }
         }
         viewModel.loadData(args.categoryId)
         return binding.root

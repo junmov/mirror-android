@@ -16,21 +16,20 @@ class BudgetDetailViewModel @ViewModelInject constructor(
 
     private val _category = MutableLiveData<Category>()
 
-    val useAble: LiveData<String> = _category.map { MoneyUtils.centToYuan(it.budgetUseAble) }
+    val useAble = MutableLiveData<String>()
 
-    val used: LiveData<String> = _category.map { MoneyUtils.centToYuan(it.budgetUsed) }
+    val used = MutableLiveData<String>()
 
-    val total: LiveData<String> = _category.map { MoneyUtils.centToYuan(it.budgetTotal) }
-
-    val avgUsed: LiveData<String> = _category.map { MoneyUtils.centToYuan(it.avgUsed) }
-
-    val usable: LiveData<String> = _category.map { MoneyUtils.centToYuan(it.avgUseAble) }
+    val total = MutableLiveData<String>()
 
 
     fun loadData(categoryId: Long) {
         viewModelScope.launch {
             flowBudget(categoryId).collectLatest {
                 _category.value = it
+                useAble.value = MoneyUtils.centToYuan(it.budgetUseAble)
+                used.value = MoneyUtils.centToYuan(it.budgetUsed)
+                total.value = MoneyUtils.centToYuan(it.budgetTotal)
             }
         }
     }

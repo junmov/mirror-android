@@ -2,8 +2,6 @@ package cn.junmov.mirror.budget.domain
 
 import cn.junmov.mirror.core.data.dao.AccountDao
 import cn.junmov.mirror.core.data.model.Category
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 
 class UpdateBudgetUseCase(private val dao: AccountDao) {
@@ -16,9 +14,7 @@ class UpdateBudgetUseCase(private val dao: AccountDao) {
         category.account.modifiedAt = now
         parent.account.base += delta
         parent.account.modifiedAt = now
-        withContext(Dispatchers.IO) {
-            dao.update(category.account, parent.account)
-        }
+        dao.update(category.account, parent.account)
     }
 
 }

@@ -19,9 +19,9 @@
             android:id="@+id/label_category_use_able_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="剩余月预算：5000"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="本月可用"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,51 +29,62 @@
             android:id="@+id/label_category_used_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="本月消费： 30"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:text="本月消费："
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_category_use_able_budget" />
+            app:layout_constraintTop_toBottomOf="@+id/label_category_total_budget" />
 
         <TextView
             android:id="@+id/label_category_total_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="本月预算："
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category_budget_use_able" />
+
+        <TextView
+            android:id="@+id/category_budget_use_able"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{vm.useAble}"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_category_use_able_budget"
+            tools:text="6000" />
+
+        <Button
+            android:id="@+id/btn_adjust_budget"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="月预算：40000"
+            android:layout_marginTop="16dp"
+            android:text="调整预算"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_category_used_budget" />
 
         <TextView
-            android:id="@+id/label_month_average_daily_use"
+            android:id="@+id/category_total_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="本月日均消费： 40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_category_total_budget" />
+            android:text="@{vm.total}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_category_total_budget"
+            app:layout_constraintStart_toEndOf="@+id/label_category_total_budget"
+            tools:text="10000" />
 
         <TextView
-            android:id="@+id/label_average_daily_use_able"
+            android:id="@+id/category_used_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="剩余每日可消费： 400"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_month_average_daily_use" />
+            android:text="@{vm.used}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_category_used_budget"
+            app:layout_constraintStart_toEndOf="@+id/label_category_used_budget"
+            tools:text="4000" />
 
-        <Button
-            android:id="@+id/btn_setup_budget"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="设置预算"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_average_daily_use_able" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
