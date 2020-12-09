@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import cn.junmov.mirror.core.utility.setupInputDialog
 import cn.junmov.mirror.core.utility.setupSnackBar
 import cn.junmov.mirror.databinding.FragmentWalletDetailBinding
 import cn.junmov.mirror.voucher.ui.VoucherListAdapter
@@ -29,7 +30,10 @@ class WalletDetailFragment : Fragment() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@WalletDetailFragment
-            listLastTenVoucher.adapter = adapter
+            listWalletLastTrade.adapter = adapter
+            btnAdjustWalletBalance.setupInputDialog("调整余额", "调整") {
+                viewModel.submitBalance(it)
+            }
         }
         viewModel.loadData(args.accountId)
         viewModel.vouchers.observe(viewLifecycleOwner) { adapter.submitList(it) }

@@ -4,12 +4,15 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import cn.junmov.mirror.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 fun BottomSheetDialogFragment.setupDismiss(
@@ -42,4 +45,18 @@ fun View.navTo(navDirections: NavDirections) {
     this.setOnClickListener(
         Navigation.createNavigateOnClickListener(navDirections)
     )
+}
+
+fun View.setupInputDialog(title: String, positive: String, function: (String) -> Unit) {
+    this.setOnClickListener {
+        MaterialAlertDialogBuilder(it.context)
+            .setTitle(title)
+            .setView(R.layout.dialog_single_edit)
+            .setPositiveButton(positive) { dialog, _ ->
+                val input = (dialog as AlertDialog).findViewById<TextView>(R.id.dialog_single_text)
+                function(input?.text.toString())
+            }
+            .setNegativeButton("取消", null)
+            .show()
+    }
 }
