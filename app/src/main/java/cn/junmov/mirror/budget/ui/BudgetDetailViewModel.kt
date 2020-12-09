@@ -9,7 +9,7 @@ import cn.junmov.mirror.core.utility.MoneyUtils
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class BudgetDeltaViewModel @ViewModelInject constructor(
+class BudgetDetailViewModel @ViewModelInject constructor(
     private val flowBudget: FlowBudgetUseCase,
     private val updateBudget: UpdateBudgetUseCase
 ) : ViewModel() {
@@ -35,8 +35,8 @@ class BudgetDeltaViewModel @ViewModelInject constructor(
         }
     }
 
-    fun setupBudget(text: String) {
-        val budget = MoneyUtils.yuanToCent(text)
+    fun submitBudget(newBudget: String) {
+        val budget = MoneyUtils.yuanToCent(newBudget)
         val category = _category.value ?: return
         viewModelScope.launch {
             updateBudget(category, budget)

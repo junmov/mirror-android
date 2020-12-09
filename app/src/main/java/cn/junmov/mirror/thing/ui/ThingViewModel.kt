@@ -15,7 +15,7 @@ class ThingViewModel @ViewModelInject constructor(
 
     val things = flowAll().asLiveData()
 
-    fun submitThing(name: String?) {
+    fun submitName(name: String?) {
         if (name.isNullOrBlank()) return
         viewModelScope.launch {
             createThing(name)

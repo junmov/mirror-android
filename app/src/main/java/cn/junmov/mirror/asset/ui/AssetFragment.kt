@@ -10,6 +10,8 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.entity.Asset
+import cn.junmov.mirror.core.utility.setupInputDialog
+import cn.junmov.mirror.core.utility.showInputDialog
 import cn.junmov.mirror.core.widget.AbstractListFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,23 +34,11 @@ class AssetFragment : AbstractListFragment<Asset>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.option_create -> {
-                showDialog()
+                showInputDialog("添加资产", "添加") { viewModel.submitAsset(it) }
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("添加资产")
-            .setView(R.layout.dialog_single_edit)
-            .setPositiveButton("添加"){dialog,_->
-                val input = (dialog as AlertDialog).findViewById<TextView>(R.id.dialog_single_text)
-                viewModel.submitAsset(input?.text.toString())
-            }
-            .setNegativeButton("取消", null)
-            .show()
     }
 
 }

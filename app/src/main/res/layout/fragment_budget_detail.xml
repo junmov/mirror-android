@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="cn.junmov.mirror.budget.ui.BudgetDeltaViewModel" />
+            type="cn.junmov.mirror.budget.ui.BudgetDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -21,12 +21,10 @@ class ThingDetailViewModel @ViewModelInject constructor(
     private val pagingVoucherByThing: PagingVoucherByThingUseCase
 ) : ViewModel() {
 
-    private var thingVouchers: Flow<PagingData<TwoLineModel>>? = null
-
     val message = MutableLiveData<Int>()
 
     fun fetchData(id: Long): Flow<PagingData<TwoLineModel>> {
-        val newData = pagingVoucherByThing(id).map { data ->
+        return pagingVoucherByThing(id).map { data ->
             data.map { it.twoLineData() }
                 .insertSeparators { before, after ->
                     when {
@@ -37,11 +35,9 @@ class ThingDetailViewModel @ViewModelInject constructor(
                     }
                 }
         }.cachedIn(viewModelScope)
-        thingVouchers = newData
-        return newData
     }
 
-    fun rename(newName: String, eventId: Long, oldName: String) {
+    fun submitName(newName: String, eventId: Long, oldName: String) {
         if (newName == oldName) {
             message.value = R.string.error_thing_name_no_change
             return

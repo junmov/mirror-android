@@ -5,6 +5,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
@@ -59,4 +60,16 @@ fun View.setupInputDialog(title: String, positive: String, function: (String) ->
             .setNegativeButton("取消", null)
             .show()
     }
+}
+
+fun Fragment.showInputDialog(title: String, positive: String, function: (String) -> Unit) {
+    MaterialAlertDialogBuilder(this.requireContext())
+        .setTitle(title)
+        .setView(R.layout.dialog_single_edit)
+        .setPositiveButton(positive) { dialog, _ ->
+            val input = (dialog as AlertDialog).findViewById<TextView>(R.id.dialog_single_text)
+            function(input?.text.toString())
+        }
+        .setNegativeButton("取消", null)
+        .show()
 }
