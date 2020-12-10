@@ -17,7 +17,7 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
         val now = LocalDateTime.now()
         val trades = mutableListOf<Trade>()
         val accountIds = analysisAccount(splits)
-        val accounts = accountDao.findAllById(accountIds)
+        val accounts = accountDao.listAllById(accountIds)
 
         val map = accountIds.associateWith { 0 }.toMutableMap()
         splits.forEach { split ->

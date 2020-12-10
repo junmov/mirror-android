@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="账户余额"
+                android:text="钱包余额"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.wallet.account.type.toString()}"
+                android:text="@{vm.wallet.type.toString()}"
                 app:layout_constraintStart_toStartOf="@+id/label_wallet_balance"
                 app:layout_constraintTop_toBottomOf="@+id/wallet_balance"
                 tools:text="资金账户" />

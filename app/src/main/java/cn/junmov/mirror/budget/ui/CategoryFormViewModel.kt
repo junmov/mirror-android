@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
 import cn.junmov.mirror.core.data.AccountType
 import cn.junmov.mirror.core.data.entity.Account
-import cn.junmov.mirror.core.data.model.Category
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import cn.junmov.mirror.wallet.domain.CreateAccountUseCase
 import kotlinx.coroutines.launch
@@ -16,9 +15,9 @@ class CategoryFormViewModel @ViewModelInject constructor(
     private val createCategory: CreateAccountUseCase
 ) : ViewModel() {
 
-    val firstCategory: LiveData<List<Category>> = flowAllFirstCategory().asLiveData()
+    val firstCategory: LiveData<List<Account>> = flowAllFirstCategory().asLiveData()
 
-    private val inputParent = MutableLiveData<Category>()
+    private val inputParent = MutableLiveData<Account>()
     val inputType = MutableLiveData<AccountType>()
     val inputName = MutableLiveData<String>()
 
@@ -28,9 +27,9 @@ class CategoryFormViewModel @ViewModelInject constructor(
         inputType.value = type
     }
 
-    fun selectParent(category: Category) {
+    fun selectParent(category: Account) {
         inputParent.value = category
-        inputType.value = category.account.type
+        inputType.value = category.type
     }
 
     fun submitCategory() {
@@ -46,8 +45,8 @@ class CategoryFormViewModel @ViewModelInject constructor(
                 parentId = 0L
                 tradAble = false
             } else {
-                fullName = "${currentParent.account.fullName}:${currentName}"
-                parentId = currentParent.account.id
+                fullName = "${currentParent.fullName}:${currentName}"
+                parentId = currentParent.id
                 tradAble = true
             }
             val now = LocalDateTime.now()

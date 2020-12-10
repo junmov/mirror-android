@@ -2,7 +2,7 @@ package cn.junmov.mirror.wallet.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import cn.junmov.mirror.core.data.model.Wallet
+import cn.junmov.mirror.core.data.entity.Account
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.voucher.data.ItemVoucher
@@ -19,20 +19,20 @@ class WalletDetailViewModel @ViewModelInject constructor(
 
     private val _walletId = MutableLiveData<Long>()
 
-    val wallet: LiveData<Wallet> = _walletId.switchMap { flowWallet(it).asLiveData() }
+    val wallet: LiveData<Account> = _walletId.switchMap { flowWallet(it).asLiveData() }
 
     val vouchers: LiveData<List<ItemVoucher>> = _walletId.switchMap {
         flowWalletTradeLimit(it, 10).asLiveData()
     }
 
-    val balance: LiveData<String> = wallet.map { MoneyUtils.centToYuan(it.balance()) }
+    val balance: LiveData<String> = wallet.map { MoneyUtils.centToYuan(it.base) }
 
     val createAt: LiveData<String> =
-        wallet.map { "创建于${TimeUtils.dateToString(it.account.createAt.toLocalDate())}" }
+        wallet.map { "创建于${TimeUtils.dateToString(it.createAt.toLocalDate())}" }
 
     val lastSize: LiveData<Int> = vouchers.map { it.size }
 
-    val allSize: LiveData<Int> = wallet.map { it.account.tradeCount }
+    val allSize: LiveData<Int> = wallet.map { it.tradeCount }
 
     val message = MutableLiveData<Int>()
 
@@ -45,7 +45,7 @@ class WalletDetailViewModel @ViewModelInject constructor(
         val currentWallet = wallet.value ?: return
         val newBalance = MoneyUtils.yuanToCent(text)
         viewModelScope.launch {
-            updateBalance(currentWallet.account, newBalance)
+            updateBalance(currentWallet, newBalance)
         }
     }
 
