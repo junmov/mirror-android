@@ -19,9 +19,6 @@ interface ToDoEntity : CommonField {
     /** 循环周期 */
     var period: PeriodType
 
-    /** 是否完成 */
-    var isDone: Boolean
-
     /** 完成的次数 */
     var doneTimes: Int
 

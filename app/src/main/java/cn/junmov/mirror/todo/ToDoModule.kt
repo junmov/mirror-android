@@ -3,6 +3,7 @@ package cn.junmov.mirror.todo
 import cn.junmov.mirror.core.data.MirrorDatabase
 import cn.junmov.mirror.todo.domain.ChangeTodoStateUseCase
 import cn.junmov.mirror.todo.domain.CreateTodoUseCase
+import cn.junmov.mirror.todo.domain.DoneTodoUseCase
 import cn.junmov.mirror.todo.domain.FlowAllTodoUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,11 @@ object ToDoModule {
     @Provides
     fun createTodoUseCase(database: MirrorDatabase) =
         CreateTodoUseCase(database.toDoDao())
+
+    @Singleton
+    @Provides
+    fun doneTodoUseCase(database: MirrorDatabase) =
+        DoneTodoUseCase(database.toDoDao())
 
     @Singleton
     @Provides

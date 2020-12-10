@@ -1,7 +1,6 @@
 package cn.junmov.mirror.home
 
 import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.home.domain.DoneTodoUseCase
 import cn.junmov.mirror.home.domain.FlowAllTodayDoneTodoUseCase
 import cn.junmov.mirror.home.domain.FlowLastThreeVoucherUseCase
 import dagger.Module
@@ -13,11 +12,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object HomeModule {
-
-    @Singleton
-    @Provides
-    fun doneTodoUseCase(database: MirrorDatabase) =
-        DoneTodoUseCase(database.toDoDao())
 
     @Singleton
     @Provides

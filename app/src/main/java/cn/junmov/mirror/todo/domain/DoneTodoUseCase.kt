@@ -1,4 +1,4 @@
-package cn.junmov.mirror.home.domain
+package cn.junmov.mirror.todo.domain
 
 import cn.junmov.mirror.core.data.dao.TodoDao
 import cn.junmov.mirror.core.data.entity.Todo

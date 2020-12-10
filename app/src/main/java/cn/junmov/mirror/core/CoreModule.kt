@@ -1,9 +1,7 @@
 package cn.junmov.mirror.core
 
 import android.content.Context
-import androidx.room.Room
 import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.core.data.Scheme
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,11 +16,7 @@ object CoreModule {
     @Singleton
     @Provides
     fun provideDataBase(@ApplicationContext context: Context): MirrorDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-        )
-            .createFromAsset("database/mirror.db")
-            .build()
+        return MirrorDatabase.getInstance(context)
     }
 
 }
