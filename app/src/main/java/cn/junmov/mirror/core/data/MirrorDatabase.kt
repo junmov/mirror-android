@@ -47,7 +47,7 @@ abstract class MirrorDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): MirrorDatabase {
             return Room.databaseBuilder(
                 context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-            ).addMigrations(MIGRATION_1_2).createFromAsset("database/mirror.db").build()
+            ).addMigrations(MIGRATION_1_2).build()
         }
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
