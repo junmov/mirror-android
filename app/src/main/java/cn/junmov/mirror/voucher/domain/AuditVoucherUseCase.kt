@@ -2,8 +2,10 @@ package cn.junmov.mirror.voucher.domain
 
 import cn.junmov.mirror.core.data.dao.AccountDao
 import cn.junmov.mirror.core.data.dao.AuditDao
-import cn.junmov.mirror.core.data.entity.*
-import cn.junmov.mirror.core.data.model.VoucherAndSplits
+import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.entity.Split
+import cn.junmov.mirror.core.data.entity.Trade
+import cn.junmov.mirror.core.data.entity.Voucher
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,9 +13,7 @@ import java.time.LocalDateTime
 
 class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: AccountDao) {
 
-    suspend operator fun invoke(voucherInfo: VoucherAndSplits) {
-        val voucher = voucherInfo.voucher
-        val splits = voucherInfo.splits
+    suspend operator fun invoke(voucher: Voucher, splits: List<Split>) {
         val now = LocalDateTime.now()
         val trades = mutableListOf<Trade>()
         val accountIds = analysisAccount(splits)

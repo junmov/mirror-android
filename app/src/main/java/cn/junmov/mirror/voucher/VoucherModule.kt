@@ -1,16 +1,15 @@
 package cn.junmov.mirror.voucher
 
 import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.home.domain.FlowLastThreeVoucherUseCase
 import cn.junmov.mirror.voucher.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object VoucherModule {
 
     @Singleton
@@ -32,11 +31,6 @@ object VoucherModule {
     @Provides
     fun flowAllAccountByLeafUseCase(database: MirrorDatabase) =
         FlowAllTradAbleAccountUseCase(database.accountDao())
-
-    @Singleton
-    @Provides
-    fun flowVoucherInfoUseCase(database: MirrorDatabase) =
-        FlowVoucherAndSplitsUseCase(database.voucherDao())
 
     @Singleton
     @Provides

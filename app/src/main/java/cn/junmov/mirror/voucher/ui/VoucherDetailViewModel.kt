@@ -4,57 +4,63 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.entity.Split
-import cn.junmov.mirror.core.data.model.VoucherAndSplits
+import cn.junmov.mirror.core.data.entity.Voucher
 import cn.junmov.mirror.core.utility.TimeUtils
-import cn.junmov.mirror.voucher.domain.AuditVoucherUseCase
-import cn.junmov.mirror.voucher.domain.CopyVoucherUseCase
-import cn.junmov.mirror.voucher.domain.FlowVoucherAndSplitsUseCase
-import kotlinx.coroutines.flow.collectLatest
+import cn.junmov.mirror.voucher.domain.*
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 class VoucherDetailViewModel @ViewModelInject constructor(
-    private val flowVoucherInfo: FlowVoucherAndSplitsUseCase,
     private val auditVoucher: AuditVoucherUseCase,
+    private val flowSplits: FlowAllSplitByVoucherUseCase,
+    private val flowVoucher: FlowVoucherUseCase,
     private val copyVoucher: CopyVoucherUseCase,
 ) : ViewModel() {
 
-    private val _voucherInfo = MutableLiveData<VoucherAndSplits>()
+    private val _voucherId = MutableLiveData<Long>()
 
-    val voucher: LiveData<cn.junmov.mirror.core.data.entity.Voucher> = _voucherInfo.map { it.voucher }
+    val voucher: LiveData<Voucher> = _voucherId.switchMap { flowVoucher(it).asLiveData() }
 
     val occurAt: LiveData<String> = voucher.map {
         TimeUtils.dateTimeToString(LocalDateTime.of(it.dateAt, it.timeAt))
     }
 
-    val splits: LiveData<List<Split>> = _voucherInfo.map { it.splits }
+    val splits: LiveData<List<Split>> = _voucherId.switchMap { flowSplits(it).asLiveData() }
 
     val message = MutableLiveData<Int>()
     val updated = MutableLiveData<Boolean>()
 
     fun loadData(voucherId: Long) {
-        if (voucherId == 0L) return
-        viewModelScope.launch {
-            flowVoucherInfo(voucherId).collectLatest { _voucherInfo.value = it }
-        }
+        _voucherId.value = voucherId
     }
 
     fun copy() {
-        val currentVoucher = _voucherInfo.value ?: return
+        val currentVoucher = voucher.value ?: return
+        val currentSplits = splits.value ?: return
         viewModelScope.launch {
-            copyVoucher(currentVoucher)
+            copyVoucher(currentVoucher, currentSplits)
             message.value = R.string.success_copy_voucher
         }
     }
 
     fun audit() {
-        val currentVoucherInfo = _voucherInfo.value ?: return
-        if (!currentVoucherInfo.auditAble()) {
+        val currentVoucher = voucher.value ?: return
+        val currentSplits = splits.value ?: return
+        var debit = 0
+        var credit = 0
+        currentSplits.forEach {
+            if (it.isDebit) {
+                debit += it.amount
+            } else {
+                credit += it.amount
+            }
+        }
+        if (debit == 0 || debit != credit) {
             message.value = R.string.error_audit_voucher
             return
         }
         viewModelScope.launch {
-            auditVoucher(currentVoucherInfo)
+            auditVoucher(currentVoucher, currentSplits)
         }
     }
 

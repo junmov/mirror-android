@@ -2,19 +2,14 @@ package cn.junmov.mirror.core.data.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import cn.junmov.mirror.core.data.entity.Voucher
 import cn.junmov.mirror.core.data.entity.Split
-import cn.junmov.mirror.core.data.model.VoucherAndSplits
+import cn.junmov.mirror.core.data.entity.Voucher
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 @Dao
 interface VoucherDao : BaseDao<Voucher> {
-
-    @Transaction
-    @Query("SELECT * FROM voucher WHERE row_id = :id")
-    fun flowVoucherInfo(id: Long): Flow<VoucherAndSplits>
 
     @Query("select row_id, summary, thing_name, date_at, time_at, profit, is_audited from voucher where is_audited = :audited and is_deleted = 0 order by date_at desc, time_at desc")
     fun pagingVoucher(audited: Boolean): PagingSource<Int, ItemVoucher>
