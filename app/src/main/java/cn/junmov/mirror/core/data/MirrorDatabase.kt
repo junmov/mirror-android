@@ -9,6 +9,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import cn.junmov.mirror.core.data.dao.*
 import cn.junmov.mirror.core.data.entity.*
+import cn.junmov.mirror.mine.data.local.MineDao
 
 @Database(
     entities = [
@@ -33,6 +34,7 @@ abstract class MirrorDatabase : RoomDatabase() {
     abstract fun billDao(): BillDao
     abstract fun assetDao(): AssetDao
     abstract fun toDoDao(): TodoDao
+    abstract fun mineDao(): MineDao
 
     companion object {
         @Volatile

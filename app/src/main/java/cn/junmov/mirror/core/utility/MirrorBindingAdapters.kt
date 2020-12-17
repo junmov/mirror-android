@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView
 import androidx.databinding.BindingAdapter
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.widget.SheetTitle
+import cn.junmov.mirror.core.widget.TableSyncCard
 import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("noFilterText")
@@ -50,4 +51,13 @@ fun bindGone(view: View, isGone: Boolean) {
 fun bindArrayRes(view: AutoCompleteTextView, array: Array<String>) {
     val adapter = ArrayAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, array)
     view.setAdapter(adapter)
+}
+
+@BindingAdapter("onPush")
+fun bindPush(view: TableSyncCard, click: View.OnClickListener) {
+    view.onPush(click)
+}
+@BindingAdapter("syncAt")
+fun bindSyncAt(view:TableSyncCard,value:String?){
+    view.setSyncAt(value)
 }

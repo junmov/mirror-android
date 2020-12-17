@@ -3,4 +3,7 @@
     <declare-styleable name="SheetTitle">
         <attr name="title" format="string|reference" />
     </declare-styleable>
+    <declare-styleable name="TableSyncCard">
+        <attr name="table_name" format="string|reference" />
+    </declare-styleable>
 </resources>
