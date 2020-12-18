@@ -30,94 +30,74 @@ interface MirrorService {
     @POST
     suspend fun pushVoucher(@Url url: String, @Body list: List<Voucher>): HttpRespond<String>
 
-    suspend fun pullVoucher(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): HttpRespond<List<Voucher>>
+    @GET
+    suspend fun pullVoucher(@Url url: String): HttpRespond<List<Voucher>>
 
     @POST
     suspend fun pushSplit(@Url url: String, @Body list: List<Split>): HttpRespond<String>
 
-    suspend fun pullSplit(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Split>>>
+    @GET
+    suspend fun pullSplit(@Url url: String): HttpRespond<List<Split>>
 
     @POST
     suspend fun pushAccount(@Url url: String, @Body account: List<Account>): HttpRespond<String>
 
-    suspend fun pullAccount(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Account>>>
+    @GET
+    suspend fun pullAccount(@Url url: String): HttpRespond<List<Account>>
 
     @POST
     suspend fun pushThing(@Url url: String, @Body list: List<Thing>): HttpRespond<String>
 
-    suspend fun pullThing(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Thing>>>
+    @GET
+    suspend fun pullThing(@Url url: String): HttpRespond<List<Thing>>
 
     @POST
     suspend fun pushDebt(@Url url: String, @Body list: List<Debt>): HttpRespond<String>
 
-    suspend fun pullDebt(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Debt>>>
+    @GET
+    suspend fun pullDebt(@Url url: String): HttpRespond<List<Debt>>
 
     @POST
     suspend fun pushRepay(@Url url: String, @Body list: List<Repay>): HttpRespond<String>
 
-    suspend fun pullRepay(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Repay>>>
+    @GET
+    suspend fun pullRepay(@Url url: String): HttpRespond<List<Repay>>
 
     @POST
     suspend fun pushAsset(@Url url: String, @Body list: List<Asset>): HttpRespond<String>
 
-    suspend fun pullAsset(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Asset>>>
+    @GET
+    suspend fun pullAsset(@Url url: String): HttpRespond<List<Asset>>
 
     @POST
     suspend fun pushAssetLog(@Url url: String, @Body list: List<AssetLog>): HttpRespond<String>
 
-    suspend fun pullAssetLog(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<AssetLog>>>
+    @GET
+    suspend fun pullAssetLog(@Url url: String): HttpRespond<List<AssetLog>>
 
     @POST
     suspend fun pushTodo(@Url url: String, @Body list: List<Todo>): HttpRespond<String>
 
-    suspend fun pullTodo(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Todo>>>
+    @GET
+    suspend fun pullTodo(@Url url: String): HttpRespond<List<Todo>>
 
     @POST
     suspend fun pushTrade(@Url url: String, @Body list: List<Trade>): HttpRespond<String>
 
-    suspend fun pullTrade(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Trade>>>
+    @GET
+    suspend fun pullTrade(@Url url: String): HttpRespond<List<Trade>>
 
     @POST
     suspend fun pushBalance(@Url url: String, @Body list: List<Balance>): HttpRespond<String>
 
-    suspend fun pullBalance(
-        @Url url: String,
-        @Header("Authentication") token: String
-    ): Call<HttpRespond<List<Balance>>>
+    @GET
+    suspend fun pullBalance(@Url url: String): HttpRespond<List<Balance>>
 
     @POST
     suspend fun pushBill(@Url url: String, @Body list: List<Bill>): HttpRespond<String>
-    fun pullBill(): HttpRespond<List<Bill>>
+
+    @GET
+    suspend fun pullBill(@Url url: String): HttpRespond<List<Bill>>
 
     companion object {
         private val dateTimeSerializer = JsonSerializer<LocalDateTime> { src, _, _ ->

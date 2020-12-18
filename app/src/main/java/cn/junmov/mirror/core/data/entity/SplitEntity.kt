@@ -11,7 +11,7 @@ interface SplitEntity : CommonField {
     var amount: Int
 
     /** 借方或贷方 */
-    var isDebit: Boolean
+    var debit: Boolean
 
     /** 账户ID */
     var accountId: Long

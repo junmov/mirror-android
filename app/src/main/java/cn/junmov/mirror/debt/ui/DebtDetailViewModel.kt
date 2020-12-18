@@ -25,7 +25,7 @@ class DebtDetailViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             flowDebtInfo(id).collectLatest { info ->
                 debt.value = info.debt
-                items.value = info.items.filter { !it.isDeleted }
+                items.value = info.items.filter { !it.deleted }
                 amount.value = MoneyUtils.centToYuan(info.debt.capital - info.debt.capitalRepay)
                 noSettled.value = "待还利息:${
                     MoneyUtils.centToYuan(info.debt.interest - info.debt.interestRepay)

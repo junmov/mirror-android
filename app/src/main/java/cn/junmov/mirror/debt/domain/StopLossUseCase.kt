@@ -23,8 +23,8 @@ class StopLossUseCase(private val dao: DebtDao, private val billDao: BillDao) {
         val billDate = items.map { it.dateAt }
         val bills = billDao.listAll(billDate)
         for (i in items) {
-            i.isSettled = true
-            i.isDeleted = true
+            i.settled = true
+            i.deleted = true
             i.modifiedAt = now
             for (b in bills) {
                 if (i.dateAt == b.dateAt) {
@@ -37,12 +37,12 @@ class StopLossUseCase(private val dao: DebtDao, private val billDao: BillDao) {
         val repayItem = Repay(
             id = SnowFlakeUtil.genId(), debtId = debt.id,
             summary = repaySummary, capital = surplusAmount, interest = interest,
-            dateAt = now.toLocalDate(), isSettled = true,
-            createAt = now, modifiedAt = now, isDeleted = false
+            dateAt = now.toLocalDate(), settled = true,
+            createAt = now, modifiedAt = now, deleted = false
         )
         debt.capitalRepay += surplusAmount
         debt.interestRepay += interest
-        debt.isSettled = true
+        debt.settled = true
         debt.modifiedAt = now
         withContext(Dispatchers.IO) {
             dao.stopLossTransaction(debt, items, repayItem, bills)

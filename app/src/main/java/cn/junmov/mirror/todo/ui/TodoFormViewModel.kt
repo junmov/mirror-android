@@ -42,10 +42,10 @@ class TodoFormViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             val now = LocalDateTime.now()
             val todo = Todo(
-                id = SnowFlakeUtil.genId(), summary = currentSummary, isEnabled = true,
+                id = SnowFlakeUtil.genId(), summary = currentSummary, enabled = true,
                 period = currentPeriod, runAt = TimeUtils.stringToDate(currentFirstRun),
                 doneTimes = 0, doneTotal = currentDoneTotal.toInt(),
-                createAt = now, modifiedAt = now, isDeleted = false
+                createAt = now, modifiedAt = now, deleted = false
             )
             createTodo(todo)
             updated.value = true

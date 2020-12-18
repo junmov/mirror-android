@@ -10,7 +10,7 @@ class CreateAssetUseCase(private val dao: AssetDao) {
         val now = LocalDateTime.now()
         val asset = Asset(
             id = SnowFlakeUtil.genId(), name = name, count = 0, buy = 0, sell = 0,
-            createAt = now, modifiedAt = now, isDeleted = false
+            createAt = now, modifiedAt = now, deleted = false
         )
         dao.insert(asset)
     }

@@ -57,7 +57,13 @@ fun bindArrayRes(view: AutoCompleteTextView, array: Array<String>) {
 fun bindPush(view: TableSyncCard, click: View.OnClickListener) {
     view.onPush(click)
 }
+
 @BindingAdapter("syncAt")
-fun bindSyncAt(view:TableSyncCard,value:String?){
+fun bindSyncAt(view: TableSyncCard, value: String?) {
     view.setSyncAt(value)
+}
+
+@BindingAdapter("onPull")
+fun bindPull(view: TableSyncCard, click: View.OnClickListener) {
+    view.onPull(click)
 }

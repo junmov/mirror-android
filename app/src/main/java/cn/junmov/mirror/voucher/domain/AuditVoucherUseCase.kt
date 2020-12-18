@@ -48,7 +48,7 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
                     val trade = Trade(
                         id = ids[index], voucherId = voucher.id, accountId = account.id,
                         accountType = account.type, amount = entry.value, dateAt = voucher.dateAt,
-                        createAt = now, modifiedAt = now, isDeleted = false
+                        createAt = now, modifiedAt = now, deleted = false
                     )
                     trades.add(trade)
                     account.modifiedAt = now
@@ -58,7 +58,7 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
                 }
             }
         }
-        voucher.isAudited = true
+        voucher.audited = true
         voucher.modifiedAt = now
         applyChange(voucher, accounts, trades)
     }

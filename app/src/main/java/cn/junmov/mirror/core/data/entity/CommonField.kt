@@ -6,5 +6,5 @@ interface CommonField {
     val id: Long
     val createAt: LocalDateTime
     var modifiedAt: LocalDateTime
-    var isDeleted: Boolean
+    var deleted: Boolean
 }

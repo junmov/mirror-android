@@ -52,7 +52,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
         voucher.value = Voucher(
             id = SnowFlakeUtil.genId(), summary = "", dateAt = now.toLocalDate(),
             timeAt = now.toLocalTime(),
-            thingId = 0, thingName = "", profit = 0, isTemplate = false, isAudited = false,
+            thingId = 0, thingName = "", profit = 0, template = false, audited = false,
             createAt = now, modifiedAt = now
         )
         inputDateAt.value = TimeUtils.dateToString(now.toLocalDate())

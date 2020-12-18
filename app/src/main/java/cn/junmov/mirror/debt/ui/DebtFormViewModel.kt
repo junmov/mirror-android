@@ -48,7 +48,7 @@ class DebtFormViewModel @ViewModelInject constructor(
             accountId = currentAccount.id, capital = MoneyUtils.yuanToCent(currentCapital),
             interest = MoneyUtils.yuanToCent(currentInterest),
             count = currentCount.toInt(), startAt = TimeUtils.stringToDate(currentStartAt),
-            capitalRepay = 0, interestRepay = 0, countRepay = 0, isSettled = false
+            capitalRepay = 0, interestRepay = 0, countRepay = 0, settled = false
         )
 
         viewModelScope.launch {

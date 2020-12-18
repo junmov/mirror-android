@@ -24,7 +24,7 @@ interface DebtEntity : CommonField {
     val interest: Int
 
     /** 是否已结清 */
-    var isSettled: Boolean
+    var settled: Boolean
 
     /** 已还本金 */
     var capitalRepay: Int

@@ -13,6 +13,6 @@ interface BillEntity : CommonField {
     var amount: Int
 
     /** 是否结清 */
-    var isSettled: Boolean
+    var settled: Boolean
 
 }

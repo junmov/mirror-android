@@ -28,7 +28,7 @@ class TodoEnableListAdapter(
                     R.string.todo_next_run, TimeUtils.dateToString(it.runAt)
                 )
                 count.setString(R.string.todo_done_times, it.doneTimes)
-                enable.isChecked = it.isEnabled
+                enable.isChecked = it.enabled
                 enable.setOnCheckedChangeListener { _, isChecked ->
                     change(it.id, isChecked)
                 }

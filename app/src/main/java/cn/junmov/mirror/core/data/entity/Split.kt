@@ -9,6 +9,7 @@ import cn.junmov.mirror.core.adapter.SingleLineModel
 import cn.junmov.mirror.core.data.AccountType
 import cn.junmov.mirror.core.data.Scheme
 import cn.junmov.mirror.core.utility.MoneyUtils
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 @Entity(
@@ -19,23 +20,24 @@ import java.time.LocalDateTime
     ]
 )
 data class Split(
+    @SerializedName("rowId")
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
     @ColumnInfo(name = Scheme.Split.VOUCHER_ID) override val voucherId: Long,
     @ColumnInfo(name = Scheme.Split.AMOUNT) override var amount: Int,
-    @ColumnInfo(name = Scheme.Split.IS_DEBIT) override var isDebit: Boolean,
+    @ColumnInfo(name = Scheme.Split.IS_DEBIT) override var debit: Boolean,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_ID) override var accountId: Long,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_PARENT_ID) override var accountParentId: Long,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_NAME) override var accountName: String,
     @ColumnInfo(name = Scheme.Split.ACCOUNT_TYPE) override var accountType: AccountType,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false,
+    @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false,
 ) : SplitEntity, SingleLineAble {
 
     override fun singleLineData(): SingleLineModel.UiData = SingleLineModel.UiData(
-        id = id, primary = if (isDebit) "借: $accountName" else "贷: $accountName",
+        id = id, primary = if (debit) "借: $accountName" else "贷: $accountName",
         action = MoneyUtils.centToYuan(amount), separator = "", title = ""
     )
 
-    fun balanceDelta(): Int = MoneyUtils.computeBalanceDelta(accountType, isDebit, amount)
+    fun balanceDelta(): Int = MoneyUtils.computeBalanceDelta(accountType, debit, amount)
 }

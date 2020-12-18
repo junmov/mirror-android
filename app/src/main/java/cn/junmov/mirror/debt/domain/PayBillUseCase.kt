@@ -16,13 +16,13 @@ class PayBillUseCase(private val billDao: BillDao, private val debtDao: DebtDao)
         repayAndDebts.forEach {
             val repay = it.repay
             repay.modifiedAt = now
-            repay.isSettled = true
+            repay.settled = true
             repays.add(repay)
             val debt = it.debt
             debt.repay(repay)
             debts.add(debt)
         }
-        bill.isSettled = true
+        bill.settled = true
         bill.modifiedAt = now
         debtDao.payBillTransaction(bill, debts, repays)
     }

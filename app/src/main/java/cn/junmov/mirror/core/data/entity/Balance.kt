@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import cn.junmov.mirror.core.data.Scheme
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime
     ]
 )
 data class Balance(
+    @SerializedName("rowId")
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
     @ColumnInfo(name = Scheme.Balance.START_AT) override val startAt: LocalDate,
     @ColumnInfo(name = Scheme.Balance.END_AT) override val endAt: LocalDate,
@@ -29,7 +31,7 @@ data class Balance(
     @ColumnInfo(name = Scheme.Balance.TRADE_COUNT) override val tradeCount: Int,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
+    @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false
 ) : BalanceEntity
 
 

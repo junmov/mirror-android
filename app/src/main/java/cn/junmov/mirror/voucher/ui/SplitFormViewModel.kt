@@ -29,11 +29,11 @@ class SplitFormViewModel @ViewModelInject constructor(
     }
 
     val totalDebit: LiveData<String> = splits.map { list ->
-        val total = list.filter { it.isDebit }.sumBy { it.amount }
+        val total = list.filter { it.debit }.sumBy { it.amount }
         MoneyUtils.centToYuan(total)
     }
     val totalCredit: LiveData<String> = splits.map { list ->
-        val total = list.filter { !it.isDebit }.sumBy { it.amount }
+        val total = list.filter { !it.debit }.sumBy { it.amount }
         MoneyUtils.centToYuan(total)
     }
 

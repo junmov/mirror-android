@@ -49,7 +49,7 @@ class VoucherDetailViewModel @ViewModelInject constructor(
         var debit = 0
         var credit = 0
         currentSplits.forEach {
-            if (it.isDebit) {
+            if (it.debit) {
                 debit += it.amount
             } else {
                 credit += it.amount

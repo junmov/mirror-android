@@ -39,10 +39,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullAccount() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullAccount(currentIp)
+        }
+    }
+
     fun pushBalance() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushBalance(currentIp)
+        }
+    }
+
+    fun pullBalance() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullBalance(currentIp)
         }
     }
 
@@ -53,10 +67,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullThing() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullThing(currentIp)
+        }
+    }
+
     fun pushVoucher() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushVoucher(currentIp)
+        }
+    }
+
+    fun pullVoucher() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullVoucher(currentIp)
         }
     }
 
@@ -67,10 +95,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullSplit() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullSplit(currentIp)
+        }
+    }
+
     fun pushTrade() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushTrade(currentIp)
+        }
+    }
+
+    fun pullTrade() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullTrade(currentIp)
         }
     }
 
@@ -81,10 +123,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullAsset() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullAsset(currentIp)
+        }
+    }
+
     fun pushAssetLog() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushAssetLog(currentIp)
+        }
+    }
+
+    fun pullAssetLog() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullAssetLog(currentIp)
         }
     }
 
@@ -95,10 +151,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullBill() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullBill(currentIp)
+        }
+    }
+
     fun pushDebt() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushDebt(currentIp)
+        }
+    }
+
+    fun pullDebt() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullDebt(currentIp)
         }
     }
 
@@ -109,10 +179,24 @@ class MineViewModel @ViewModelInject constructor(
         }
     }
 
+    fun pullRepay() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullRepay(currentIp)
+        }
+    }
+
     fun pushTodo() {
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pushTodo(currentIp)
+        }
+    }
+
+    fun pullTodo() {
+        val currentIp = inputIpAddress.value ?: return
+        viewModelScope.launch {
+            message.value = repository.pullTodo(currentIp)
         }
     }
 }

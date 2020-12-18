@@ -9,6 +9,7 @@ import cn.junmov.mirror.core.adapter.TwoLineModel
 import cn.junmov.mirror.core.data.AccountType
 import cn.junmov.mirror.core.data.Scheme
 import cn.junmov.mirror.core.utility.MoneyUtils
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 @Entity(
@@ -19,6 +20,7 @@ import java.time.LocalDateTime
     ]
 )
 data class Account(
+    @SerializedName("rowId")
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
     @ColumnInfo(name = Scheme.Account.NAME) override val name: String,
     @ColumnInfo(name = Scheme.Account.FULL_NAME) override val fullName: String,
@@ -31,7 +33,7 @@ data class Account(
     @ColumnInfo(name = Scheme.Account.OUTFLOW) override var outflow: Int,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
+    @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false
 ) : AccountEntity, TwoLineAble {
 
     override fun twoLineData(): TwoLineModel.UiData = TwoLineModel.UiData(

@@ -39,6 +39,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_account"
+                onPull="@{() -> vm.pullAccount()}"
                 onPush="@{() -> vm.pushAccount()}"
                 syncAt="@{vm.accountLastSync}"
                 android:layout_width="0dp"
@@ -53,6 +54,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_asset"
+                onPull="@{() -> vm.pullAsset()}"
                 onPush="@{() -> vm.pushAsset()}"
                 syncAt="@{vm.assetLastSync}"
                 android:layout_width="0dp"
@@ -65,6 +67,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_asset_log"
+                onPull="@{() -> vm.pullAssetLog()}"
                 onPush="@{() -> vm.pushAssetLog()}"
                 syncAt="@{vm.assetLogLastSync}"
                 android:layout_width="0dp"
@@ -77,6 +80,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_balance"
+                onPull="@{() -> vm.pullBalance()}"
                 onPush="@{() -> vm.pushBalance()}"
                 syncAt="@{vm.balanceLastSync}"
                 android:layout_width="0dp"
@@ -89,6 +93,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_bill"
+                onPull="@{() -> vm.pullBill()}"
                 onPush="@{() -> vm.pushBill()}"
                 syncAt="@{vm.billLastSync}"
                 android:layout_width="0dp"
@@ -97,10 +102,11 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
                 app:layout_constraintStart_toStartOf="@+id/card_sync_account"
                 app:layout_constraintTop_toBottomOf="@+id/card_sync_balance"
-                app:table_name="债务账单表" />
+                app:table_name="资金日历表" />
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_debt"
+                onPull="@{() -> vm.pullDebt()}"
                 onPush="@{() -> vm.pushDebt()}"
                 syncAt="@{vm.debtLastSync}"
                 android:layout_width="0dp"
@@ -113,6 +119,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_repay"
+                onPull="@{() -> vm.pullRepay()}"
                 onPush="@{() -> vm.pushRepay()}"
                 syncAt="@{vm.repayLastSync}"
                 android:layout_width="0dp"
@@ -125,6 +132,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_split"
+                onPull="@{() -> vm.pullSplit()}"
                 onPush="@{() -> vm.pushSplit()}"
                 syncAt="@{vm.splitLastSync}"
                 android:layout_width="0dp"
@@ -137,6 +145,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_thing"
+                onPull="@{() -> vm.pullThing()}"
                 onPush="@{() -> vm.pushThing()}"
                 syncAt="@{vm.thingLastSync}"
                 android:layout_width="0dp"
@@ -149,6 +158,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_trade"
+                onPull="@{() -> vm.pullTrade()}"
                 onPush="@{() -> vm.pushTrade()}"
                 syncAt="@{vm.tradeLastSync}"
                 android:layout_width="0dp"
@@ -161,6 +171,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_voucher"
+                onPull="@{() -> vm.pullVoucher()}"
                 onPush="@{() -> vm.pushVoucher()}"
                 syncAt="@{vm.voucherLastSync}"
                 android:layout_width="0dp"
@@ -173,6 +184,7 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_todo"
+                onPull="@{() -> vm.pullTodo()}"
                 onPush="@{() -> vm.pushTodo()}"
                 syncAt="@{vm.todoLastSync}"
                 android:layout_width="0dp"

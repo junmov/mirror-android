@@ -55,7 +55,7 @@ class CategoryFormViewModel @ViewModelInject constructor(
                 fullName = fullName, parentId = parentId, type = currentType,
                 tradAble = tradAble, tradeCount = 0,
                 base = 0, inflow = 0, outflow = 0,
-                createAt = now, modifiedAt = now, isDeleted = false,
+                createAt = now, modifiedAt = now, deleted = false,
             )
             createCategory(category)
             updated.value = true

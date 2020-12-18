@@ -22,5 +22,5 @@ interface RepayEntity :CommonField{
     val dateAt: LocalDate
 
     /** 本期是否还清 */
-    var isSettled: Boolean
+    var settled: Boolean
 }

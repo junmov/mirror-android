@@ -9,7 +9,7 @@ interface AssetLogEntity : CommonField {
     var assetId: Long
 
     /** 买或卖 */
-    var isBuy: Boolean
+    var buy: Boolean
 
     /** 数量 */
     var count: Int

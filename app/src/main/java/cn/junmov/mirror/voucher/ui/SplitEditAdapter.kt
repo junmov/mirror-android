@@ -24,7 +24,7 @@ class SplitEditAdapter(
 
     override fun onBindViewHolder(holder: SplitViewHolder, position: Int) {
         val data = getItem(position)
-        val text = if (data.isDebit) "借: ${data.accountName}" else "贷: ${data.accountName}"
+        val text = if (data.debit) "借: ${data.accountName}" else "贷: ${data.accountName}"
         holder.primary.text = text
         holder.action.text = MoneyUtils.centToYuan(data.amount)
         holder.btn.setOnClickListener {

@@ -20,10 +20,10 @@ interface VoucherEntity : CommonField {
     var thingName: String
 
     /** 是否已入账 */
-    var isAudited: Boolean
+    var audited: Boolean
 
     /** 是否为模板 */
-    var isTemplate: Boolean
+    var template: Boolean
 
     /**
      * 此交易产生的利润

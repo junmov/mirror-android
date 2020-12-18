@@ -11,7 +11,7 @@ interface ToDoEntity : CommonField {
     var summary: String
 
     /** 是否开启 */
-    var isEnabled: Boolean
+    var enabled: Boolean
 
     /** 下次运行时间 */
     var runAt: LocalDate

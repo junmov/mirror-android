@@ -16,7 +16,7 @@ class AssetLogListAdapter : ListAdapter<AssetLog, TwoLineListItemViewHolder>(DIF
 
     override fun onBindViewHolder(holder: TwoLineListItemViewHolder, position: Int) {
         val data = getItem(position)
-        val primary = if (data.isBuy) {
+        val primary = if (data.buy) {
             "买入 ${MoneyUtils.centToYuan(data.count)}份"
         } else {
             "卖出 ${MoneyUtils.centToYuan(data.count)}份"

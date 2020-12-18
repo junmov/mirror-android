@@ -34,13 +34,13 @@ class CreateDebtUseCase(private val dao: DebtDao, private val billDao: BillDao) 
                 val item = Repay(
                     id = ids[j++], summary = "${i + 1}/${size} ${debt.summary}", dateAt = dateAt,
                     interest = interestAvg, capital = amountAvg, debtId = debt.id,
-                    isSettled = false, createAt = now, modifiedAt = now, isDeleted = false
+                    settled = false, createAt = now, modifiedAt = now, deleted = false
                 )
                 repays.add(item)
 
                 val bill = Bill(
-                    id = ids[j++], amount = amountAvg + interestAvg, isSettled = false,
-                    dateAt = dateAt, createAt = now, modifiedAt = now, isDeleted = false
+                    id = ids[j++], amount = amountAvg + interestAvg, settled = false,
+                    dateAt = dateAt, createAt = now, modifiedAt = now, deleted = false
                 )
                 debtBills.add(bill)
             }

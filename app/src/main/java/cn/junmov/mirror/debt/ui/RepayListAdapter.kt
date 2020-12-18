@@ -32,10 +32,10 @@ class RepayListAdapter : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CA
                 TimeUtils.dateToString(data.dateAt)
             )
             action.setString(
-                if (data.isSettled) R.string.repay_settled
+                if (data.settled) R.string.repay_settled
                 else R.string.repay_no_settled
             )
-            if (!data.isSettled) {
+            if (!data.settled) {
                 holder.itemView.navTo(
                     DebtDetailFragmentDirections.actionDebtDetailFragmentToRepayFormDialog(data.id)
                 )

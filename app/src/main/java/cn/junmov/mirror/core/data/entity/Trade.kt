@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import cn.junmov.mirror.core.data.AccountType
 import cn.junmov.mirror.core.data.Scheme
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime
     ]
 )
 data class Trade(
+    @SerializedName("rowId")
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override var id: Long,
     @ColumnInfo(name = Scheme.Trade.VOUCHER_ID) override val voucherId: Long,
     @ColumnInfo(name = Scheme.Trade.ACCOUNT_ID) override val accountId: Long,
@@ -24,5 +26,5 @@ data class Trade(
     @ColumnInfo(name = Scheme.Trade.DATE_AT) override val dateAt: LocalDate,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
-    @ColumnInfo(name = Scheme.DEL) override var isDeleted: Boolean = false
+    @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false
 ) : TradeEntity
