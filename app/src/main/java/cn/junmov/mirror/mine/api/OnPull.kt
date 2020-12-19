@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 abstract class OnPull<T> {
     protected abstract fun apiUrl(): String
     protected abstract fun cacheKey(): String
-    protected abstract suspend fun apiCall(url: String): HttpRespond<List<T>>
+    protected abstract suspend fun apiCall(url: String, t: String): HttpRespond<List<T>>
     protected abstract suspend fun saveToDb(list: List<T>)
 
     protected open fun msgSuccess(): String = "拉取成功"
@@ -18,11 +18,13 @@ abstract class OnPull<T> {
     suspend fun process(cache: ProfileDataStore): String {
         val key = cacheKey()
         val lastSync = cache.flowString(key).first()
-        val url = "${apiUrl()}?t=$lastSync"
+        val url = apiUrl()
         return try {
-            val respond = apiCall(url)
+            val respond = apiCall(apiUrl(), lastSync)
             if (respond.isOk()) {
-                saveToDb(respond.data)
+                val data = respond.data
+                Log.i("onPull", data[0].toString())
+                saveToDb(data)
                 cache.writeString(key, TimeUtils.dateTimeToString(LocalDateTime.now()))
                 msgSuccess()
             } else {

@@ -10,7 +10,6 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -31,73 +30,97 @@ interface MirrorService {
     suspend fun pushVoucher(@Url url: String, @Body list: List<Voucher>): HttpRespond<String>
 
     @GET
-    suspend fun pullVoucher(@Url url: String): HttpRespond<List<Voucher>>
+    suspend fun pullVoucher(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Voucher>>
 
     @POST
     suspend fun pushSplit(@Url url: String, @Body list: List<Split>): HttpRespond<String>
 
     @GET
-    suspend fun pullSplit(@Url url: String): HttpRespond<List<Split>>
+    suspend fun pullSplit(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Split>>
 
     @POST
     suspend fun pushAccount(@Url url: String, @Body account: List<Account>): HttpRespond<String>
 
     @GET
-    suspend fun pullAccount(@Url url: String): HttpRespond<List<Account>>
+    suspend fun pullAccount(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Account>>
 
     @POST
     suspend fun pushThing(@Url url: String, @Body list: List<Thing>): HttpRespond<String>
 
     @GET
-    suspend fun pullThing(@Url url: String): HttpRespond<List<Thing>>
+    suspend fun pullThing(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Thing>>
 
     @POST
     suspend fun pushDebt(@Url url: String, @Body list: List<Debt>): HttpRespond<String>
 
     @GET
-    suspend fun pullDebt(@Url url: String): HttpRespond<List<Debt>>
+    suspend fun pullDebt(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Debt>>
 
     @POST
     suspend fun pushRepay(@Url url: String, @Body list: List<Repay>): HttpRespond<String>
 
     @GET
-    suspend fun pullRepay(@Url url: String): HttpRespond<List<Repay>>
+    suspend fun pullRepay(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Repay>>
 
     @POST
     suspend fun pushAsset(@Url url: String, @Body list: List<Asset>): HttpRespond<String>
 
     @GET
-    suspend fun pullAsset(@Url url: String): HttpRespond<List<Asset>>
+    suspend fun pullAsset(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Asset>>
 
     @POST
     suspend fun pushAssetLog(@Url url: String, @Body list: List<AssetLog>): HttpRespond<String>
 
     @GET
-    suspend fun pullAssetLog(@Url url: String): HttpRespond<List<AssetLog>>
+    suspend fun pullAssetLog(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<AssetLog>>
 
     @POST
     suspend fun pushTodo(@Url url: String, @Body list: List<Todo>): HttpRespond<String>
 
     @GET
-    suspend fun pullTodo(@Url url: String): HttpRespond<List<Todo>>
+    suspend fun pullTodo(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Todo>>
 
     @POST
     suspend fun pushTrade(@Url url: String, @Body list: List<Trade>): HttpRespond<String>
 
     @GET
-    suspend fun pullTrade(@Url url: String): HttpRespond<List<Trade>>
+    suspend fun pullTrade(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Trade>>
 
     @POST
     suspend fun pushBalance(@Url url: String, @Body list: List<Balance>): HttpRespond<String>
 
     @GET
-    suspend fun pullBalance(@Url url: String): HttpRespond<List<Balance>>
+    suspend fun pullBalance(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Balance>>
 
     @POST
     suspend fun pushBill(@Url url: String, @Body list: List<Bill>): HttpRespond<String>
 
     @GET
-    suspend fun pullBill(@Url url: String): HttpRespond<List<Bill>>
+    suspend fun pullBill(
+        @Url url: String, @Query("t") syncAt: String
+    ): HttpRespond<List<Bill>>
 
     companion object {
         private val dateTimeSerializer = JsonSerializer<LocalDateTime> { src, _, _ ->

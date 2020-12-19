@@ -33,8 +33,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_ACCOUNT
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Account>> =
-                service.pullAccount(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Account>> =
+                service.pullAccount(url, t)
 
             override suspend fun saveToDb(list: List<Account>) =
                 dao.insertAccount(list)
@@ -61,8 +61,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_BALANCE
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Balance>> =
-                service.pullBalance(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Balance>> =
+                service.pullBalance(url, t)
 
             override suspend fun saveToDb(list: List<Balance>) =
                 dao.insertBalance(list)
@@ -89,8 +89,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_TRADE
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Trade>> =
-                service.pullTrade(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Trade>> =
+                service.pullTrade(url, t)
 
             override suspend fun saveToDb(list: List<Trade>) =
                 dao.insertTrade(list)
@@ -117,8 +117,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_SPLIT
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Split>> =
-                service.pullSplit(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Split>> =
+                service.pullSplit(url, t)
 
             override suspend fun saveToDb(list: List<Split>) =
                 dao.insertSplits(list)
@@ -145,8 +145,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_VOUCHER
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Voucher>> =
-                service.pullVoucher(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Voucher>> =
+                service.pullVoucher(url, t)
 
             override suspend fun saveToDb(list: List<Voucher>) =
                 dao.insertVoucher(list)
@@ -173,8 +173,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_TODO
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Todo>> =
-                service.pullTodo(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Todo>> =
+                service.pullTodo(url, t)
 
             override suspend fun saveToDb(list: List<Todo>) =
                 dao.insertTodo(list)
@@ -201,8 +201,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_THING
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Thing>> =
-                service.pullThing(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Thing>> =
+                service.pullThing(url, t)
 
             override suspend fun saveToDb(list: List<Thing>) =
                 dao.insertThing(list)
@@ -229,8 +229,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_DEBT
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Debt>> =
-                service.pullDebt(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Debt>> =
+                service.pullDebt(url, t)
 
             override suspend fun saveToDb(list: List<Debt>) =
                 dao.insertDebt(list)
@@ -257,8 +257,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_ASSET
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Asset>> =
-                service.pullAsset(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Asset>> =
+                service.pullAsset(url, t)
 
             override suspend fun saveToDb(list: List<Asset>) =
                 dao.insertAsset(list)
@@ -285,8 +285,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_ASSET_LOG
 
-            override suspend fun apiCall(url: String): HttpRespond<List<AssetLog>> =
-                service.pullAssetLog(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<AssetLog>> =
+                service.pullAssetLog(url, t)
 
             override suspend fun saveToDb(list: List<AssetLog>) =
                 dao.insertAssetLog(list)
@@ -313,8 +313,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_BILL
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Bill>> =
-                service.pullBill(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Bill>> =
+                service.pullBill(url, t)
 
             override suspend fun saveToDb(list: List<Bill>) =
                 dao.insertBill(list)
@@ -341,8 +341,8 @@ class MineRepository(
 
             override fun cacheKey(): String = KEY_SYNC_AT_REPAY
 
-            override suspend fun apiCall(url: String): HttpRespond<List<Repay>> =
-                service.pullRepay(url)
+            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Repay>> =
+                service.pullRepay(url, t)
 
             override suspend fun saveToDb(list: List<Repay>) =
                 dao.insertRepay(list)
