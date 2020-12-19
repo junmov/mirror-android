@@ -1,4 +1,4 @@
-package cn.junmov.mirror.mine.api
+package cn.junmov.mirror.sync.api
 
 /* background api */
 const val API_HTTP = "http://"

@@ -1,9 +1,9 @@
-package cn.junmov.mirror.mine.api
+package cn.junmov.mirror.sync.api
 
 import android.util.Log
 import cn.junmov.mirror.core.utility.TimeUtils
-import cn.junmov.mirror.mine.data.HttpRespond
-import cn.junmov.mirror.mine.data.local.ProfileDataStore
+import cn.junmov.mirror.sync.data.HttpRespond
+import cn.junmov.mirror.sync.data.local.ProfileDataStore
 import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
 

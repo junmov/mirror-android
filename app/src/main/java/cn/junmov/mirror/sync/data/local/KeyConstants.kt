@@ -1,4 +1,4 @@
-package cn.junmov.mirror.mine.data.local
+package cn.junmov.mirror.sync.data.local
 
 /* pref key */
 const val KEY_SYNC_AT_ACCOUNT = "account_sync_at"

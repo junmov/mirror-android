@@ -1,4 +1,4 @@
-package cn.junmov.mirror.mine.data.local
+package cn.junmov.mirror.sync.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -9,7 +9,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import cn.junmov.mirror.core.data.dao.*
 import cn.junmov.mirror.core.data.entity.*
-import cn.junmov.mirror.mine.data.local.MineDao
+import cn.junmov.mirror.sync.data.local.MineDao
 
 @Database(
     entities = [

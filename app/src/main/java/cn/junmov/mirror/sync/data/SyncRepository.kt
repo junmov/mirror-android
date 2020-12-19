@@ -1,12 +1,12 @@
-package cn.junmov.mirror.mine.data
+package cn.junmov.mirror.sync.data
 
 import cn.junmov.mirror.core.data.entity.*
-import cn.junmov.mirror.mine.api.*
-import cn.junmov.mirror.mine.data.local.*
+import cn.junmov.mirror.sync.api.*
+import cn.junmov.mirror.sync.data.local.*
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
-class MineRepository(
+class SyncRepository(
     private val cache: ProfileDataStore,
     private val service: MirrorService,
     private val dao: MineDao

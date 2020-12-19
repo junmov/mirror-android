@@ -1,9 +1,9 @@
-package cn.junmov.mirror.mine.api
+package cn.junmov.mirror.sync.api
 
 import cn.junmov.mirror.core.data.entity.*
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.interact.data.BodySignIn
-import cn.junmov.mirror.mine.data.HttpRespond
+import cn.junmov.mirror.sync.data.HttpRespond
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonPrimitive

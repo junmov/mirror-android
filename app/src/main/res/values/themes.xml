@@ -27,4 +27,12 @@
     <style name="Theme.Mirror.Spinner" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?attr/colorSurface</item>
     </style>
+    <style name="Theme.Mirror.Link">
+        <item name="android:minHeight">@dimen/single_line_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:paddingEnd">@dimen/margin_small</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
 </resources>

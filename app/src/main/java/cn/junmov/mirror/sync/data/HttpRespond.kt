@@ -1,4 +1,4 @@
-package cn.junmov.mirror.mine.data
+package cn.junmov.mirror.sync.data
 
 class HttpRespond<T>(
     val status: Int = 0,

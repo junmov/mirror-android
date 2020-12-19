@@ -1,4 +1,4 @@
-package cn.junmov.mirror.mine.data.local
+package cn.junmov.mirror.sync.data.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -20,7 +20,7 @@ class ProfileDataStore(private val ctx: Context) {
     private val dataStore: DataStore<Preferences> = ctx.createDataStore(name = "profiles")
 
     fun flowString(key: String): Flow<String> =
-        dataStore.data.map { pref -> pref[preferencesKey(key)] ?: "2020-07-01 00:00:00" }
+        dataStore.data.map { pref -> pref[preferencesKey(key)] ?: "2010-07-01 00:00:00" }
 
     suspend fun writeString(key: String, value: String) {
         dataStore.edit { pref -> pref[preferencesKey(key)] = value }
