@@ -1,7 +1,7 @@
 package cn.junmov.mirror.wallet.domain
 
-import cn.junmov.mirror.core.data.dao.BalanceDao
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.dao.BalanceDao
+import cn.junmov.mirror.core.data.db.entity.Account
 import java.time.LocalDateTime
 
 class UpdateWalletBalanceUseCase(private val balanceDao: BalanceDao) {

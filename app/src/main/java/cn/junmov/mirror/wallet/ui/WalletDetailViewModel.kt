@@ -2,7 +2,7 @@ package cn.junmov.mirror.wallet.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.voucher.data.ItemVoucher

@@ -2,8 +2,8 @@ package cn.junmov.mirror.sync.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import cn.junmov.mirror.core.data.store.*
 import cn.junmov.mirror.sync.data.SyncRepository
-import cn.junmov.mirror.sync.data.local.*
 import kotlinx.coroutines.launch
 
 class SyncViewModel @ViewModelInject constructor(

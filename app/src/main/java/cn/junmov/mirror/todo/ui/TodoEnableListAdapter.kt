@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.db.entity.Todo
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.core.utility.setString
 import cn.junmov.mirror.todo.data.TodoDiffCallBack

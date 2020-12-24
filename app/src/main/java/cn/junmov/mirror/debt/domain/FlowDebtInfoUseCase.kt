@@ -1,6 +1,6 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.dao.DebtDao
+import cn.junmov.mirror.core.data.db.dao.DebtDao
 import cn.junmov.mirror.core.data.model.DebtInfo
 import kotlinx.coroutines.flow.Flow
 

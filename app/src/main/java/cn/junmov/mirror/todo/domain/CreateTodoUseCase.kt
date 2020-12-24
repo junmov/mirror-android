@@ -1,7 +1,7 @@
 package cn.junmov.mirror.todo.domain
 
-import cn.junmov.mirror.core.data.dao.TodoDao
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.db.dao.TodoDao
+import cn.junmov.mirror.core.data.db.entity.Todo
 
 
 class CreateTodoUseCase(private val dao: TodoDao) {

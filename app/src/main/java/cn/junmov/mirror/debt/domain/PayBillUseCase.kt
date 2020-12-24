@@ -1,9 +1,9 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.dao.BillDao
-import cn.junmov.mirror.core.data.dao.DebtDao
-import cn.junmov.mirror.core.data.entity.Debt
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.dao.BillDao
+import cn.junmov.mirror.core.data.db.dao.DebtDao
+import cn.junmov.mirror.core.data.db.entity.Debt
+import cn.junmov.mirror.core.data.db.entity.Repay
 import java.time.LocalDateTime
 
 class PayBillUseCase(private val billDao: BillDao, private val debtDao: DebtDao) {

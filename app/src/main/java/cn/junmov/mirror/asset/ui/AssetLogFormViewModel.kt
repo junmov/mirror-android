@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.junmov.mirror.asset.domain.CreateAssetLogUseCase
-import cn.junmov.mirror.core.data.entity.AssetLog
+import cn.junmov.mirror.core.data.db.entity.AssetLog
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.launch

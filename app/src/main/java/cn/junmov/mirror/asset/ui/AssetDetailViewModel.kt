@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.asset.domain.FlowAllAssetLogUseCase
 import cn.junmov.mirror.asset.domain.FlowAssetUseCase
-import cn.junmov.mirror.core.data.entity.Asset
-import cn.junmov.mirror.core.data.entity.AssetLog
+import cn.junmov.mirror.core.data.db.entity.Asset
+import cn.junmov.mirror.core.data.db.entity.AssetLog
 
 class AssetDetailViewModel @ViewModelInject constructor(
     private val flowAsset: FlowAssetUseCase,

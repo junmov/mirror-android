@@ -3,7 +3,7 @@ package cn.junmov.mirror.debt.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import cn.junmov.mirror.core.data.entity.Debt
+import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
 

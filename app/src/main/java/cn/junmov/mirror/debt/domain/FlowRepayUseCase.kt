@@ -1,7 +1,7 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.dao.DebtDao
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.dao.DebtDao
+import cn.junmov.mirror.core.data.db.entity.Repay
 import kotlinx.coroutines.flow.Flow
 
 class FlowRepayUseCase(private val dao: DebtDao) {

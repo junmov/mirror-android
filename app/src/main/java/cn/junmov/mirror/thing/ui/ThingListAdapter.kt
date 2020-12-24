@@ -5,7 +5,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import cn.junmov.mirror.core.adapter.AbstractSingleLineListAdapter
 import cn.junmov.mirror.core.adapter.SingleLineModel
-import cn.junmov.mirror.core.data.entity.Thing
+import cn.junmov.mirror.core.data.db.entity.Thing
 
 class ThingListAdapter : AbstractSingleLineListAdapter<Thing>(diff) {
 

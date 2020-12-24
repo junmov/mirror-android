@@ -1,8 +1,10 @@
 package cn.junmov.mirror.sync.data
 
-import cn.junmov.mirror.core.data.entity.*
+import cn.junmov.mirror.core.data.db.dao.MineDao
+import cn.junmov.mirror.core.data.db.entity.*
+import cn.junmov.mirror.core.data.remote.*
+import cn.junmov.mirror.core.data.store.*
 import cn.junmov.mirror.sync.api.*
-import cn.junmov.mirror.sync.data.local.*
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
@@ -11,7 +13,7 @@ class SyncRepository(
     private val service: MirrorService,
     private val dao: MineDao
 ) {
-    fun flowSyncAt(key: String): Flow<String> = cache.flowString(key)
+    fun flowSyncAt(key: String): Flow<String> = cache.flowString(key, "2010-07-01 00:00:00")
 
     suspend fun pushAccount(ipAddress: String): String {
         return object : OnPush<Account>() {

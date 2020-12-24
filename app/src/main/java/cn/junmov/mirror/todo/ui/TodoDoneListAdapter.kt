@@ -2,7 +2,7 @@ package cn.junmov.mirror.todo.ui
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.db.entity.Todo
 import cn.junmov.mirror.todo.data.TodoDiffCallBack
 
 class TodoDoneListAdapter(

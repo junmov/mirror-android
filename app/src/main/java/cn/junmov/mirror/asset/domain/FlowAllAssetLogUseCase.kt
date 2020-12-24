@@ -1,7 +1,7 @@
 package cn.junmov.mirror.asset.domain
 
-import cn.junmov.mirror.core.data.dao.AssetDao
-import cn.junmov.mirror.core.data.entity.AssetLog
+import cn.junmov.mirror.core.data.db.dao.AssetDao
+import cn.junmov.mirror.core.data.db.entity.AssetLog
 import kotlinx.coroutines.flow.Flow
 
 class FlowAllAssetLogUseCase(private val dao: AssetDao) {

@@ -1,15 +1,33 @@
 package cn.junmov.mirror.home.ui
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cn.junmov.mirror.R
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.AbstractTabFragment
+import cn.junmov.mirror.user.ui.UserProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeTabFragment : AbstractTabFragment() {
+
+    private val viewModel: UserProfileViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.isSigned.observe(viewLifecycleOwner) { isSigned ->
+            if (isSigned) {
+                findNavController().navigate(R.id.sign_in_fragment)
+            }
+        }
+    }
 
     override fun pagerAdapter(): FragmentStateAdapter = HomeTabAdapter(this)
 

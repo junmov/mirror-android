@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import cn.junmov.mirror.asset.domain.CreateAssetUseCase
 import cn.junmov.mirror.asset.domain.FlowAllAssetUseCase
-import cn.junmov.mirror.core.data.entity.Asset
+import cn.junmov.mirror.core.data.db.entity.Asset
 import kotlinx.coroutines.launch
 
 class AssetViewModel @ViewModelInject constructor(

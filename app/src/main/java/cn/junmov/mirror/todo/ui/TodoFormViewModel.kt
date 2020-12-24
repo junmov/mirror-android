@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cn.junmov.mirror.core.data.PeriodType
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.model.PeriodType
+import cn.junmov.mirror.core.data.db.entity.Todo
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.todo.domain.CreateTodoUseCase

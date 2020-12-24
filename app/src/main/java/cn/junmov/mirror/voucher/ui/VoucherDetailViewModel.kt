@@ -3,8 +3,8 @@ package cn.junmov.mirror.voucher.ui
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Split
-import cn.junmov.mirror.core.data.entity.Voucher
+import cn.junmov.mirror.core.data.db.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.voucher.domain.*
 import kotlinx.coroutines.launch

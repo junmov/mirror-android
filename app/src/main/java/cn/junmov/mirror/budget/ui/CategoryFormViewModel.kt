@@ -3,8 +3,8 @@ package cn.junmov.mirror.budget.ui
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
-import cn.junmov.mirror.core.data.AccountType
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.model.AccountType
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import cn.junmov.mirror.wallet.domain.CreateAccountUseCase
 import kotlinx.coroutines.launch

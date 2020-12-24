@@ -1,15 +1,15 @@
 package cn.junmov.mirror.debt
 
-import cn.junmov.mirror.core.data.MirrorDatabase
+import cn.junmov.mirror.core.data.db.MirrorDatabase
 import cn.junmov.mirror.debt.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object DebtModule {
     @Singleton
     @Provides

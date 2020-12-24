@@ -1,8 +1,8 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.AccountType
-import cn.junmov.mirror.core.data.dao.AccountDao
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.model.AccountType
+import cn.junmov.mirror.core.data.db.dao.AccountDao
+import cn.junmov.mirror.core.data.db.entity.Account
 import kotlinx.coroutines.flow.Flow
 
 class FlowAllDebtAccountUseCase(private val dao: AccountDao) {

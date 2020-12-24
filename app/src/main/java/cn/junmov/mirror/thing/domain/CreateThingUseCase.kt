@@ -1,7 +1,7 @@
 package cn.junmov.mirror.thing.domain
 
-import cn.junmov.mirror.core.data.dao.ThingDao
-import cn.junmov.mirror.core.data.entity.Thing
+import cn.junmov.mirror.core.data.db.dao.ThingDao
+import cn.junmov.mirror.core.data.db.entity.Thing
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

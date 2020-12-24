@@ -1,7 +1,7 @@
 package cn.junmov.mirror.wallet.domain
 
-import cn.junmov.mirror.core.data.dao.AccountDao
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.dao.AccountDao
+import cn.junmov.mirror.core.data.db.entity.Account
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

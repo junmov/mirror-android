@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.debt.domain.FlowRepayUseCase
 import cn.junmov.mirror.debt.domain.UpdateRepayUseCase

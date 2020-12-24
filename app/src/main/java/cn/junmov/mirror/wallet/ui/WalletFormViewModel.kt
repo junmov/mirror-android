@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.junmov.mirror.wallet.domain.CreateAccountUseCase
-import cn.junmov.mirror.core.data.AccountType
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.model.AccountType
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.launch

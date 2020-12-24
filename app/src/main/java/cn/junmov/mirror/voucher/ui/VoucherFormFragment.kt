@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Thing
+import cn.junmov.mirror.core.data.db.entity.Thing
 import cn.junmov.mirror.core.utility.onClickItem
 import cn.junmov.mirror.core.utility.setupNavigateUp
 import cn.junmov.mirror.databinding.FragmentVoucherFormBinding

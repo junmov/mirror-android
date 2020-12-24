@@ -1,6 +1,6 @@
 package cn.junmov.mirror.wallet.domain
 
-import cn.junmov.mirror.core.data.dao.TradeDao
+import cn.junmov.mirror.core.data.db.dao.TradeDao
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 

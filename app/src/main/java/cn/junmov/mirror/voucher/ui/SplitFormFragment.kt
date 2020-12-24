@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.onClickItem
 import cn.junmov.mirror.databinding.FragmentSplitFormBinding
 import dagger.hilt.android.AndroidEntryPoint

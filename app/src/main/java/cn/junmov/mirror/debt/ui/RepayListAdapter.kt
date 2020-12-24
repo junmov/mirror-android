@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.core.utility.navTo

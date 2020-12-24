@@ -3,7 +3,7 @@ package cn.junmov.mirror.voucher.data
 import androidx.room.ColumnInfo
 import cn.junmov.mirror.core.adapter.TwoLineAble
 import cn.junmov.mirror.core.adapter.TwoLineModel
-import cn.junmov.mirror.core.data.Scheme
+import cn.junmov.mirror.core.data.db.Scheme
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
 import java.time.LocalDate

@@ -4,15 +4,15 @@ import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
 import cn.junmov.mirror.budget.domain.FlowAllSecondaryBudgetUseCase
 import cn.junmov.mirror.budget.domain.FlowBudgetUseCase
 import cn.junmov.mirror.budget.domain.UpdateBudgetUseCase
-import cn.junmov.mirror.core.data.MirrorDatabase
+import cn.junmov.mirror.core.data.db.MirrorDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object BudgetModule {
 
     @Singleton

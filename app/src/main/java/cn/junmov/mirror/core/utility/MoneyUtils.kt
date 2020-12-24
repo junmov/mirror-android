@@ -1,6 +1,6 @@
 package cn.junmov.mirror.core.utility
 
-import cn.junmov.mirror.core.data.AccountType
+import cn.junmov.mirror.core.data.model.AccountType
 import java.math.BigDecimal
 import java.util.regex.Pattern
 

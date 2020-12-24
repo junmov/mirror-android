@@ -1,8 +1,8 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.dao.BillDao
-import cn.junmov.mirror.core.data.dao.DebtDao
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.dao.BillDao
+import cn.junmov.mirror.core.data.db.dao.DebtDao
+import cn.junmov.mirror.core.data.db.entity.Repay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime

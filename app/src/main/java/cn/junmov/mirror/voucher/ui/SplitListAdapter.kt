@@ -3,7 +3,7 @@ package cn.junmov.mirror.voucher.ui
 import androidx.recyclerview.widget.DiffUtil
 import cn.junmov.mirror.core.adapter.AbstractSingleLineListAdapter
 import cn.junmov.mirror.core.adapter.SingleLineModel
-import cn.junmov.mirror.core.data.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Split
 
 class SplitListAdapter : AbstractSingleLineListAdapter<Split>(DIFF_CALL_BACK) {
 

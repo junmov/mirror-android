@@ -3,8 +3,7 @@ package cn.junmov.mirror.thing.domain
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import cn.junmov.mirror.core.data.dao.ThingDao
-import cn.junmov.mirror.core.data.entity.Voucher
+import cn.junmov.mirror.core.data.db.dao.ThingDao
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 

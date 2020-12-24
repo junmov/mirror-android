@@ -1,6 +1,6 @@
 package cn.junmov.mirror.home.domain
 
-import cn.junmov.mirror.core.data.dao.VoucherDao
+import cn.junmov.mirror.core.data.db.dao.VoucherDao
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

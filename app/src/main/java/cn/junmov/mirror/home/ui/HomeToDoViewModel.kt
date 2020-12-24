@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.db.entity.Todo
 import cn.junmov.mirror.todo.domain.DoneTodoUseCase
 import cn.junmov.mirror.home.domain.FlowAllTodayDoneTodoUseCase
 import kotlinx.coroutines.launch

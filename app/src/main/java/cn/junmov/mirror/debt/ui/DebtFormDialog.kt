@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.onClickItem
 import cn.junmov.mirror.core.utility.setupDismiss
 import cn.junmov.mirror.core.widget.FullScreenDialog

@@ -1,6 +1,6 @@
 package cn.junmov.mirror.voucher
 
-import cn.junmov.mirror.core.data.MirrorDatabase
+import cn.junmov.mirror.core.data.db.MirrorDatabase
 import cn.junmov.mirror.voucher.domain.*
 import dagger.Module
 import dagger.Provides

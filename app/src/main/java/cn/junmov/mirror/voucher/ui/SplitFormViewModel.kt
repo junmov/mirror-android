@@ -3,9 +3,9 @@ package cn.junmov.mirror.voucher.ui
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.voucher.domain.FlowAllTradAbleAccountUseCase
-import cn.junmov.mirror.core.data.AccountType
-import cn.junmov.mirror.core.data.entity.Account
-import cn.junmov.mirror.core.data.entity.Split
+import cn.junmov.mirror.core.data.model.AccountType
+import cn.junmov.mirror.core.data.db.entity.Account
+import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import cn.junmov.mirror.voucher.domain.FlowAllSplitByVoucherUseCase

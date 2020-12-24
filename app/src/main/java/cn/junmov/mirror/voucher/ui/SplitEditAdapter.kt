@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.utility.MoneyUtils
 
 class SplitEditAdapter(

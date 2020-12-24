@@ -1,7 +1,7 @@
 package cn.junmov.mirror.voucher.domain
 
-import cn.junmov.mirror.core.data.dao.VoucherDao
-import cn.junmov.mirror.core.data.entity.Voucher
+import cn.junmov.mirror.core.data.db.dao.VoucherDao
+import cn.junmov.mirror.core.data.db.entity.Voucher
 import kotlinx.coroutines.flow.Flow
 
 class FlowVoucherUseCase(private val dao: VoucherDao) {

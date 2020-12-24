@@ -1,8 +1,8 @@
 package cn.junmov.mirror.voucher.domain
 
-import cn.junmov.mirror.core.data.dao.VoucherDao
-import cn.junmov.mirror.core.data.entity.Split
-import cn.junmov.mirror.core.data.entity.Voucher
+import cn.junmov.mirror.core.data.db.dao.VoucherDao
+import cn.junmov.mirror.core.data.db.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

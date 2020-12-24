@@ -1,15 +1,18 @@
 package cn.junmov.mirror.thing
 
-import cn.junmov.mirror.core.data.MirrorDatabase
-import cn.junmov.mirror.thing.domain.*
+import cn.junmov.mirror.core.data.db.MirrorDatabase
+import cn.junmov.mirror.thing.domain.CreateThingUseCase
+import cn.junmov.mirror.thing.domain.FlowAllThingUseCase
+import cn.junmov.mirror.thing.domain.PagingVoucherByThingUseCase
+import cn.junmov.mirror.thing.domain.RenameThingUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object ThingModule {
 
     @Singleton

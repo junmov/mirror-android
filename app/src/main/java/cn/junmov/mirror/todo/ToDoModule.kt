@@ -1,6 +1,6 @@
 package cn.junmov.mirror.todo
 
-import cn.junmov.mirror.core.data.MirrorDatabase
+import cn.junmov.mirror.core.data.db.MirrorDatabase
 import cn.junmov.mirror.todo.domain.ChangeTodoStateUseCase
 import cn.junmov.mirror.todo.domain.CreateTodoUseCase
 import cn.junmov.mirror.todo.domain.DoneTodoUseCase
@@ -8,11 +8,11 @@ import cn.junmov.mirror.todo.domain.FlowAllTodoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object ToDoModule {
 
     @Singleton

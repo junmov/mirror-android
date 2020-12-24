@@ -1,6 +1,6 @@
 package cn.junmov.mirror.todo.domain
 
-import cn.junmov.mirror.core.data.dao.TodoDao
+import cn.junmov.mirror.core.data.db.dao.TodoDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime

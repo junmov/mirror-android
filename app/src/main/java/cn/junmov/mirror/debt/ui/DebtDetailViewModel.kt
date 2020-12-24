@@ -2,8 +2,8 @@ package cn.junmov.mirror.debt.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import cn.junmov.mirror.core.data.entity.Debt
-import cn.junmov.mirror.core.data.entity.Repay
+import cn.junmov.mirror.core.data.db.entity.Debt
+import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.debt.domain.FlowDebtInfoUseCase
 import kotlinx.coroutines.flow.collectLatest

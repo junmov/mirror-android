@@ -3,7 +3,7 @@ package cn.junmov.mirror.debt.ui
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.ListAdapter
-import cn.junmov.mirror.core.data.entity.Debt
+import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.widget.AbstractListFragment
 import dagger.hilt.android.AndroidEntryPoint
 

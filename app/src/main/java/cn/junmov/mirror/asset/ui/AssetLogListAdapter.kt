@@ -3,7 +3,7 @@ package cn.junmov.mirror.asset.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import cn.junmov.mirror.core.data.entity.AssetLog
+import cn.junmov.mirror.core.data.db.entity.AssetLog
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder

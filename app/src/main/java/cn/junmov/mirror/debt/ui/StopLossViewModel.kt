@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import cn.junmov.mirror.core.data.entity.Debt
+import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.debt.domain.FlowDebtUseCase
 import cn.junmov.mirror.debt.domain.StopLossUseCase

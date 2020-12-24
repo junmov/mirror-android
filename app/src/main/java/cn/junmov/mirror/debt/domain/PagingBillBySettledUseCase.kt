@@ -3,8 +3,8 @@ package cn.junmov.mirror.debt.domain
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import cn.junmov.mirror.core.data.dao.BillDao
-import cn.junmov.mirror.core.data.entity.Bill
+import cn.junmov.mirror.core.data.db.dao.BillDao
+import cn.junmov.mirror.core.data.db.entity.Bill
 import kotlinx.coroutines.flow.Flow
 
 class PagingBillBySettledUseCase(private val dao: BillDao) {

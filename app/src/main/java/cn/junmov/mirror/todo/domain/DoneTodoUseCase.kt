@@ -1,7 +1,7 @@
 package cn.junmov.mirror.todo.domain
 
-import cn.junmov.mirror.core.data.dao.TodoDao
-import cn.junmov.mirror.core.data.entity.Todo
+import cn.junmov.mirror.core.data.db.dao.TodoDao
+import cn.junmov.mirror.core.data.db.entity.Todo
 import java.time.LocalDateTime
 
 class DoneTodoUseCase(private val dao: TodoDao) {

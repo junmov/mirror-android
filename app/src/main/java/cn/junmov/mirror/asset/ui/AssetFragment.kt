@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.data.entity.Asset
+import cn.junmov.mirror.core.data.db.entity.Asset
 import cn.junmov.mirror.core.utility.showInputDialog
 import cn.junmov.mirror.core.widget.AbstractListFragment
 import dagger.hilt.android.AndroidEntryPoint

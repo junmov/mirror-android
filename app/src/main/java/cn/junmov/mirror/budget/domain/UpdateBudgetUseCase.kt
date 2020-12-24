@@ -1,7 +1,7 @@
 package cn.junmov.mirror.budget.domain
 
-import cn.junmov.mirror.core.data.dao.AccountDao
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.dao.AccountDao
+import cn.junmov.mirror.core.data.db.entity.Account
 import java.time.LocalDateTime
 
 class UpdateBudgetUseCase(private val dao: AccountDao) {

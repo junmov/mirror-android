@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
-import cn.junmov.mirror.core.data.entity.Account
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.MoneyUtils
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
