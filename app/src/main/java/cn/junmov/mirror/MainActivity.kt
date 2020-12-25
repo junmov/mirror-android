@@ -30,9 +30,17 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.page_home, R.id.page_budget, R.id.page_wallet, R.id.page_mine -> {
+                    toolbar.visibility = View.VISIBLE
                     bottomNavView.visibility = View.VISIBLE
                 }
-                else -> bottomNavView.visibility = View.GONE
+                R.id.sign_in_fragment -> {
+                    toolbar.visibility = View.GONE
+                    bottomNavView.visibility = View.GONE
+                }
+                else -> {
+                    bottomNavView.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
             }
         }
     }

@@ -23,12 +23,15 @@ abstract class AbstractTabFragment : Fragment() {
             tab.text = tabTitle(position)
         }.attach()
         setHasOptionsMenu(hasMenu())
+        whenAfterCreateView()
         return binding.root
     }
 
-    abstract fun pagerAdapter(): FragmentStateAdapter
+    protected abstract fun pagerAdapter(): FragmentStateAdapter
 
-    abstract fun tabTitle(position: Int): String?
+    protected abstract fun tabTitle(position: Int): String?
 
-    open fun hasMenu(): Boolean = false
+    protected open fun hasMenu(): Boolean = false
+
+    protected open fun whenAfterCreateView() {}
 }

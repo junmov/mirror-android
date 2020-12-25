@@ -26,4 +26,12 @@ class ProfileDataStore(private val ctx: Context) {
         dataStore.edit { pref -> pref[preferencesKey(key)] = value }
     }
 
+    fun flowBoolean(key: String, default: Boolean): Flow<Boolean> =
+        dataStore.data.map { pref -> pref[preferencesKey(key)] ?: default }
+
+    suspend  fun writeBoolean(key: String, value: Boolean) {
+        dataStore.edit { pref -> pref[preferencesKey(key)] = value }
+    }
+
+
 }

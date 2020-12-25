@@ -226,7 +226,7 @@
     <fragment
         android:id="@+id/page_mine"
         android:name="cn.junmov.mirror.mine.ui.MineFragment"
-        android:label="我的" >
+        android:label="我的">
         <action
             android:id="@+id/action_page_mine_to_sync_fragment"
             app:destination="@id/sync_fragment" />
@@ -250,4 +250,7 @@
         android:id="@+id/sync_fragment"
         android:name="cn.junmov.mirror.sync.ui.SyncFragment"
         android:label="数据同步" />
+    <fragment
+        android:id="@+id/sign_in_fragment"
+        android:name="cn.junmov.mirror.user.ui.SignInFragment" />
 </navigation>
