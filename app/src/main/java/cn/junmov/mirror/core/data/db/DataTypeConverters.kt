@@ -7,7 +7,6 @@ import cn.junmov.mirror.core.utility.TimeUtils
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.YearMonth
 
 class DataTypeConverters {
 
@@ -28,12 +27,6 @@ class DataTypeConverters {
 
     @TypeConverter
     fun strToDateTime(time: String): LocalDateTime = TimeUtils.stringToDateTime(time)
-
-    @TypeConverter
-    fun yearMonthToStr(time: YearMonth): String = TimeUtils.yearMonthToString(time)
-
-    @TypeConverter
-    fun strToYearMonth(time: String): YearMonth = TimeUtils.stringToYearMonth(time)
 
     @TypeConverter
     fun accountTypeToStr(type: AccountType): String = type.name

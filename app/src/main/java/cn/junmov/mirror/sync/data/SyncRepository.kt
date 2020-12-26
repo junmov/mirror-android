@@ -4,7 +4,8 @@ import cn.junmov.mirror.core.data.db.dao.MineDao
 import cn.junmov.mirror.core.data.db.entity.*
 import cn.junmov.mirror.core.data.remote.*
 import cn.junmov.mirror.core.data.store.*
-import cn.junmov.mirror.sync.api.*
+import cn.junmov.mirror.sync.api.OnPull
+import cn.junmov.mirror.sync.api.OnPush
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 

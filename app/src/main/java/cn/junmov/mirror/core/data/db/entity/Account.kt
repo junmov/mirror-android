@@ -54,6 +54,12 @@ data class Account(
         }
     }
 
+    fun recycle(dateTime: LocalDateTime) {
+        inflow = 0
+        outflow = 0
+        modifiedAt = dateTime
+    }
+
     override fun toString(): String = fullName
 
 }

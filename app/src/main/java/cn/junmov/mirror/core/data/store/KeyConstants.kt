@@ -19,3 +19,5 @@ const val KEY_USER_USERNAME = "user_username"
 const val KEY_USER_NICK_NAME = "user_nick_name"
 const val KEY_TOKEN_REFRESH = "refresh_token"
 const val KEY_TOKEN_ACCESS = "access_token"
+
+const val KEY_WORK_MONTHLY_BALANCE = "account_last_snapshot_at"
