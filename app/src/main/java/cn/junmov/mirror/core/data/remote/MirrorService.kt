@@ -105,22 +105,6 @@ interface MirrorService {
         @Url url: String, @Query("t") syncAt: String
     ): HttpRespond<List<Trade>>
 
-    @POST
-    suspend fun pushBalance(@Url url: String, @Body list: List<Balance>): HttpRespond<String>
-
-    @GET
-    suspend fun pullBalance(
-        @Url url: String, @Query("t") syncAt: String
-    ): HttpRespond<List<Balance>>
-
-    @POST
-    suspend fun pushBill(@Url url: String, @Body list: List<Bill>): HttpRespond<String>
-
-    @GET
-    suspend fun pullBill(
-        @Url url: String, @Query("t") syncAt: String
-    ): HttpRespond<List<Bill>>
-
     companion object {
         private val dateTimeSerializer = JsonSerializer<LocalDateTime> { src, _, _ ->
             JsonPrimitive(TimeUtils.dateTimeToString(src))

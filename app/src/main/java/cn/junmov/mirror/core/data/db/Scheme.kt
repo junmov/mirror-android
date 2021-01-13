@@ -2,8 +2,8 @@ package cn.junmov.mirror.core.data.db
 
 object Scheme {
 
-    const val DATABASE_NAME = "mirror_v2.db"
-    const val DATABASE_VERSION = 2
+    const val DATABASE_NAME = "mirror.db"
+    const val DATABASE_VERSION = 1
 
     const val ID = "row_id"
     const val MODIFIED_AT = "modified_at"
@@ -21,18 +21,6 @@ object Scheme {
         const val BASE = "base"
         const val INFLOW = "inflow"
         const val OUTFLOW = "outflow"
-    }
-
-    object Balance {
-        const val TABLE_NAME = "balance"
-        const val START_AT = "start_at"
-        const val END_AT = "end_at"
-        const val ACCOUNT_ID = "account_id"
-        const val NAME = "name"
-        const val BASE = "base"
-        const val TRADE_COUNT = "trade_count"
-        const val INFLOW = "outflow"
-        const val OUTFLOW = "inflow"
     }
 
     object Voucher {
@@ -93,13 +81,6 @@ object Scheme {
         const val INTEREST = "interest"
         const val DATE_AT = "date_at"
         const val CAPITAL = "capital"
-        const val IS_SETTLED = "is_settled"
-    }
-
-    object Bill {
-        const val TABLE_NAME = "bill"
-        const val DATE_AT = "date_at"
-        const val AMOUNT = "amount"
         const val IS_SETTLED = "is_settled"
     }
 

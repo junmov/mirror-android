@@ -27,18 +27,6 @@ interface MineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAssetLog(logs: List<AssetLog>)
 
-    @Query("select * from balance where modified_at > :modified")
-    suspend fun listBalance(modified: LocalDateTime): List<Balance>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBalance(balances: List<Balance>)
-
-    @Query("select * from bill where modified_at > :modified")
-    suspend fun listBill(modified: LocalDateTime): List<Bill>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBill(bills: List<Bill>)
-
     @Query("select * from debt where modified_at > :modified")
     suspend fun listDebt(modified: LocalDateTime): List<Debt>
 

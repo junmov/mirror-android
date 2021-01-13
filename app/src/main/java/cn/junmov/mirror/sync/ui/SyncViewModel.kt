@@ -13,7 +13,6 @@ class SyncViewModel @ViewModelInject constructor(
     val inputIpAddress = MutableLiveData<String>()
 
     val accountLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_ACCOUNT).asLiveData()
-    val balanceLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_BALANCE).asLiveData()
     val thingLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_THING).asLiveData()
     val voucherLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_VOUCHER).asLiveData()
     val splitLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_SPLIT).asLiveData()
@@ -21,7 +20,6 @@ class SyncViewModel @ViewModelInject constructor(
     val assetLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_ASSET).asLiveData()
     val assetLogLastSync: LiveData<String> =
         repository.flowSyncAt(KEY_SYNC_AT_ASSET_LOG).asLiveData()
-    val billLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_BILL).asLiveData()
     val debtLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_DEBT).asLiveData()
     val repayLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_REPAY).asLiveData()
     val todoLastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT_TODO).asLiveData()
@@ -43,20 +41,6 @@ class SyncViewModel @ViewModelInject constructor(
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pullAccount(currentIp)
-        }
-    }
-
-    fun pushBalance() {
-        val currentIp = inputIpAddress.value ?: return
-        viewModelScope.launch {
-            message.value = repository.pushBalance(currentIp)
-        }
-    }
-
-    fun pullBalance() {
-        val currentIp = inputIpAddress.value ?: return
-        viewModelScope.launch {
-            message.value = repository.pullBalance(currentIp)
         }
     }
 
@@ -141,20 +125,6 @@ class SyncViewModel @ViewModelInject constructor(
         val currentIp = inputIpAddress.value ?: return
         viewModelScope.launch {
             message.value = repository.pullAssetLog(currentIp)
-        }
-    }
-
-    fun pushBill() {
-        val currentIp = inputIpAddress.value ?: return
-        viewModelScope.launch {
-            message.value = repository.pushBill(currentIp)
-        }
-    }
-
-    fun pullBill() {
-        val currentIp = inputIpAddress.value ?: return
-        viewModelScope.launch {
-            message.value = repository.pullBill(currentIp)
         }
     }
 

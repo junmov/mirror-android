@@ -79,32 +79,6 @@
                 app:table_name="资产变动表" />
 
             <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_balance"
-                onPull="@{() -> vm.pullBalance()}"
-                onPush="@{() -> vm.pushBalance()}"
-                syncAt="@{vm.balanceLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_asset_log"
-                app:table_name="账户余额表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_bill"
-                onPull="@{() -> vm.pullBill()}"
-                onPush="@{() -> vm.pushBill()}"
-                syncAt="@{vm.billLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_balance"
-                app:table_name="资金日历表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_debt"
                 onPull="@{() -> vm.pullDebt()}"
                 onPush="@{() -> vm.pushDebt()}"
@@ -114,7 +88,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
                 app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_bill"
+                app:layout_constraintTop_toBottomOf="@+id/card_sync_asset_log"
                 app:table_name="债务借款表" />
 
             <cn.junmov.mirror.core.widget.TableSyncCard

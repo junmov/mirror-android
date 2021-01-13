@@ -16,7 +16,7 @@ class RepayFormViewModel @ViewModelInject constructor(
     private val updateRepay: UpdateRepayUseCase
 ) : ViewModel() {
 
-    private val debtItem = MutableLiveData<Repay>()
+    private val repay = MutableLiveData<Repay>()
 
     val inputAmount = MutableLiveData<String>()
     val inputInterest = MutableLiveData<String>()
@@ -26,7 +26,7 @@ class RepayFormViewModel @ViewModelInject constructor(
     fun loadData(itemId: Long) {
         viewModelScope.launch {
             flowRepay(itemId).collectLatest {
-                debtItem.value = it
+                repay.value = it
                 inputAmount.value = MoneyUtils.centToYuan(it.capital)
                 inputInterest.value = MoneyUtils.centToYuan(it.interest)
             }
@@ -36,11 +36,11 @@ class RepayFormViewModel @ViewModelInject constructor(
     fun submit() {
         val amountStr = inputAmount.value ?: return
         val interestStr = inputInterest.value ?: return
-        val currentDebtItem = debtItem.value ?: return
+        val currentRepay = repay.value ?: return
         val amount = MoneyUtils.yuanToCent(amountStr)
         val interest = MoneyUtils.yuanToCent(interestStr)
         viewModelScope.launch {
-            updateRepay(currentDebtItem, amount, interest)
+            updateRepay(currentRepay, amount, interest)
             updated.value = true
         }
     }

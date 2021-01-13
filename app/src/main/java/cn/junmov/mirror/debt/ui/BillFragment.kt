@@ -1,36 +1,34 @@
 package cn.junmov.mirror.debt.ui
 
 import androidx.fragment.app.viewModels
-import androidx.paging.PagingData
-import androidx.paging.PagingDataAdapter
-import cn.junmov.mirror.core.adapter.SingleLineModel
-import cn.junmov.mirror.core.adapter.SingleLinePagingAdapter
-import cn.junmov.mirror.core.widget.PagedListFragment
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.ListAdapter
+import cn.junmov.mirror.core.utility.TimeUtils
+import cn.junmov.mirror.core.widget.AbstractListFragment
+import cn.junmov.mirror.debt.data.DateRepay
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 @AndroidEntryPoint
-class BillFragment : PagedListFragment<SingleLineModel>() {
+class BillFragment : AbstractListFragment<DateRepay>() {
 
     private val viewModel: BillViewModel by viewModels()
 
-    override fun adapter(): PagingDataAdapter<SingleLineModel, *> {
-        return SingleLinePagingAdapter { id, title ->
-            showDialog(id, title)
-        }
+    override fun adapter(): ListAdapter<DateRepay, *> {
+        return DateRepayListAdapter { dateAt -> showDialog(dateAt) }
     }
 
-    override fun pagedData(): Flow<PagingData<SingleLineModel>> = viewModel.bills
-
-    private fun showDialog(billId: Long, title: String) {
+    private fun showDialog(dateAt: LocalDate) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("是否结清此账单")
-            .setMessage(title)
-            .setPositiveButton("是的") { _, _ ->
-                viewModel.submitSettled(billId)
+            .setTitle("还清本期")
+            .setMessage(TimeUtils.dateToString(dateAt))
+            .setPositiveButton("还款") { _, _ ->
+                viewModel.submitSettled(dateAt)
             }
             .setNegativeButton("取消", null)
             .show()
     }
+
+    override fun data(): LiveData<List<DateRepay>> = viewModel.dateRepays
 }

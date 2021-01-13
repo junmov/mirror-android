@@ -1,15 +1,14 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.db.dao.BillDao
 import cn.junmov.mirror.core.data.db.dao.DebtDao
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
+import java.time.LocalDate
 import java.time.LocalDateTime
 
-class PayBillUseCase(private val billDao: BillDao, private val debtDao: DebtDao) {
-    suspend operator fun invoke(billId: Long) {
-        val bill = billDao.findById(billId)
-        val repayAndDebts = debtDao.findAllRepayAndDebtByDate(bill.dateAt)
+class PayDateRepayUseCase(private val debtDao: DebtDao) {
+    suspend operator fun invoke(dateAt: LocalDate) {
+        val repayAndDebts = debtDao.findAllRepayAndDebtByDate(dateAt)
         val now = LocalDateTime.now()
         val repays = mutableListOf<Repay>()
         val debts = mutableListOf<Debt>()
@@ -22,8 +21,6 @@ class PayBillUseCase(private val billDao: BillDao, private val debtDao: DebtDao)
             debt.repay(repay)
             debts.add(debt)
         }
-        bill.settled = true
-        bill.modifiedAt = now
-        debtDao.payBillTransaction(bill, debts, repays)
+        debtDao.payDateRepayTransaction(debts, repays)
     }
 }

@@ -44,34 +44,6 @@ class SyncRepository(
         }.process(cache)
     }
 
-    suspend fun pushBalance(ipAddress: String): String {
-        return object : OnPush<Balance>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_BALANCE"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_BALANCE
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Balance> =
-                dao.listBalance(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Balance>): HttpRespond<String> =
-                service.pushBalance(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullBalance(ipAddress: String): String {
-        return object : OnPull<Balance>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_BALANCE"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_BALANCE
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Balance>> =
-                service.pullBalance(url, t)
-
-            override suspend fun saveToDb(list: List<Balance>) =
-                dao.insertBalance(list)
-        }.process(cache)
-    }
-
     suspend fun pushTrade(ipAddress: String): String {
         return object : OnPush<Trade>() {
             override fun apiUrl(): String = "$API_HTTP$ipAddress$API_TRADE"
@@ -293,34 +265,6 @@ class SyncRepository(
 
             override suspend fun saveToDb(list: List<AssetLog>) =
                 dao.insertAssetLog(list)
-        }.process(cache)
-    }
-
-    suspend fun pushBill(ip: String): String {
-        return object : OnPush<Bill>() {
-            override fun apiUrl(): String = "$API_HTTP$ip$API_BILL"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_BILL
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Bill> =
-                dao.listBill(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Bill>): HttpRespond<String> =
-                service.pushBill(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullBill(ipAddress: String): String {
-        return object : OnPull<Bill>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_BILL"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_BILL
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Bill>> =
-                service.pullBill(url, t)
-
-            override suspend fun saveToDb(list: List<Bill>) =
-                dao.insertBill(list)
         }.process(cache)
     }
 

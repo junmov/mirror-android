@@ -35,6 +35,6 @@ object WalletModule {
     @Singleton
     @Provides
     fun updateWalletBalanceUseCase(database: MirrorDatabase) =
-        UpdateWalletBalanceUseCase(database.balanceDao())
+        UpdateWalletBalanceUseCase(database.accountDao())
 
 }

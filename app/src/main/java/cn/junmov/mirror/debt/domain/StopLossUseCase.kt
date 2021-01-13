@@ -1,6 +1,5 @@
 package cn.junmov.mirror.debt.domain
 
-import cn.junmov.mirror.core.data.db.dao.BillDao
 import cn.junmov.mirror.core.data.db.dao.DebtDao
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
@@ -9,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 
-class StopLossUseCase(private val dao: DebtDao, private val billDao: BillDao) {
+class StopLossUseCase(private val dao: DebtDao) {
     /**
      * 结清[debt]的剩余未结本金以及已经产生的[interest]
      * 1.将所有未结清的分期条目以及该分期条目相关的交易删除
@@ -20,19 +19,10 @@ class StopLossUseCase(private val dao: DebtDao, private val billDao: BillDao) {
         val repaySummary = "提前还款-${debt.summary}"
         val surplusAmount = debt.capital - debt.capitalRepay
         val items = dao.listAllNoSettledRepay(debt.id)
-        val billDate = items.map { it.dateAt }
-        val bills = billDao.listAll(billDate)
-        for (i in items) {
-            i.settled = true
-            i.deleted = true
-            i.modifiedAt = now
-            for (b in bills) {
-                if (i.dateAt == b.dateAt) {
-                    b.amount = b.amount - i.capital - i.interest
-                    b.modifiedAt = now
-                    break
-                }
-            }
+        items.forEach {
+            it.settled = true
+            it.deleted = true
+            it.modifiedAt = now
         }
         val repayItem = Repay(
             id = SnowFlakeUtil.genId(), debtId = debt.id,
@@ -45,7 +35,7 @@ class StopLossUseCase(private val dao: DebtDao, private val billDao: BillDao) {
         debt.settled = true
         debt.modifiedAt = now
         withContext(Dispatchers.IO) {
-            dao.stopLossTransaction(debt, items, repayItem, bills)
+            dao.stopLossTransaction(debt, items, repayItem)
         }
     }
 }
