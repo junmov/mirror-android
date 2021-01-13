@@ -17,9 +17,9 @@ class TodoViewModel @ViewModelInject constructor(
 
     val todoList: LiveData<List<Todo>> = flowAllTodo().asLiveData()
 
-    fun changeScheduleState(todoId: Long, enable: Boolean) {
+    fun changeScheduleState(todo: Todo, enable: Boolean) {
         viewModelScope.launch {
-            changeState(todoId, enable)
+            changeState(todo, enable)
         }
     }
 }

@@ -10,7 +10,7 @@ import cn.junmov.mirror.core.utility.setString
 import cn.junmov.mirror.todo.data.TodoDiffCallBack
 
 class TodoEnableListAdapter(
-    private val change: (Long, Boolean) -> Unit
+    private val change: (Todo, Boolean) -> Unit
 ) : ListAdapter<Todo, TodoEnableViewHolder>(TodoDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoEnableViewHolder {
@@ -21,16 +21,16 @@ class TodoEnableListAdapter(
     }
 
     override fun onBindViewHolder(holder: TodoEnableViewHolder, position: Int) {
-        getItem(position).let {
+        getItem(position).let { todo ->
             with(holder) {
-                summary.text = it.summary
+                summary.text = todo.summary
                 nextRun.setString(
-                    R.string.todo_next_run, TimeUtils.dateToString(it.runAt)
+                    R.string.todo_next_run, TimeUtils.dateToString(todo.runAt)
                 )
-                count.setString(R.string.todo_done_times, it.doneTimes)
-                enable.isChecked = it.enabled
+                count.setString(R.string.todo_done_times, todo.doneTimes)
+                enable.isChecked = todo.enabled
                 enable.setOnCheckedChangeListener { _, isChecked ->
-                    change(it.id, isChecked)
+                    change(todo, isChecked)
                 }
             }
         }

@@ -17,8 +17,8 @@ class TodoFragment : AbstractListFragment<Todo>() {
 
     private val viewModel: TodoViewModel by viewModels()
 
-    override fun adapter(): ListAdapter<Todo, *> = TodoEnableListAdapter { id, enable ->
-        viewModel.changeScheduleState(id, enable)
+    override fun adapter(): ListAdapter<Todo, *> = TodoEnableListAdapter { item, enable ->
+        viewModel.changeScheduleState(item, enable)
     }
 
     override fun data(): LiveData<List<Todo>> = viewModel.todoList
