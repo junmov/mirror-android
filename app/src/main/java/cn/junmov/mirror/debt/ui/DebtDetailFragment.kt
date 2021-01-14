@@ -32,7 +32,7 @@ class DebtDetailFragment : Fragment() {
                 DebtDetailFragmentDirections.actionDebtDetailFragmentToStopLossDialog(args.debtId)
             )
         }
-        viewModel.items.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        viewModel.repays.observe(viewLifecycleOwner) { adapter.submitList(it) }
         viewModel.loadData(args.debtId)
         return binding.root
     }

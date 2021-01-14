@@ -47,12 +47,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:text="@{vm.noSettled}"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/aging_debt_no_settled_amount"
-                        tools:text="待还利息：9000，剩9期还清" />
+                        tools:text="待还利息：9000" />
 
                     <Button
                         android:id="@+id/btn_stop_loss"
@@ -73,6 +71,7 @@
                         android:text="待还本金"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 

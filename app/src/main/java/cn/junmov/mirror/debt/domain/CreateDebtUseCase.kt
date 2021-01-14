@@ -9,12 +9,12 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 
 class CreateDebtUseCase(private val dao: DebtDao) {
-    suspend operator fun invoke(debt: Debt) {
+    suspend operator fun invoke(debt: Debt, interest: Int) {
         val now = LocalDateTime.now()
 
         val repays = mutableListOf<Repay>()
         val amountAvg: Int = debt.capital.div(debt.count)
-        val interestAvg: Int = debt.interest.div(debt.count)
+        val interestAvg: Int = interest.div(debt.count)
 
         withContext(Dispatchers.Default) {
             val size = debt.count
@@ -30,7 +30,6 @@ class CreateDebtUseCase(private val dao: DebtDao) {
                 repays.add(item)
             }
         }
-
         withContext(Dispatchers.IO) {
             dao.createAgingDebtTransaction(debt, repays)
         }

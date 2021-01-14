@@ -20,9 +20,6 @@ interface DebtEntity : CommonField {
     /** 首期入账日 */
     val startAt: LocalDate
 
-    /** 利息 */
-    val interest: Int
-
     /** 是否已结清 */
     var settled: Boolean
 

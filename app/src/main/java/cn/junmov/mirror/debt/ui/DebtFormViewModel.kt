@@ -46,13 +46,12 @@ class DebtFormViewModel @ViewModelInject constructor(
         val debt = Debt(
             id = SnowFlakeUtil.genId(), summary = currentSummary,
             accountId = currentAccount.id, capital = MoneyUtils.yuanToCent(currentCapital),
-            interest = MoneyUtils.yuanToCent(currentInterest),
             count = currentCount.toInt(), startAt = TimeUtils.stringToDate(currentStartAt),
             capitalRepay = 0, interestRepay = 0, countRepay = 0, settled = false
         )
 
         viewModelScope.launch {
-            createAgingDebt(debt)
+            createAgingDebt(debt, MoneyUtils.yuanToCent(currentInterest))
             updated.value = true
         }
 

@@ -5,37 +5,33 @@ import androidx.lifecycle.*
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
-import cn.junmov.mirror.debt.domain.FlowDebtInfoUseCase
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import cn.junmov.mirror.debt.domain.FlowDebtRepaysUseCase
+import cn.junmov.mirror.debt.domain.FlowDebtUseCase
 
 class DebtDetailViewModel @ViewModelInject constructor(
-    private val flowDebtInfo: FlowDebtInfoUseCase
+    private val flowDebt: FlowDebtUseCase,
+    private val flowRepays: FlowDebtRepaysUseCase,
 ) : ViewModel() {
 
-    val debt = MutableLiveData<Debt>()
-    val items = MutableLiveData<List<Repay>>()
+    private val _debtId = MutableLiveData<Long>()
 
-    val noSettled = MutableLiveData<String>()
-    val amount = MutableLiveData<String>()
-    val settled = MutableLiveData<String>()
+    val debt: LiveData<Debt> = _debtId.switchMap { flowDebt(it).asLiveData() }
+
+    val repays: LiveData<List<Repay>> = _debtId.switchMap { flowRepays(it).asLiveData() }
+
+    val noSettled: LiveData<String> = repays.map { list ->
+        val interest = list.filter { !it.settled }.sumOf { it.interest }
+        "待还利息:${MoneyUtils.centToYuan(interest)}"
+    }
+    val amount: LiveData<String> = debt.map { MoneyUtils.centToYuan(it.capital - it.capitalRepay) }
+
+    val settled: LiveData<String> = debt.map {
+        "已还本金:${MoneyUtils.centToYuan(it.capitalRepay)},利息:${MoneyUtils.centToYuan(it.interestRepay)}"
+    }
 
     fun loadData(id: Long) {
         if (id == 0L) return
-        viewModelScope.launch {
-            flowDebtInfo(id).collectLatest { info ->
-                debt.value = info.debt
-                items.value = info.items.filter { !it.deleted }
-                amount.value = MoneyUtils.centToYuan(info.debt.capital - info.debt.capitalRepay)
-                noSettled.value = "待还利息:${
-                    MoneyUtils.centToYuan(info.debt.interest - info.debt.interestRepay)
-                },剩${info.debt.count - info.debt.countRepay}期还清"
-                settled.value =
-                    "已还:${MoneyUtils.centToYuan(info.debt.capitalRepay + info.debt.interestRepay)}(含本金${
-                        MoneyUtils.centToYuan(info.debt.capitalRepay)
-                    },利息${MoneyUtils.centToYuan(info.debt.interestRepay)})"
-            }
-        }
+        _debtId.value = id
     }
 
 }

@@ -22,7 +22,6 @@ data class Debt(
     @ColumnInfo(name = Scheme.Debt.CAPITAL_REPAY) override var capitalRepay: Int,
     @ColumnInfo(name = Scheme.Debt.COUNT) override val count: Int,
     @ColumnInfo(name = Scheme.Debt.COUNT_REPAY) override var countRepay: Int,
-    @ColumnInfo(name = Scheme.Debt.INTEREST) override val interest: Int,
     @ColumnInfo(name = Scheme.Debt.INTEREST_REPAY) override var interestRepay: Int,
     @ColumnInfo(name = Scheme.Debt.IS_SETTLED) override var settled: Boolean,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
@@ -32,10 +31,8 @@ data class Debt(
 
     override fun twoLineData(): TwoLineModel.UiData = TwoLineModel.UiData(
         id = id, primary = summary,
-        secondary = "已还本金:${MoneyUtils.centToYuan(capitalRepay)} 利息:${
-            MoneyUtils.centToYuan(interestRepay)
-        }",
-        action = if (settled) "" else "未还",
+        secondary = "已支付利息:${MoneyUtils.centToYuan(interestRepay)}",
+        action = MoneyUtils.centToYuan(capital - capitalRepay),
         separator = "", title = ""
     )
 
