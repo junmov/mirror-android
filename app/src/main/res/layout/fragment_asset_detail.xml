@@ -16,30 +16,24 @@
         tools:context=".asset.ui.AssetDetailFragment">
 
         <TextView
-            android:id="@+id/label_asset_count"
+            android:id="@+id/asset_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="持有份额"
+            android:text="@{vm.count}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/asset_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintStart_toStartOf="@+id/label_asset_count"
-            app:layout_constraintTop_toBottomOf="@+id/label_asset_count" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="持有数量：12.43" />
 
         <Button
             android:id="@+id/btn_adjust_asset_count"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="调整"
-            app:layout_constraintBottom_toBottomOf="@+id/asset_count"
+            android:layout_marginEnd="8dp"
+            android:text="交易"
+            app:layout_constraintBottom_toBottomOf="@+id/asset_earning"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/asset_count" />
 
@@ -47,18 +41,19 @@
             android:id="@+id/asset_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="投入总成本：20000"
-            app:layout_constraintStart_toStartOf="@+id/label_asset_count"
-            app:layout_constraintTop_toBottomOf="@+id/asset_count" />
+            android:text="@{vm.cost}"
+            app:layout_constraintStart_toStartOf="@+id/asset_count"
+            app:layout_constraintTop_toBottomOf="@+id/asset_count"
+            tools:text="买入：20000" />
 
         <TextView
             android:id="@+id/asset_earning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已取得回报：22222"
-            app:layout_constraintStart_toStartOf="@+id/label_asset_count"
-            app:layout_constraintTop_toBottomOf="@+id/asset_cost" />
+            android:text="@{vm.earning}"
+            app:layout_constraintStart_toStartOf="@+id/asset_count"
+            app:layout_constraintTop_toBottomOf="@+id/asset_cost"
+            tools:text="卖出：22222" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_asset_log"
@@ -77,9 +72,9 @@
             android:id="@+id/label_asset_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="份额变动记录"
-            app:layout_constraintStart_toStartOf="@+id/label_asset_count"
+            android:layout_marginTop="16dp"
+            android:text="交易记录"
+            app:layout_constraintStart_toStartOf="@+id/asset_count"
             app:layout_constraintTop_toBottomOf="@+id/asset_earning" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
