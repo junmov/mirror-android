@@ -27,7 +27,4 @@ interface AccountDao : BaseDao<Account> {
     @Query("select * from account where trad_able = :tradAble and type in (:type) and is_deleted = 0")
     fun flowAllByTypeAndTradAble(tradAble: Boolean, vararg type: AccountType): Flow<List<Account>>
 
-    @Query("select * from account where is_deleted= 0")
-    suspend fun listAll(): List<Account>
-
 }

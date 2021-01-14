@@ -68,14 +68,16 @@ abstract class MirrorDatabase : RoomDatabase() {
                     `is_deleted` INTEGER NOT NULL, 
                     PRIMARY KEY(`row_id`))""".trimMargin()
                 )
-                database.execSQL("""
+                database.execSQL(
+                    """
                     INSERT INTO `new_debt` ( 
                         `row_id`, `summary`, `account_id`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted`
                     ) 
                     SELECT 
                         `row_id`, `summary`, `account_id`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted` 
                     FROM debt
-                """.trimIndent())
+                    """.trimIndent()
+                )
                 database.execSQL("DROP TABLE `debt`")
                 database.execSQL("ALTER TABLE new_debt RENAME TO debt")
             }
