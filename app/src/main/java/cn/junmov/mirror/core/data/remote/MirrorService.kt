@@ -2,6 +2,7 @@ package cn.junmov.mirror.core.data.remote
 
 import cn.junmov.mirror.core.data.db.entity.*
 import cn.junmov.mirror.core.utility.TimeUtils
+import cn.junmov.mirror.sync.data.TableData
 import cn.junmov.mirror.user.data.BodySignIn
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
@@ -104,6 +105,12 @@ interface MirrorService {
     suspend fun pullTrade(
         @Url url: String, @Query("t") syncAt: String
     ): HttpRespond<List<Trade>>
+
+    @GET
+    suspend fun pull(@Url url: String, @Query("t") syncAt: String): HttpRespond<TableData>
+
+    @POST
+    suspend fun push(@Url url: String, @Body data: TableData): HttpRespond<List<Account>>
 
     companion object {
         private val dateTimeSerializer = JsonSerializer<LocalDateTime> { src, _, _ ->

@@ -39,137 +39,19 @@
 
             <cn.junmov.mirror.core.widget.TableSyncCard
                 android:id="@+id/card_sync_account"
-                onPull="@{() -> vm.pullAccount()}"
-                onPush="@{() -> vm.pushAccount()}"
-                syncAt="@{vm.accountLastSync}"
+                onPull="@{() -> vm.pull()}"
+                onPush="@{() -> vm.push()}"
+                syncAt="@{vm.lastSync}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/il_mine_ip_address"
-                app:table_name="交易账户表" />
+                app:table_name="本地数据" />
 
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_asset"
-                onPull="@{() -> vm.pullAsset()}"
-                onPush="@{() -> vm.pushAsset()}"
-                syncAt="@{vm.assetLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_account"
-                app:table_name="资产持有表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_asset_log"
-                onPull="@{() -> vm.pullAssetLog()}"
-                onPush="@{() -> vm.pushAssetLog()}"
-                syncAt="@{vm.assetLogLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_asset"
-                app:table_name="资产变动表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_debt"
-                onPull="@{() -> vm.pullDebt()}"
-                onPush="@{() -> vm.pushDebt()}"
-                syncAt="@{vm.debtLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_asset_log"
-                app:table_name="债务借款表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_repay"
-                onPull="@{() -> vm.pullRepay()}"
-                onPush="@{() -> vm.pushRepay()}"
-                syncAt="@{vm.repayLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_debt"
-                app:table_name="债务还款表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_split"
-                onPull="@{() -> vm.pullSplit()}"
-                onPush="@{() -> vm.pushSplit()}"
-                syncAt="@{vm.splitLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_repay"
-                app:table_name="交易分录表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_thing"
-                onPull="@{() -> vm.pullThing()}"
-                onPush="@{() -> vm.pushThing()}"
-                syncAt="@{vm.thingLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_split"
-                app:table_name="项目账本表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_trade"
-                onPull="@{() -> vm.pullTrade()}"
-                onPush="@{() -> vm.pushTrade()}"
-                syncAt="@{vm.tradeLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_thing"
-                app:table_name="账户交易表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_voucher"
-                onPull="@{() -> vm.pullVoucher()}"
-                onPush="@{() -> vm.pushVoucher()}"
-                syncAt="@{vm.voucherLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_trade"
-                app:table_name="交易信息表" />
-
-            <cn.junmov.mirror.core.widget.TableSyncCard
-                android:id="@+id/card_sync_todo"
-                onPull="@{() -> vm.pullTodo()}"
-                onPush="@{() -> vm.pushTodo()}"
-                syncAt="@{vm.todoLastSync}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/card_sync_account"
-                app:layout_constraintStart_toStartOf="@+id/card_sync_account"
-                app:layout_constraintTop_toBottomOf="@+id/card_sync_voucher"
-                app:table_name="计划任务表" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

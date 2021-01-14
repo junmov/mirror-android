@@ -7,12 +7,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import cn.junmov.mirror.core.data.worker.AccountBalanceMonthlyWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -46,11 +42,6 @@ class MainActivity : AppCompatActivity() {
                     toolbar.visibility = View.VISIBLE
                 }
             }
-        }
-        // 每月1号结转上月余额
-        if (LocalDate.now().dayOfMonth == 1){
-            val request = OneTimeWorkRequestBuilder<AccountBalanceMonthlyWorker>().build()
-            WorkManager.getInstance(applicationContext).enqueue(request)
         }
     }
 }

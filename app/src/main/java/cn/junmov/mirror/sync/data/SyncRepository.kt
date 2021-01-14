@@ -1,299 +1,103 @@
 package cn.junmov.mirror.sync.data
 
 import cn.junmov.mirror.core.data.db.dao.MineDao
-import cn.junmov.mirror.core.data.db.entity.*
-import cn.junmov.mirror.core.data.remote.*
+import cn.junmov.mirror.core.data.remote.API_HTTP
+import cn.junmov.mirror.core.data.remote.API_TABLE
+import cn.junmov.mirror.core.data.remote.MirrorService
 import cn.junmov.mirror.core.data.store.*
-import cn.junmov.mirror.sync.api.OnPull
-import cn.junmov.mirror.sync.api.OnPush
+import cn.junmov.mirror.core.utility.TimeUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
+import java.time.YearMonth
 
 class SyncRepository(
     private val cache: ProfileDataStore,
     private val service: MirrorService,
     private val dao: MineDao
 ) {
-    fun flowSyncAt(key: String): Flow<String> = cache.flowString(key, "2010-07-01 00:00:00")
+    fun flowSyncAt(key: String): Flow<String> = cache.flowString(key, DEFAULT_VALUE_SYNC_AT)
 
-    suspend fun pushAccount(ipAddress: String): String {
-        return object : OnPush<Account>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_ACCOUNT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ACCOUNT
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Account> =
-                dao.listAccount(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Account>): HttpRespond<String> =
-                service.pushAccount(url, list)
-        }.process(cache)
+    suspend fun pull(ipAddress: String): String {
+        val url = "$API_HTTP$ipAddress$API_TABLE"
+        val cacheKey = KEY_SYNC_AT
+        val lastSync = cache.flowString(cacheKey, DEFAULT_VALUE_SYNC_AT).first()
+        return try {
+            val respond = service.pull(url, lastSync)
+            if (respond.isOk()) {
+                val data = respond.data
+                saveToDb(data)
+                cache.writeString(cacheKey, TimeUtils.dateTimeToString(LocalDateTime.now()))
+                "拉取成功"
+            } else {
+                respond.message
+            }
+        } catch (e: Exception) {
+            "网络错误"
+        }
     }
 
-    suspend fun pullAccount(ipAddress: String): String {
-        return object : OnPull<Account>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_ACCOUNT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ACCOUNT
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Account>> =
-                service.pullAccount(url, t)
-
-            override suspend fun saveToDb(list: List<Account>) =
-                dao.insertAccount(list)
-        }.process(cache)
+    private suspend fun saveToDb(data: TableData) {
+        withContext(Dispatchers.IO) {
+            if (data.accounts.isNotEmpty()) dao.insertAccount(data.accounts)
+            if (data.assets.isNotEmpty()) dao.insertAsset(data.assets)
+            if (data.assetLogs.isNotEmpty()) dao.insertAssetLog(data.assetLogs)
+            if (data.debts.isNotEmpty()) dao.insertDebt(data.debts)
+            if (data.repays.isNotEmpty()) dao.insertRepay(data.repays)
+            if (data.things.isNotEmpty()) dao.insertThing(data.things)
+            if (data.todos.isNotEmpty()) dao.insertTodo(data.todos)
+            if (data.trades.isNotEmpty()) dao.insertTrade(data.trades)
+            if (data.splits.isNotEmpty()) dao.insertSplits(data.splits)
+            if (data.vouchers.isNotEmpty()) dao.insertVoucher(data.vouchers)
+        }
     }
 
-    suspend fun pushTrade(ipAddress: String): String {
-        return object : OnPush<Trade>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_TRADE"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_TRADE
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Trade> =
-                dao.listTrade(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Trade>): HttpRespond<String> =
-                service.pushTrade(url, list)
-        }.process(cache)
+    suspend fun push(ipAddress: String): String {
+        val url = "$API_HTTP$ipAddress$API_TABLE"
+        val syncKey = KEY_SYNC_AT
+        val snapshotKey = KEY_SNAPSHOT
+        val lastSync = cache.flowString(syncKey, DEFAULT_VALUE_SYNC_AT).first()
+        val snapshotMonth = cache.flowString(snapshotKey, DEFAULT_VALUE_SNAPSHOT).first()
+        return try {
+            val tableData = dbSource(TimeUtils.stringToDateTime(lastSync))
+            if (TimeUtils.stringToYearMonth(snapshotMonth) == YearMonth.now().minusMonths(1)) {
+                tableData.shouldSnapshot = true
+            }
+            val respond = service.push(url, tableData)
+            if (respond.isOk()) {
+                val data = respond.data
+                if (data.isNotEmpty()) {
+                    dao.insertAccount(data)
+                    cache.writeString(snapshotKey, TimeUtils.yearMonthToString(YearMonth.now()))
+                }
+                cache.writeString(syncKey, TimeUtils.dateTimeToString(LocalDateTime.now()))
+                "推送成功"
+            } else {
+                respond.message
+            }
+        } catch (e: Exception) {
+            "网络错误"
+        }
     }
 
-    suspend fun pullTrade(ipAddress: String): String {
-        return object : OnPull<Trade>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_TRADE"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_TRADE
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Trade>> =
-                service.pullTrade(url, t)
-
-            override suspend fun saveToDb(list: List<Trade>) =
-                dao.insertTrade(list)
-        }.process(cache)
-    }
-
-    suspend fun pushSplit(ipAddress: String): String {
-        return object : OnPush<Split>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_SPLIT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_SPLIT
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Split> =
-                dao.listSplit(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Split>): HttpRespond<String> =
-                service.pushSplit(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullSplit(ipAddress: String): String {
-        return object : OnPull<Split>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_SPLIT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_SPLIT
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Split>> =
-                service.pullSplit(url, t)
-
-            override suspend fun saveToDb(list: List<Split>) =
-                dao.insertSplits(list)
-        }.process(cache)
-    }
-
-    suspend fun pushVoucher(ipAddress: String): String {
-        return object : OnPush<Voucher>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_VOUCHER"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_VOUCHER
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Voucher> =
-                dao.listVoucher(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Voucher>): HttpRespond<String> =
-                service.pushVoucher(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullVoucher(ipAddress: String): String {
-        return object : OnPull<Voucher>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_VOUCHER"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_VOUCHER
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Voucher>> =
-                service.pullVoucher(url, t)
-
-            override suspend fun saveToDb(list: List<Voucher>) =
-                dao.insertVoucher(list)
-        }.process(cache)
-    }
-
-    suspend fun pushTodo(ipAddress: String): String {
-        return object : OnPush<Todo>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_TODO"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_TODO
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Todo> =
-                dao.listTodo(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Todo>): HttpRespond<String> =
-                service.pushTodo(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullTodo(ipAddress: String): String {
-        return object : OnPull<Todo>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_TODO"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_TODO
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Todo>> =
-                service.pullTodo(url, t)
-
-            override suspend fun saveToDb(list: List<Todo>) =
-                dao.insertTodo(list)
-        }.process(cache)
-    }
-
-    suspend fun pushThing(ipAddress: String): String {
-        return object : OnPush<Thing>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_THING"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_THING
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Thing> =
-                dao.listThing(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Thing>): HttpRespond<String> =
-                service.pushThing(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullThing(ipAddress: String): String {
-        return object : OnPull<Thing>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_THING"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_THING
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Thing>> =
-                service.pullThing(url, t)
-
-            override suspend fun saveToDb(list: List<Thing>) =
-                dao.insertThing(list)
-        }.process(cache)
-    }
-
-    suspend fun pushDebt(ipAddress: String): String {
-        return object : OnPush<Debt>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_DEBT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_DEBT
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Debt> =
-                dao.listDebt(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Debt>): HttpRespond<String> =
-                service.pushDebt(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullDebt(ipAddress: String): String {
-        return object : OnPull<Debt>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_DEBT"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_DEBT
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Debt>> =
-                service.pullDebt(url, t)
-
-            override suspend fun saveToDb(list: List<Debt>) =
-                dao.insertDebt(list)
-        }.process(cache)
-    }
-
-    suspend fun pushAsset(ip: String): String {
-        return object : OnPush<Asset>() {
-            override fun apiUrl(): String = "$API_HTTP$ip$API_ASSET"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ASSET
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Asset> =
-                dao.listAsset(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Asset>): HttpRespond<String> =
-                service.pushAsset(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullAsset(ipAddress: String): String {
-        return object : OnPull<Asset>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_ASSET"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ASSET
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Asset>> =
-                service.pullAsset(url, t)
-
-            override suspend fun saveToDb(list: List<Asset>) =
-                dao.insertAsset(list)
-        }.process(cache)
-    }
-
-    suspend fun pushAssetLog(ip: String): String {
-        return object : OnPush<AssetLog>() {
-            override fun apiUrl(): String = "$API_HTTP$ip$API_ASSET_LOG"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ASSET_LOG
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<AssetLog> =
-                dao.listAssetLog(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<AssetLog>): HttpRespond<String> =
-                service.pushAssetLog(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullAssetLog(ipAddress: String): String {
-        return object : OnPull<AssetLog>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_ASSET_LOG"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_ASSET_LOG
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<AssetLog>> =
-                service.pullAssetLog(url, t)
-
-            override suspend fun saveToDb(list: List<AssetLog>) =
-                dao.insertAssetLog(list)
-        }.process(cache)
-    }
-
-    suspend fun pushRepay(ip: String): String {
-        return object : OnPush<Repay>() {
-            override fun apiUrl(): String = "$API_HTTP$ip$API_REPAY"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_REPAY
-
-            override suspend fun dbSource(lastSync: LocalDateTime): List<Repay> =
-                dao.listRepay(lastSync)
-
-            override suspend fun apiCall(url: String, list: List<Repay>): HttpRespond<String> =
-                service.pushRepay(url, list)
-        }.process(cache)
-    }
-
-    suspend fun pullRepay(ipAddress: String): String {
-        return object : OnPull<Repay>() {
-            override fun apiUrl(): String = "$API_HTTP$ipAddress$API_REPAY"
-
-            override fun cacheKey(): String = KEY_SYNC_AT_REPAY
-
-            override suspend fun apiCall(url: String, t: String): HttpRespond<List<Repay>> =
-                service.pullRepay(url, t)
-
-            override suspend fun saveToDb(list: List<Repay>) =
-                dao.insertRepay(list)
-        }.process(cache)
+    private suspend fun dbSource(lastSync: LocalDateTime): TableData {
+        val accounts = dao.listAccount(lastSync)
+        val assets = dao.listAsset(lastSync)
+        val assetLogs = dao.listAssetLog(lastSync)
+        val debts = dao.listDebt(lastSync)
+        val repays = dao.listRepay(lastSync)
+        val splits = dao.listSplit(lastSync)
+        val trades = dao.listTrade(lastSync)
+        val things = dao.listThing(lastSync)
+        val todos = dao.listTodo(lastSync)
+        val vouchers = dao.listVoucher(lastSync)
+        return TableData(
+            accounts = accounts, assets = assets, assetLogs = assetLogs,
+            debts = debts, repays = repays, todos = todos,
+            trades = trades, things = things, splits = splits, vouchers = vouchers
+        )
     }
 
 }
