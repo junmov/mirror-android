@@ -1,17 +1,17 @@
 package cn.junmov.mirror.voucher.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.MainNavDirections
+import cn.junmov.mirror.R
 import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.utility.setupNavigateUp
 import cn.junmov.mirror.core.utility.setupSnackBar
 import cn.junmov.mirror.databinding.FragmentVoucherDetailBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,9 +33,6 @@ class VoucherDetailFragment : Fragment() {
             vm = viewModel
             lifecycleOwner = this@VoucherDetailFragment
             listSplit.adapter = adapter
-            btnEditVoucherInfo.navTo(
-                MainNavDirections.actionGlobalVoucherFormFragment(args.voucherId)
-            )
             btnEditVoucherSplits.navTo(
                 VoucherDetailFragmentDirections.actionVoucherDetailFragmentToSplitFormFragment(args.voucherId)
             )
@@ -51,4 +48,29 @@ class VoucherDetailFragment : Fragment() {
         view.setupNavigateUp(viewLifecycleOwner, viewModel.updated)
         viewModel.splits.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_voucher_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_edit_voucher -> navTo(MainNavDirections.actionGlobalVoucherFormFragment(args.voucherId))
+            R.id.option_remove_voucher -> {
+                showRemoveDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showRemoveDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("删除交易")
+            .setMessage("删除后不可恢复,继续吗？")
+            .setPositiveButton("继续") { _, _ -> viewModel.remove() }
+            .setNegativeButton("取消", null)
+            .show()
+    }
+
 }

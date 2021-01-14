@@ -15,6 +15,7 @@ class VoucherDetailViewModel @ViewModelInject constructor(
     private val flowSplits: FlowAllSplitByVoucherUseCase,
     private val flowVoucher: FlowVoucherUseCase,
     private val copyVoucher: CopyVoucherUseCase,
+    private val removeVoucher: RemoveVoucherUseCase
 ) : ViewModel() {
 
     private val _voucherId = MutableLiveData<Long>()
@@ -61,6 +62,15 @@ class VoucherDetailViewModel @ViewModelInject constructor(
         }
         viewModelScope.launch {
             auditVoucher(currentVoucher, currentSplits)
+        }
+    }
+
+    fun remove() {
+        val currentVoucher = voucher.value ?: return
+        val currentSplits = splits.value ?: return
+        viewModelScope.launch {
+            removeVoucher(currentVoucher, currentSplits)
+            updated.value = true
         }
     }
 

@@ -3,6 +3,8 @@ package cn.junmov.mirror.core.data.db.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import cn.junmov.mirror.core.data.db.Scheme
+import cn.junmov.mirror.core.data.db.entity.Trade
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 
@@ -28,4 +30,7 @@ interface TradeDao {
         """
     )
     fun pagingAccountTrading(accountId: Long): PagingSource<Int, ItemVoucher>
+
+    @Query("select * from trade where voucher_id = :id")
+    suspend fun findAllByVoucher(id: Long): List<Trade>
 }

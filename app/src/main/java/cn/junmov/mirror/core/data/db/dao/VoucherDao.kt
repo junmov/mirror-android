@@ -2,7 +2,9 @@ package cn.junmov.mirror.core.data.db.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.data.db.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Trade
 import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
@@ -34,8 +36,27 @@ interface VoucherDao : BaseDao<Voucher> {
 
     @Query(
         """select row_id, summary, thing_name, date_at, time_at, profit, is_audited 
-        from voucher where date_at between :start and :end order by date_at desc, time_at desc"""
+        from voucher where is_deleted = 0 and date_at between :start and :end order by date_at desc, time_at desc"""
     )
     fun flowAllVoucherBetween(start: LocalDate, end: LocalDate): Flow<List<ItemVoucher>>
+
+    @Transaction
+    suspend fun removeAuditedVoucherTransaction(
+        voucher: Voucher, splits: List<Split>, trades: List<Trade>, accounts: List<Account>
+    ) {
+        update(voucher)
+        updateSplits(splits)
+        if (trades.isNotEmpty()) updateTrades(trades)
+        if (accounts.isNotEmpty()) updateAccounts(accounts)
+    }
+
+    @Update
+    suspend fun updateSplits(splits: List<Split>)
+
+    @Update
+    suspend fun updateAccounts(accounts: List<Account>)
+
+    @Update
+    suspend fun updateTrades(trades: List<Trade>)
 
 }

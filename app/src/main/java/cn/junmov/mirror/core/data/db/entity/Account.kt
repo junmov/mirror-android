@@ -54,11 +54,19 @@ data class Account(
         }
     }
 
-    fun recycle(dateTime: LocalDateTime) {
-        inflow = 0
-        outflow = 0
-        modifiedAt = dateTime
+    fun minusAmount(amount: Int) {
+        if (AccountType.wallets.contains(type)) {
+            base -= amount
+            if (amount >= 0) {
+                inflow -= amount
+            } else {
+                outflow -= amount
+            }
+        } else {
+            outflow -= amount
+        }
     }
+
 
     override fun toString(): String = fullName
 
