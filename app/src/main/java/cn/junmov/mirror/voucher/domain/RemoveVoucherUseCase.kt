@@ -1,7 +1,6 @@
 package cn.junmov.mirror.voucher.domain
 
 import cn.junmov.mirror.core.data.db.dao.AccountDao
-import cn.junmov.mirror.core.data.db.dao.TradeDao
 import cn.junmov.mirror.core.data.db.dao.VoucherDao
 import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.data.db.entity.Voucher
@@ -10,32 +9,50 @@ import java.time.LocalDateTime
 class RemoveVoucherUseCase(
     private val voucherDao: VoucherDao,
     private val accountDao: AccountDao,
-    private val tradeDao: TradeDao,
 ) {
 
     suspend operator fun invoke(voucher: Voucher, splits: List<Split>) {
         val now = LocalDateTime.now()
-        voucher.modifiedAt = now
-        voucher.deleted = true
+        val accountIds = if (voucher.audited) {
+            analysisAccount(splits)
+        } else {
+            emptyList()
+        }
+        val accounts = accountDao.listAllById(accountIds)
         splits.forEach {
             it.modifiedAt = now
             it.deleted = true
-        }
-        val trades = tradeDao.findAllByVoucher(voucher.id)
-        val ids = trades.map { it.accountId }
-        val accounts = accountDao.listAllById(ids)
-        for (a in accounts) {
-            for (t in trades) {
-                if (a.id == t.accountId) {
-                    a.modifiedAt = now
-                    a.minusAmount(t.amount)
-                    t.modifiedAt = now
-                    t.deleted = true
-                    break
+            val delta = it.balanceDelta()
+            var first = false
+            var second = it.accountParentId == 0L
+            for (account in accounts) {
+                if (first && second) break
+                if (!first && it.accountId == account.id) {
+                    account.minusAmount(delta)
+                    first = true
+                }
+                if (!second && it.accountParentId == account.id) {
+                    account.minusAmount(delta)
+                    second = true
                 }
             }
         }
-        voucherDao.removeAuditedVoucherTransaction(voucher, splits, trades, accounts)
+        accounts.forEach {
+            it.modifiedAt = now
+            it.tradeCount--
+        }
+        voucher.modifiedAt = now
+        voucher.deleted = true
+        voucherDao.removeAuditedVoucherTransaction(voucher, splits, accounts)
+    }
+
+    private fun analysisAccount(splits: List<Split>): List<Long> {
+        val accountIds = mutableListOf<Long>()
+        for (s in splits) {
+            accountIds.add(s.accountId)
+            if (s.accountParentId != 0L) accountIds.add(s.accountParentId)
+        }
+        return accountIds.distinct()
     }
 
 }

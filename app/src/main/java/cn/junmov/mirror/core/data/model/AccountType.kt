@@ -98,4 +98,5 @@ enum class AccountType(private val typeName: String) {
         val wallets = arrayOf(FUND, PAYABLE, RECEIVABLE, INVEST)
         val categorys = arrayOf(CONSUME, EXPENSE, ACTIVE, PASSIVE)
     }
+
 }

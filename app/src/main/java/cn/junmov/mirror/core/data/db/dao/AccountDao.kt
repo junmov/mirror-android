@@ -1,9 +1,11 @@
 package cn.junmov.mirror.core.data.db.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import cn.junmov.mirror.core.data.model.AccountType
 import cn.junmov.mirror.core.data.db.entity.Account
+import cn.junmov.mirror.voucher.data.ItemVoucher
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,4 +29,26 @@ interface AccountDao : BaseDao<Account> {
     @Query("select * from account where trad_able = :tradAble and type in (:type) and is_deleted = 0")
     fun flowAllByTypeAndTradAble(tradAble: Boolean, vararg type: AccountType): Flow<List<Account>>
 
+    @Query(
+        """
+        select v.row_id, v.is_audited, v.summary, v.date_at, v.time_at, v.profit, v.thing_name 
+        from voucher v left join split s on s.voucher_id = v.row_id
+        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0
+        group by v.row_id
+        order by v.date_at desc,v.time_at desc
+        """
+    )
+    fun pagingAccountTrading(accountId: Long): PagingSource<Int, ItemVoucher>
+
+    @Query(
+        """
+        select v.row_id, v.is_audited, v.summary, v.date_at, v.time_at, v.profit, v.thing_name 
+        from voucher v left join split s on s.voucher_id = v.row_id
+        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0
+        group by v.row_id
+        order by v.date_at desc,v.time_at desc
+        limit :limit
+        """
+    )
+    fun flowAccountTradeLimit(accountId: Long, limit: Int): Flow<List<ItemVoucher>>
 }

@@ -45,7 +45,7 @@ object VoucherModule {
     @Singleton
     @Provides
     fun removeVoucherUseCase(database: MirrorDatabase) =
-        RemoveVoucherUseCase(database.voucherDao(), database.accountDao(), database.tradeDao())
+        RemoveVoucherUseCase(database.voucherDao(), database.accountDao())
 
     @Singleton
     @Provides

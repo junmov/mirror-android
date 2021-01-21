@@ -48,7 +48,6 @@ class SyncRepository(
             if (data.repays.isNotEmpty()) dao.insertRepay(data.repays)
             if (data.things.isNotEmpty()) dao.insertThing(data.things)
             if (data.todos.isNotEmpty()) dao.insertTodo(data.todos)
-            if (data.trades.isNotEmpty()) dao.insertTrade(data.trades)
             if (data.splits.isNotEmpty()) dao.insertSplits(data.splits)
             if (data.vouchers.isNotEmpty()) dao.insertVoucher(data.vouchers)
         }
@@ -89,14 +88,13 @@ class SyncRepository(
         val debts = dao.listDebt(lastSync)
         val repays = dao.listRepay(lastSync)
         val splits = dao.listSplit(lastSync)
-        val trades = dao.listTrade(lastSync)
         val things = dao.listThing(lastSync)
         val todos = dao.listTodo(lastSync)
         val vouchers = dao.listVoucher(lastSync)
         return TableData(
             accounts = accounts, assets = assets, assetLogs = assetLogs,
             debts = debts, repays = repays, todos = todos,
-            trades = trades, things = things, splits = splits, vouchers = vouchers
+            things = things, splits = splits, vouchers = vouchers
         )
     }
 

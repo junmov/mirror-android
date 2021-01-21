@@ -8,12 +8,12 @@ import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import cn.junmov.mirror.core.adapter.TwoLineModel
-import cn.junmov.mirror.statistics.domain.PagingAccountTradingUseCase
+import cn.junmov.mirror.statistics.domain.PagingVoucherInAccountUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class AccountTradingViewModel @ViewModelInject constructor(
-    private val pagingAccountTrading: PagingAccountTradingUseCase
+    private val pagingAccountTrading: PagingVoucherInAccountUseCase
 ) : ViewModel() {
 
     fun loadData(accountId: Long): Flow<PagingData<TwoLineModel>> {

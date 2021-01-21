@@ -10,7 +10,6 @@ data class TableData(
     val debts: List<Debt> = emptyList(),
     val repays: List<Repay> = emptyList(),
     val todos: List<Todo> = emptyList(),
-    val trades: List<Trade> = emptyList(),
     val vouchers: List<Voucher> = emptyList(),
     val splits: List<Split> = emptyList(),
     val things: List<Thing> = emptyList()

@@ -1,7 +1,7 @@
 package cn.junmov.mirror.statistics
 
 import cn.junmov.mirror.core.data.db.MirrorDatabase
-import cn.junmov.mirror.statistics.domain.PagingAccountTradingUseCase
+import cn.junmov.mirror.statistics.domain.PagingVoucherInAccountUseCase
 import cn.junmov.mirror.statistics.domain.PagingScheduledVoucherUseCase
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ object StatisticsModule {
     @Singleton
     @Provides
     fun pagingAccountTradingUseCase(database: MirrorDatabase) =
-        PagingAccountTradingUseCase(database.tradeDao())
+        PagingVoucherInAccountUseCase(database.accountDao())
 
     @Singleton
     @Provides

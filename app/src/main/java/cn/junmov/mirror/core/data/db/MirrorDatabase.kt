@@ -13,7 +13,7 @@ import cn.junmov.mirror.core.data.db.entity.*
 @Database(
     entities = [
         Account::class, Voucher::class, Split::class,
-        Thing::class, Trade::class,
+        Thing::class,
         Debt::class, Repay::class,
         Asset::class, AssetLog::class,
         Todo::class
@@ -26,7 +26,6 @@ abstract class MirrorDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun thingDao(): ThingDao
     abstract fun voucherDao(): VoucherDao
-    abstract fun tradeDao(): TradeDao
     abstract fun auditDao(): AuditDao
     abstract fun debtDao(): DebtDao
     abstract fun assetDao(): AssetDao
@@ -46,7 +45,13 @@ abstract class MirrorDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): MirrorDatabase {
             return Room.databaseBuilder(
                 context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-            ).addMigrations(MIGRATION_1_2).build()
+            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DROP TABLE `trade`")
+            }
         }
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {

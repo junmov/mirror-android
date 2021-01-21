@@ -25,7 +25,7 @@ object WalletModule {
     @Singleton
     @Provides
     fun flowWalletTradeLimitUseCase(database: MirrorDatabase) =
-        FlowWalletTradeLimitUseCase(database.tradeDao())
+        FlowWalletTradeLimitUseCase(database.accountDao())
 
     @Singleton
     @Provides
