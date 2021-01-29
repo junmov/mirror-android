@@ -1,5 +1,6 @@
 package cn.junmov.mirror.core.data.db.entity
 
+import cn.junmov.mirror.core.data.model.VoucherType
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -30,5 +31,13 @@ interface VoucherEntity : CommonField {
      * 利润 = 收入 - 支出
      */
     var profit: Int
+
+    /**
+     * 交易类型，
+     * 正利润为收、
+     * 负利润为支、
+     * 0为转
+     */
+    var type: VoucherType
 
 }

@@ -45,7 +45,16 @@ abstract class MirrorDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): MirrorDatabase {
             return Room.databaseBuilder(
                 context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
+            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build()
+        }
+
+        private val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `voucher` ADD `type` TEXT DEFAULT '' NOT NULL ")
+                database.execSQL("UPDATE `voucher` SET `type` = 'INCOME' WHERE `profit` > 0 ")
+                database.execSQL("UPDATE `voucher` SET `type` = 'EXPEND' WHERE `profit` < 0 ")
+                database.execSQL("UPDATE `voucher` SET `type` = 'TRANSFER' WHERE `profit` = 0 ")
+            }
         }
 
         private val MIGRATION_2_3 = object : Migration(2, 3) {

@@ -5,6 +5,7 @@ import cn.junmov.mirror.core.data.db.dao.AuditDao
 import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.data.db.entity.Voucher
+import cn.junmov.mirror.core.data.model.VoucherType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -48,6 +49,11 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
             account.tradeCount++
         }
         voucher.profit = profit
+        voucher.type = when {
+            profit > 0 -> VoucherType.INCOME
+            profit < 0 -> VoucherType.EXPEND
+            else -> VoucherType.TRANSFER
+        }
         voucher.audited = true
         voucher.modifiedAt = now
         applyChange(voucher, accounts)

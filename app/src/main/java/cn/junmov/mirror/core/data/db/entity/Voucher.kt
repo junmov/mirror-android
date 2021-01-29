@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import cn.junmov.mirror.core.data.db.Scheme
+import cn.junmov.mirror.core.data.model.VoucherType
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,6 +26,7 @@ data class Voucher(
     @ColumnInfo(name = Scheme.Voucher.THING_ID) override var thingId: Long,
     @ColumnInfo(name = Scheme.Voucher.THING_NAME) override var thingName: String,
     @ColumnInfo(name = Scheme.Voucher.PROFIT) override var profit: Int,
+    @ColumnInfo(name = Scheme.Voucher.TYPE, defaultValue = "''") override var type: VoucherType,
     @ColumnInfo(name = Scheme.Voucher.IS_AUDITED) override var audited: Boolean,
     @ColumnInfo(name = Scheme.Voucher.IS_TEMPLATE) override var template: Boolean,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),

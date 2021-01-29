@@ -3,6 +3,7 @@ package cn.junmov.mirror.core.data.db
 import androidx.room.TypeConverter
 import cn.junmov.mirror.core.data.model.AccountType
 import cn.junmov.mirror.core.data.model.PeriodType
+import cn.junmov.mirror.core.data.model.VoucherType
 import cn.junmov.mirror.core.utility.TimeUtils
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -40,4 +41,9 @@ class DataTypeConverters {
     @TypeConverter
     fun strToPeriodType(type: String): PeriodType = PeriodType.valueOf(type)
 
+    @TypeConverter
+    fun strToVoucherType(type: String): VoucherType = VoucherType.valueOf(type)
+
+    @TypeConverter
+    fun voucherTypeToString(type: VoucherType): String = type.name
 }

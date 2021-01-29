@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.core.data.db.entity.Thing
 import cn.junmov.mirror.core.data.db.entity.Voucher
+import cn.junmov.mirror.core.data.model.VoucherType
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.thing.domain.FlowAllThingUseCase
@@ -51,7 +52,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
         val now = LocalDateTime.now()
         voucher.value = Voucher(
             id = SnowFlakeUtil.genId(), summary = "", dateAt = now.toLocalDate(),
-            timeAt = now.toLocalTime(),
+            timeAt = now.toLocalTime(), type = VoucherType.TRANSFER,
             thingId = 0, thingName = "", profit = 0, template = false, audited = false,
             createAt = now, modifiedAt = now
         )

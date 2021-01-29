@@ -3,7 +3,7 @@ package cn.junmov.mirror.core.data.db
 object Scheme {
 
     const val DATABASE_NAME = "mirror.db"
-    const val DATABASE_VERSION = 3
+    const val DATABASE_VERSION = 4
 
     const val ID = "row_id"
     const val MODIFIED_AT = "modified_at"
@@ -31,6 +31,7 @@ object Scheme {
         const val THING_ID = "thing_id"
         const val THING_NAME = "thing_name"
         const val PROFIT = "profit"
+        const val TYPE = "type"
         const val IS_AUDITED = "is_audited"
         const val IS_TEMPLATE = "is_template"
     }
