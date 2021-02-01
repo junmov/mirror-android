@@ -158,7 +158,7 @@
     <fragment
         android:id="@+id/debt_detail_fragment"
         android:name="cn.junmov.mirror.debt.ui.DebtDetailFragment"
-        android:label="还款详情">
+        android:label="借款详情">
         <argument
             android:name="debt_id"
             app:argType="long" />
