@@ -35,11 +35,11 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
             for (account in accounts) {
                 if (first && second) break
                 if (!first && split.accountId == account.id) {
-                    account.plusAmount(delta)
+                    account.plusAmount(split.debit, split.amount)
                     first = true
                 }
                 if (!second && split.accountParentId == account.id) {
-                    account.plusAmount(delta)
+                    account.plusAmount(split.debit, split.amount)
                     second = true
                 }
             }

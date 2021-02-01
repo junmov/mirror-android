@@ -28,11 +28,11 @@ class RemoveVoucherUseCase(
             for (account in accounts) {
                 if (first && second) break
                 if (!first && it.accountId == account.id) {
-                    account.minusAmount(delta)
+                    account.plusAmount(it.debit, -it.amount)
                     first = true
                 }
                 if (!second && it.accountParentId == account.id) {
-                    account.minusAmount(delta)
+                    account.plusAmount(it.debit, -it.amount)
                     second = true
                 }
             }

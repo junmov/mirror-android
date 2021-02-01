@@ -8,6 +8,4 @@ const val KEY_TOKEN_REFRESH = "refresh_token"
 const val KEY_TOKEN_ACCESS = "access_token"
 
 const val KEY_SYNC_AT = "sync_at"
-const val KEY_SNAPSHOT = "account_last_snapshot_at"
 const val DEFAULT_VALUE_SYNC_AT = "2020-07-01 00:00:00"
-const val DEFAULT_VALUE_SNAPSHOT = "2020-07"

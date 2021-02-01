@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-import java.time.YearMonth
 
 class SyncRepository(
     private val cache: ProfileDataStore,
@@ -56,20 +55,14 @@ class SyncRepository(
     suspend fun push(ipAddress: String): String {
         val url = "$API_HTTP$ipAddress$API_TABLE"
         val syncKey = KEY_SYNC_AT
-        val snapshotKey = KEY_SNAPSHOT
         val lastSync = cache.flowString(syncKey, DEFAULT_VALUE_SYNC_AT).first()
-        val snapshotMonth = cache.flowString(snapshotKey, DEFAULT_VALUE_SNAPSHOT).first()
         return try {
             val tableData = dbSource(TimeUtils.stringToDateTime(lastSync))
-            if (TimeUtils.stringToYearMonth(snapshotMonth) == YearMonth.now().minusMonths(1)) {
-                tableData.shouldSnapshot = true
-            }
             val respond = service.push(url, tableData)
             if (respond.isOk()) {
                 val data = respond.data
                 if (data.isNotEmpty()) {
                     dao.insertAccount(data)
-                    cache.writeString(snapshotKey, TimeUtils.yearMonthToString(YearMonth.now()))
                 }
                 cache.writeString(syncKey, TimeUtils.dateTimeToString(LocalDateTime.now()))
                 "推送成功"

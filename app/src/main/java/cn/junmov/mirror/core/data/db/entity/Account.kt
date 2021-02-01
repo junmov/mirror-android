@@ -41,32 +41,16 @@ data class Account(
         action = MoneyUtils.centToYuan(base + inflow - outflow), title = name, separator = ""
     )
 
-    fun plusAmount(amount: Int) {
-        if (AccountType.wallets.contains(type)) {
-            base += amount
-            if (amount >= 0) {
-                inflow += amount
-            } else {
-                outflow += amount
-            }
+    fun plusAmount(debit: Boolean, amount: Int) {
+        if (debit) {
+            inflow += amount
         } else {
             outflow += amount
         }
-    }
-
-    fun minusAmount(amount: Int) {
         if (AccountType.wallets.contains(type)) {
-            base -= amount
-            if (amount >= 0) {
-                inflow -= amount
-            } else {
-                outflow -= amount
-            }
-        } else {
-            outflow -= amount
+            base += amount
         }
     }
-
 
     override fun toString(): String = fullName
 
