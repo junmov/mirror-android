@@ -5,13 +5,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
+import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
 import cn.junmov.mirror.debt.data.DateRepay
-import java.time.LocalDate
 
-class DateRepayListAdapter(
-    private val onClick: (LocalDate) -> Unit
-) : ListAdapter<DateRepay, TwoLineListItemViewHolder>(diff_call_back) {
+class DateRepayListAdapter : ListAdapter<DateRepay, TwoLineListItemViewHolder>(diff_call_back) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -27,7 +25,11 @@ class DateRepayListAdapter(
         val third = MoneyUtils.centToYuan(data.amount())
         with(holder) {
             bind(first, second, third)
-            itemView.setOnClickListener { onClick(data.dateAt) }
+            itemView.navTo(
+                BillTabFragmentDirections.actionBillTabFragmentToRepayDetailFragment(
+                    TimeUtils.dateToString(data.dateAt)
+                )
+            )
         }
     }
 

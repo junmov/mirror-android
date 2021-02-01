@@ -1,5 +1,6 @@
 package cn.junmov.mirror.debt.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +12,9 @@ import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.utility.setString
 import cn.junmov.mirror.core.widget.ThreeLineListItemViewHolder
 
-class RepayListAdapter : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CALL_BACK) {
+class RepayListAdapter(
+    private val itemClick: (View, Repay) -> Any
+) : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CALL_BACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreeLineListItemViewHolder {
         return ThreeLineListItemViewHolder.create(parent)
@@ -23,7 +26,7 @@ class RepayListAdapter : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CA
             primary.text = data.summary
             secondary.setString(
                 R.string.repay_secondary,
-                MoneyUtils.centToYuan(data.capital+ data.interest),
+                MoneyUtils.centToYuan(data.capital + data.interest),
                 MoneyUtils.centToYuan(data.capital),
                 MoneyUtils.centToYuan(data.interest)
             )
@@ -35,11 +38,7 @@ class RepayListAdapter : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CA
                 if (data.settled) R.string.repay_settled
                 else R.string.repay_no_settled
             )
-            if (!data.settled) {
-                holder.itemView.navTo(
-                    DebtDetailFragmentDirections.actionDebtDetailFragmentToRepayFormDialog(data.id)
-                )
-            }
+            holder.itemView.setOnClickListener { itemClick(it, data) }
         }
     }
 

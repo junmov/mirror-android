@@ -76,4 +76,7 @@ interface DebtDao : BaseDao<Debt> {
 
     @Query("select * from repay where debt_id = :debtId and is_deleted = 0")
     fun flowDebtRepays(debtId: Long): Flow<List<Repay>>
+
+    @Query("select * from repay where date_at = :dateAt and is_settled = 0 and is_deleted = 0")
+    fun flowRepaysByDate(dateAt: LocalDate): Flow<List<Repay>>
 }

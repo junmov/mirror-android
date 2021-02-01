@@ -12,13 +12,9 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class BillViewModel @ViewModelInject constructor(
-    private val flowAllDateRepay: FlowDateRepayUseCase,
-    private val payDateRepay: PayDateRepayUseCase
+    private val flowAllDateRepay: FlowDateRepayUseCase
 ) : ViewModel() {
 
     val dateRepays:LiveData<List<DateRepay>> = flowAllDateRepay().asLiveData()
 
-    fun submitSettled(dateAt: LocalDate) {
-        viewModelScope.launch { payDateRepay(dateAt) }
-    }
 }

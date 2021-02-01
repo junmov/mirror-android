@@ -15,20 +15,7 @@ class BillFragment : AbstractListFragment<DateRepay>() {
 
     private val viewModel: BillViewModel by viewModels()
 
-    override fun adapter(): ListAdapter<DateRepay, *> {
-        return DateRepayListAdapter { dateAt -> showDialog(dateAt) }
-    }
-
-    private fun showDialog(dateAt: LocalDate) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("还清本期")
-            .setMessage(TimeUtils.dateToString(dateAt))
-            .setPositiveButton("还款") { _, _ ->
-                viewModel.submitSettled(dateAt)
-            }
-            .setNegativeButton("取消", null)
-            .show()
-    }
+    override fun adapter(): ListAdapter<DateRepay, *> = DateRepayListAdapter()
 
     override fun data(): LiveData<List<DateRepay>> = viewModel.dateRepays
 }

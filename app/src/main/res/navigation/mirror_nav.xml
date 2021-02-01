@@ -154,6 +154,9 @@
         <action
             android:id="@+id/action_bill_tab_fragment_to_debt_detail_fragment"
             app:destination="@id/debt_detail_fragment" />
+        <action
+            android:id="@+id/action_bill_tab_fragment_to_repay_detail_fragment"
+            app:destination="@id/repay_detail_fragment" />
     </fragment>
     <fragment
         android:id="@+id/debt_detail_fragment"
@@ -253,4 +256,12 @@
     <fragment
         android:id="@+id/sign_in_fragment"
         android:name="cn.junmov.mirror.user.ui.SignInFragment" />
+    <fragment
+        android:id="@+id/repay_detail_fragment"
+        android:name="cn.junmov.mirror.debt.ui.RepayDetailFragment"
+        android:label="还款详情" >
+        <argument
+            android:name="date_at"
+            app:argType="string" />
+    </fragment>
 </navigation>
