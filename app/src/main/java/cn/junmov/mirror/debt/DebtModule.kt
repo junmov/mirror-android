@@ -55,5 +55,9 @@ object DebtModule {
 
     @Singleton
     @Provides
-    fun flowRepaysUseCase(database: MirrorDatabase)= FlowRepaysUseCase(database.debtDao())
+    fun flowRepaysUseCase(database: MirrorDatabase) = FlowRepaysUseCase(database.debtDao())
+
+    @Singleton
+    @Provides
+    fun removeDebtUseCase(database: MirrorDatabase) = RemoveDebtUseCase(database.debtDao())
 }

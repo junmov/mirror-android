@@ -7,10 +7,13 @@ import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.debt.domain.FlowDebtRepaysUseCase
 import cn.junmov.mirror.debt.domain.FlowDebtUseCase
+import cn.junmov.mirror.debt.domain.RemoveDebtUseCase
+import kotlinx.coroutines.launch
 
 class DebtDetailViewModel @ViewModelInject constructor(
     private val flowDebt: FlowDebtUseCase,
     private val flowRepays: FlowDebtRepaysUseCase,
+    private val removeDebt: RemoveDebtUseCase
 ) : ViewModel() {
 
     private val _debtId = MutableLiveData<Long>()
@@ -29,9 +32,20 @@ class DebtDetailViewModel @ViewModelInject constructor(
         "已还本金:${MoneyUtils.centToYuan(it.capitalRepay)},利息:${MoneyUtils.centToYuan(it.interestRepay)}"
     }
 
+    val updated = MutableLiveData(false)
+
     fun loadData(id: Long) {
         if (id == 0L) return
         _debtId.value = id
+    }
+
+    fun removeDebt() {
+        val currentDebt = debt.value ?: return
+        val currentRepays = repays.value ?: return
+        viewModelScope.launch {
+            removeDebt(currentDebt, currentRepays)
+            updated.value = true
+        }
     }
 
 }

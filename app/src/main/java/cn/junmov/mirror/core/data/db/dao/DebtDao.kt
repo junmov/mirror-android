@@ -1,10 +1,8 @@
 package cn.junmov.mirror.core.data.db.dao
 
-import androidx.paging.PagingSource
 import androidx.room.*
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
-import cn.junmov.mirror.core.data.model.DebtInfo
 import cn.junmov.mirror.debt.data.DateRepay
 import cn.junmov.mirror.debt.data.RepayAndDebt
 import kotlinx.coroutines.flow.Flow
@@ -22,13 +20,6 @@ interface DebtDao : BaseDao<Debt> {
     @Insert
     suspend fun insertAllRepay(repays: List<Repay>)
 
-    @Query("select * from debt ORDER BY is_settled, create_at DESC ")
-    fun pagingAgingDebt(): PagingSource<Int, Debt>
-
-    @Transaction
-    @Query("select * from debt where row_id = :id")
-    fun flowAgingDebtInfo(id: Long): Flow<DebtInfo>
-
     @Transaction
     suspend fun createAgingDebtTransaction(debt: Debt, repays: List<Repay>) {
         insert(debt)
@@ -36,7 +27,7 @@ interface DebtDao : BaseDao<Debt> {
     }
 
     @Query("select * from debt where row_id = :id")
-    fun flowAgingDebt(id: Long): Flow<Debt>
+    fun flowDebt(id: Long): Flow<Debt>
 
     @Transaction
     suspend fun stopLossTransaction(debt: Debt, repays: List<Repay>, repay: Repay) {
@@ -79,4 +70,10 @@ interface DebtDao : BaseDao<Debt> {
 
     @Query("select * from repay where date_at = :dateAt and is_settled = 0 and is_deleted = 0")
     fun flowRepaysByDate(dateAt: LocalDate): Flow<List<Repay>>
+
+    @Transaction
+    suspend fun removeDebtTransaction(debt: Debt, repays: List<Repay>) {
+        update(debt)
+        updateAllRepay(repays)
+    }
 }
