@@ -8,7 +8,6 @@ import android.widget.AutoCompleteTextView
 import androidx.databinding.BindingAdapter
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.widget.SheetTitle
-import cn.junmov.mirror.core.widget.TableSyncCard
 import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("noFilterText")
@@ -53,17 +52,3 @@ fun bindArrayRes(view: AutoCompleteTextView, array: Array<String>) {
     view.setAdapter(adapter)
 }
 
-@BindingAdapter("onPush")
-fun bindPush(view: TableSyncCard, click: View.OnClickListener) {
-    view.onPush(click)
-}
-
-@BindingAdapter("syncAt")
-fun bindSyncAt(view: TableSyncCard, value: String?) {
-    view.setSyncAt(value)
-}
-
-@BindingAdapter("onPull")
-fun bindPull(view: TableSyncCard, click: View.OnClickListener) {
-    view.onPull(click)
-}

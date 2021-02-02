@@ -17,12 +17,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/il_mine_ip_address"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_push"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_last_sync">
 
@@ -39,9 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="Junmov"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,26 +47,35 @@
             android:id="@+id/label_last_sync"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="上次同步时间:2020-11-11 21:33:12"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{vm.lastSync}"
             app:layout_constraintStart_toStartOf="@+id/label_username"
-            app:layout_constraintTop_toBottomOf="@+id/label_username" />
+            app:layout_constraintTop_toBottomOf="@+id/label_username"
+            tools:text="上次同步时间:2020-11-11 21:33:12" />
 
-        <cn.junmov.mirror.core.widget.TableSyncCard
-            android:id="@+id/card_sync_account"
-            onPull="@{() -> vm.pull()}"
-            onPush="@{() -> vm.push()}"
-            syncAt="@{vm.lastSync}"
-            android:layout_width="0dp"
+        <ImageButton
+            android:id="@+id/btn_pull"
+            style="@style/Theme.Mirror.IconButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/empty_image_content"
+            android:onClick="@{() -> vm.pull()}"
+            app:layout_constraintBottom_toBottomOf="@+id/label_last_sync"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/il_mine_ip_address"
-            app:table_name="本地数据" />
+            app:layout_constraintTop_toTopOf="@+id/label_username"
+            app:srcCompat="@drawable/ic_baseline_south_west_24" />
+
+        <ImageButton
+            android:id="@+id/btn_push"
+            style="@style/Theme.Mirror.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_image_content"
+            android:onClick="@{() -> vm.push()}"
+            app:layout_constraintBottom_toBottomOf="@+id/il_mine_ip_address"
+            app:layout_constraintEnd_toEndOf="@+id/btn_pull"
+            app:layout_constraintTop_toTopOf="@+id/il_mine_ip_address"
+            app:srcCompat="@drawable/ic_baseline_north_east_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

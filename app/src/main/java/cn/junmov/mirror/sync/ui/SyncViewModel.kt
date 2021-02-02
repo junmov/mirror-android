@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import cn.junmov.mirror.core.data.store.*
 import cn.junmov.mirror.sync.data.SyncRepository
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class SyncViewModel @ViewModelInject constructor(
@@ -12,7 +13,8 @@ class SyncViewModel @ViewModelInject constructor(
 
     val inputIpAddress = MutableLiveData<String>()
 
-    val lastSync: LiveData<String> = repository.flowSyncAt(KEY_SYNC_AT).asLiveData()
+    val lastSync: LiveData<String> =
+        repository.flowSyncAt(KEY_SYNC_AT).map { "上次同步：${it}" }.asLiveData()
 
     val message = MutableLiveData<String>()
 
