@@ -22,14 +22,14 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.page_home, R.id.page_budget, R.id.page_wallet, R.id.page_mine)
+            setOf(R.id.page_home, R.id.page_budget, R.id.page_wallet)
         )
         toolbar.setupWithNavController(navController, appBarConfiguration)
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.page_home, R.id.page_budget, R.id.page_wallet, R.id.page_mine -> {
+                R.id.page_home, R.id.page_budget, R.id.page_wallet  -> {
                     toolbar.visibility = View.VISIBLE
                     bottomNavView.visibility = View.VISIBLE
                 }

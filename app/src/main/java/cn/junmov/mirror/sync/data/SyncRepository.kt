@@ -28,7 +28,7 @@ class SyncRepository(
             if (respond.isOk()) {
                 val data = respond.data
                 saveToDb(data)
-                cache.writeString(cacheKey, TimeUtils.dateTimeToString(LocalDateTime.now()))
+//                cache.writeString(cacheKey, TimeUtils.dateTimeToString(LocalDateTime.now()))
                 "拉取成功"
             } else {
                 respond.message
@@ -55,7 +55,8 @@ class SyncRepository(
     suspend fun push(ipAddress: String): String {
         val url = "$API_HTTP$ipAddress$API_TABLE"
         val syncKey = KEY_SYNC_AT
-        val lastSync = cache.flowString(syncKey, DEFAULT_VALUE_SYNC_AT).first()
+//        val lastSync = cache.flowString(syncKey, DEFAULT_VALUE_SYNC_AT).first()
+        val lastSync = "2020-07-01 00:00:00"
         return try {
             val tableData = dbSource(TimeUtils.stringToDateTime(lastSync))
             val respond = service.push(url, tableData)

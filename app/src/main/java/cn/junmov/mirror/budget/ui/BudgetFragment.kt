@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.databinding.FragmentBudgetBinding
@@ -18,7 +19,13 @@ class BudgetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentBudgetBinding.inflate(inflater, container, false)
-        val adapter = BudgetListAdapter()
+        val adapter = BudgetListAdapter { view, first ->
+            view.findNavController().navigate(
+                BudgetFragmentDirections.actionPageBudgetToBudgetSecondaryFragment(
+                    budgetId = first.id, title = first.name
+                )
+            )
+        }
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@BudgetFragment
