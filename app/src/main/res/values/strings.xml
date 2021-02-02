@@ -2,7 +2,7 @@
     <string name="app_name">Mirror</string>
     <string name="empty_image_content" />
     <string name="error_balance_not_format">金额格式不对</string>
-    <string name="budget_used">本月消费: %s</string>
+    <string name="budget_used">本月消费：%s</string>
     <string name="budget_use_able">预算剩余: %s</string>
     <string name="error_thing_name_no_change">重复的项目名</string>
     <string name="error_audit_voucher">有借必有贷，借贷必相等</string>

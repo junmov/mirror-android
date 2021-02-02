@@ -3,6 +3,7 @@ package cn.junmov.mirror.core.data.db.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import cn.junmov.mirror.budget.data.Budget
 import cn.junmov.mirror.core.data.model.AccountType
 import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.voucher.data.ItemVoucher
@@ -28,6 +29,12 @@ interface AccountDao : BaseDao<Account> {
 
     @Query("select * from account where trad_able = :tradAble and type in (:type) and is_deleted = 0")
     fun flowAllByTypeAndTradAble(tradAble: Boolean, vararg type: AccountType): Flow<List<Account>>
+
+    @Query("""select row_id, name, type, base, inflow, outflow from account where trad_able = 0 and is_deleted = 0""")
+    fun flowFirstBudget(): Flow<List<Budget>>
+
+    @Query("""select row_id, name, type, base, inflow, outflow from account where parent_id = :firstId and is_deleted = 0""")
+    fun flowSecondaryBudget(firstId: Long): Flow<List<Budget>>
 
     @Query(
         """

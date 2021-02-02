@@ -2,6 +2,7 @@ package cn.junmov.mirror.budget.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import cn.junmov.mirror.budget.data.Budget
 import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
 import cn.junmov.mirror.core.data.model.AccountType
 import cn.junmov.mirror.core.data.db.entity.Account
@@ -15,9 +16,9 @@ class CategoryFormViewModel @ViewModelInject constructor(
     private val createCategory: CreateAccountUseCase
 ) : ViewModel() {
 
-    val firstCategory: LiveData<List<Account>> = flowAllFirstCategory().asLiveData()
+    val firstCategory: LiveData<List<Budget>> = flowAllFirstCategory().asLiveData()
 
-    private val inputParent = MutableLiveData<Account>()
+    private val inputParent = MutableLiveData<Budget>()
     val inputType = MutableLiveData<AccountType>()
     val inputName = MutableLiveData<String>()
 
@@ -27,7 +28,7 @@ class CategoryFormViewModel @ViewModelInject constructor(
         inputType.value = type
     }
 
-    fun selectParent(category: Account) {
+    fun selectParent(category: Budget) {
         inputParent.value = category
         inputType.value = category.type
     }
@@ -45,7 +46,7 @@ class CategoryFormViewModel @ViewModelInject constructor(
                 parentId = 0L
                 tradAble = false
             } else {
-                fullName = "${currentParent.fullName}:${currentName}"
+                fullName = "${currentParent.name}:${currentName}"
                 parentId = currentParent.id
                 tradAble = true
             }

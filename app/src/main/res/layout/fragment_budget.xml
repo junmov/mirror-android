@@ -38,16 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/label_total_budget"
             tools:text="@string/budget_used" />
 
-        <TextView
-            android:id="@+id/label_use_able_budget"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{@string/budget_use_able(vm.budgetUseAble)}"
-            app:layout_constraintEnd_toEndOf="@+id/label_used_budget"
-            app:layout_constraintStart_toStartOf="@+id/label_used_budget"
-            app:layout_constraintTop_toBottomOf="@+id/label_used_budget"
-            tools:text="@string/budget_use_able" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -64,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_use_able_budget"
+            app:layout_constraintTop_toBottomOf="@+id/label_used_budget"
             tools:itemCount="9"
             tools:listitem="@layout/list_item_budget" />
 
@@ -87,16 +77,6 @@
             android:text="@{@string/revenue_reach(vm.goalReach)}"
             tools:text="@string/revenue_reach"
             app:layout_constraintBaseline_toBaselineOf="@+id/label_used_budget"
-            app:layout_constraintEnd_toEndOf="@+id/label_revenue_goal"
-            app:layout_constraintStart_toStartOf="@+id/label_revenue_goal" />
-
-        <TextView
-            android:id="@+id/label_not_reach_revenue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{@string/revenue_not_reach(vm.goalNotReach)}"
-            tools:text="@string/revenue_not_reach"
-            app:layout_constraintBaseline_toBaselineOf="@+id/label_use_able_budget"
             app:layout_constraintEnd_toEndOf="@+id/label_revenue_goal"
             app:layout_constraintStart_toStartOf="@+id/label_revenue_goal" />
 

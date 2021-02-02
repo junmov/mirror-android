@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cn.junmov.mirror.budget.data.Budget
 import cn.junmov.mirror.budget.domain.FlowAllFirstBudgetUseCase
-import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.MoneyUtils
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -13,13 +13,11 @@ import kotlinx.coroutines.launch
 class BudgetViewModel @ViewModelInject constructor(
     private val flowAllFirstBudget: FlowAllFirstBudgetUseCase
 ) : ViewModel() {
-    val budgets = MutableLiveData<List<Account>>()
+    val budgets = MutableLiveData<List<Budget>>()
     val budgetTotal = MutableLiveData<String>()
     val budgetUsed = MutableLiveData<String>()
-    val budgetUseAble = MutableLiveData<String>()
     val goalRevenue = MutableLiveData<String>()
     val goalReach = MutableLiveData<String>()
-    val goalNotReach = MutableLiveData<String>()
 
     fun loadData() {
         viewModelScope.launch {
@@ -29,21 +27,19 @@ class BudgetViewModel @ViewModelInject constructor(
             var reach = 0
             flowAllFirstBudget().collectLatest { list ->
                 budgets.value = list
-                list.forEach { category ->
-                    if (category.type.isIncome()) {
-                        goal += category.base + category.inflow
-                        reach += category.outflow
+                list.forEach { budget ->
+                    if (budget.type.isIncome()) {
+                        goal += budget.total()
+                        reach += budget.used()
                     } else {
-                        total += category.base + category.inflow
-                        used += category.outflow
+                        total += budget.total()
+                        used += budget.used()
                     }
                 }
                 budgetTotal.value = MoneyUtils.centToYuan(total)
                 budgetUsed.value = MoneyUtils.centToYuan(used)
-                budgetUseAble.value = MoneyUtils.centToYuan(total - used)
                 goalRevenue.value = MoneyUtils.centToYuan(goal)
                 goalReach.value = MoneyUtils.centToYuan(reach)
-                goalNotReach.value = MoneyUtils.centToYuan(goal - reach)
             }
         }
     }

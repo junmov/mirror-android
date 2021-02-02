@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import cn.junmov.mirror.R
+import cn.junmov.mirror.budget.data.Budget
 import cn.junmov.mirror.core.data.model.AccountType
 import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.utility.onClickItem
@@ -29,13 +30,13 @@ class CategoryFormDialog : FullScreenDialog() {
             requireContext(), R.layout.support_simple_spinner_dropdown_item,
             AccountType.categorys
         )
-        val accountAdapter = ArrayAdapter<Account>(
+        val accountAdapter = ArrayAdapter<Budget>(
             requireContext(), R.layout.support_simple_spinner_dropdown_item,
         )
         binding.apply {
             vm = viewModel
             spinnerCategoryParent.setAdapter(accountAdapter)
-            spinnerCategoryParent.onClickItem { viewModel.selectParent(it as Account) }
+            spinnerCategoryParent.onClickItem { viewModel.selectParent(it as Budget) }
             spinnerCategoryType.setAdapter(typeAdapter)
             spinnerCategoryType.onClickItem { viewModel.selectType(it as AccountType) }
             lifecycleOwner = this@CategoryFormDialog
