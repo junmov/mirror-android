@@ -18,28 +18,27 @@ class AuditVoucherUseCase(private val dao: AuditDao, private val accountDao: Acc
         val accounts = accountDao.listAllById(accountIds)
 
         var profit = 0
-        splits.forEach { split ->
-            val delta = split.balanceDelta()
+        splits.forEach {
             when {
-                split.accountType.isIncome() -> {
-                    profit += delta
+                it.accountType.isIncome() -> {
+                    profit += if (it.debit) -it.amount else it.amount
                 }
-                split.accountType.isExpend() -> {
-                    profit -= delta
+                it.accountType.isExpend() -> {
+                    profit -= if (it.debit) it.amount else -it.amount
                 }
                 else -> {
                 }
             }
             var first = false
-            var second = split.accountParentId == 0L
+            var second = it.accountParentId == 0L
             for (account in accounts) {
                 if (first && second) break
-                if (!first && split.accountId == account.id) {
-                    account.plusAmount(split.debit, split.amount)
+                if (!first && it.accountId == account.id) {
+                    account.plusAmount(it.debit, it.amount)
                     first = true
                 }
-                if (!second && split.accountParentId == account.id) {
-                    account.plusAmount(split.debit, split.amount)
+                if (!second && it.accountParentId == account.id) {
+                    account.plusAmount(it.debit, it.amount)
                     second = true
                 }
             }

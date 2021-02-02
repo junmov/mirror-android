@@ -14,8 +14,8 @@ android {
         applicationId "cn.junmov.mirror"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 43
-        versionName "3.5.8"
+        versionCode 44
+        versionName "3.5.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

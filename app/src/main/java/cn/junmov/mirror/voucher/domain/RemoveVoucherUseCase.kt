@@ -6,10 +6,7 @@ import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.data.db.entity.Voucher
 import java.time.LocalDateTime
 
-class RemoveVoucherUseCase(
-    private val voucherDao: VoucherDao,
-    private val accountDao: AccountDao,
-) {
+class RemoveVoucherUseCase(private val voucherDao: VoucherDao, private val accountDao: AccountDao) {
 
     suspend operator fun invoke(voucher: Voucher, splits: List<Split>) {
         val now = LocalDateTime.now()
@@ -22,7 +19,6 @@ class RemoveVoucherUseCase(
         splits.forEach {
             it.modifiedAt = now
             it.deleted = true
-            val delta = it.balanceDelta()
             var first = false
             var second = it.accountParentId == 0L
             for (account in accounts) {

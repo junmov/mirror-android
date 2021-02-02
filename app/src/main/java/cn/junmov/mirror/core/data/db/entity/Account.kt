@@ -48,7 +48,7 @@ data class Account(
             outflow += amount
         }
         if (AccountType.wallets.contains(type)) {
-            base += amount
+            base += MoneyUtils.computeBalanceDelta(type, debit, amount)
         }
     }
 
