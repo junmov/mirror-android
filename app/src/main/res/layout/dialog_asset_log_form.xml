@@ -29,10 +29,12 @@
             android:id="@+id/il_asset_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/il_asset_unit_price"
-            app:layout_constraintStart_toStartOf="@+id/il_asset_unit_price"
-            app:layout_constraintTop_toBottomOf="@+id/il_asset_unit_price">
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_amount">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -40,23 +42,6 @@
                 android:hint="确认份额"
                 android:inputType="numberDecimal"
                 android:text="@={vm.inputCount}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/il_asset_unit_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/il_asset_amount"
-            app:layout_constraintStart_toStartOf="@+id/cb_asset_is_buy"
-            app:layout_constraintTop_toBottomOf="@+id/il_asset_amount">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="市场单价"
-                android:inputType="numberDecimal"
-                android:text="@={vm.assetLog.unitPrice}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox

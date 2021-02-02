@@ -26,8 +26,7 @@ class AssetLogFormViewModel @ViewModelInject constructor(
         val now = LocalDateTime.now()
         assetLog.value = AssetLog(
             id = SnowFlakeUtil.genId(), assetId = assetId, buy = true, count = 0,
-            amount = 0, unitPrice = "",
-            createAt = now, modifiedAt = now, deleted = false
+            amount = 0, createAt = now, modifiedAt = now, deleted = false
         )
     }
 

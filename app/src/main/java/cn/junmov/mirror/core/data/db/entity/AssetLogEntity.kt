@@ -14,9 +14,6 @@ interface AssetLogEntity : CommonField {
     /** 数量 */
     var count: Int
 
-    /** 市场单价 */
-    var unitPrice: String
-
     /** 买入或卖出的金额 */
     var amount: Int
 
