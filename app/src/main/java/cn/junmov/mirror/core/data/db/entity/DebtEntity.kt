@@ -8,9 +8,6 @@ interface DebtEntity : CommonField {
     /** 描述 */
     var summary: String
 
-    /** 本金账户 */
-    val accountId: Long
-
     /** 本金 */
     val capital: Int
 

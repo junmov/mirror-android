@@ -45,34 +45,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/il_debt_account"
-            style="@style/Theme.Mirror.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_debt_summary">
-
-            <AutoCompleteTextView
-                android:id="@+id/spinner_debt_account"
-                hideKeyboardOnFocus="@{true}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="债务账户"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/il_debt_capital"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_debt_summary"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/il_debt_account">
+            app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
+            app:layout_constraintTop_toBottomOf="@+id/il_debt_summary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -88,10 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintEnd_toEndOf="@+id/il_debt_summary"
             app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_debt_account">
+            app:layout_constraintTop_toBottomOf="@+id/il_debt_interest">
 
             <AutoCompleteTextView
                 android:id="@+id/spinner_debt_count"
@@ -108,10 +86,10 @@
             android:id="@+id/il_debt_start_at"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_debt_summary"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/il_debt_count">
+            app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
+            app:layout_constraintTop_toBottomOf="@+id/il_debt_count">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -128,7 +106,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_debt_summary"
             app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_debt_count">
+            app:layout_constraintTop_toBottomOf="@+id/il_debt_capital">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -137,13 +115,6 @@
                 android:inputType="numberDecimal"
                 android:text="@={vm.interest}" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,7 +16,6 @@ data class Debt(
     @SerializedName("rowId")
     @PrimaryKey @ColumnInfo(name = Scheme.ID) override val id: Long,
     @ColumnInfo(name = Scheme.Debt.SUMMARY) override var summary: String,
-    @ColumnInfo(name = Scheme.Debt.ACCOUNT_ID) override val accountId: Long,
     @ColumnInfo(name = Scheme.Debt.START_AT) override val startAt: LocalDate,
     @ColumnInfo(name = Scheme.Debt.CAPITAL) override val capital: Int,
     @ColumnInfo(name = Scheme.Debt.CAPITAL_REPAY) override var capitalRepay: Int,
