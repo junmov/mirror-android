@@ -49,7 +49,9 @@ abstract class MirrorDatabase : RoomDatabase() {
                 MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6
             ).build()
         }
-
+        /**
+         * 删除了 account_id 字段
+         */
         private val MIGRATION_5_6 = object : Migration(5, 6) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
@@ -83,6 +85,9 @@ abstract class MirrorDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * 删除了市场单价
+         */
         private val MIGRATION_4_5 = object : Migration(4, 5) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
@@ -128,6 +133,9 @@ abstract class MirrorDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * 删除了 interest 字段
+         */
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(

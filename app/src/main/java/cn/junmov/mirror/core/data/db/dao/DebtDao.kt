@@ -3,6 +3,8 @@ package cn.junmov.mirror.core.data.db.dao
 import androidx.room.*
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
+import cn.junmov.mirror.core.data.db.entity.Split
+import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.debt.data.DateRepay
 import cn.junmov.mirror.debt.data.RepayAndDebt
 import kotlinx.coroutines.flow.Flow
@@ -53,10 +55,20 @@ interface DebtDao : BaseDao<Debt> {
     suspend fun findAllRepayAndDebtByDate(dateAt: LocalDate): List<RepayAndDebt>
 
     @Transaction
-    suspend fun payDateRepayTransaction(debts: List<Debt>, repays: List<Repay>) {
+    suspend fun payDateRepayTransaction(
+        debts: List<Debt>, repays: List<Repay>, voucher: Voucher, splits: List<Split>
+    ) {
         update(*debts.toTypedArray())
         updateAllRepay(repays)
+        insertVoucher(voucher)
+        insertSplits(splits)
     }
+
+    @Insert
+    suspend fun insertVoucher(voucher: Voucher)
+
+    @Insert
+    suspend fun insertSplits(splits: List<Split>)
 
     @Query(
         """select r.date_at, sum(r.capital) as capital, sum(r.interest) as interest 
