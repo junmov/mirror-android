@@ -4,6 +4,7 @@ import cn.junmov.mirror.core.data.db.dao.DebtDao
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
+import cn.junmov.mirror.core.utility.VoucherFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -34,8 +35,11 @@ class StopLossUseCase(private val dao: DebtDao) {
         debt.interestRepay += interest
         debt.settled = true
         debt.modifiedAt = now
+        val voucherAndSplits = VoucherFactory.createVoucher(debt.startAt, surplusAmount, interest)
         withContext(Dispatchers.IO) {
-            dao.stopLossTransaction(debt, items, repayItem)
+            dao.stopLossTransaction(
+                debt, items, repayItem, voucherAndSplits.voucher, voucherAndSplits.splits
+            )
         }
     }
 }

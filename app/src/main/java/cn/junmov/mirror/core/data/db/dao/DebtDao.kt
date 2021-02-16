@@ -32,10 +32,14 @@ interface DebtDao : BaseDao<Debt> {
     fun flowDebt(id: Long): Flow<Debt>
 
     @Transaction
-    suspend fun stopLossTransaction(debt: Debt, repays: List<Repay>, repay: Repay) {
+    suspend fun stopLossTransaction(
+        debt: Debt, repays: List<Repay>, repay: Repay, voucher: Voucher, splits: List<Split>
+    ) {
         updateAllRepay(repays)
         insertRepay(repay)
         update(debt)
+        insertVoucher(voucher)
+        insertSplits(splits)
     }
 
     @Query("select * from repay where debt_id = :debtId and is_settled = 0")
