@@ -28,9 +28,11 @@ object VoucherFactory {
         if (interest == 0) return null
         return Split(
             id = id, voucherId = voucherId, amount = interest, debit = true,
-            accountId = 782808877792284737L, accountType = AccountType.EXPENSE,
-            accountName = "其他支出:利息费用", accountParentId = 782808877792284733L, createAt = now,
-            modifiedAt = now, deleted = false
+            accountId = AccountEnum.LI_XI_FEI_YONG.id,
+            accountType = AccountEnum.LI_XI_FEI_YONG.type,
+            accountName = AccountEnum.LI_XI_FEI_YONG.fullName,
+            accountParentId = AccountEnum.QI_TA_ZHI_CHU.id,
+            createAt = now, modifiedAt = now, deleted = false
         )
     }
 
@@ -38,16 +40,16 @@ object VoucherFactory {
         voucherId: Long, id: Long, now: LocalDateTime, date: LocalDate, capital: Int
     ): Split? {
         if (capital == 0) return null
-        val account: Pair<Long, String> = when (date.dayOfMonth) {
-            4 -> 782808877792284686L to "蚂蚁借呗"
-            9 -> 782808877792284685L to "蚂蚁花呗"
-            26 -> 782808877792284687L to "网商贷"
-            else -> 0L to "不存在的应付账户"
+        val account = when (date.dayOfMonth) {
+            4 -> AccountEnum.JIE_BEI
+            9 -> AccountEnum.HUA_BEI
+            26 -> AccountEnum.WANG_SHANG_DAI
+            else -> AccountEnum.NONE
         }
         return Split(
             id = id, voucherId = voucherId, amount = capital, debit = true,
-            accountId = account.first, accountType = AccountType.PAYABLE,
-            accountName = account.second, accountParentId = 0L, createAt = now,
+            accountId = account.id, accountType = AccountType.PAYABLE,
+            accountName = account.fullName, accountParentId = 0L, createAt = now,
             modifiedAt = now, deleted = false
         )
     }
