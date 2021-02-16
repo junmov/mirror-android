@@ -203,6 +203,10 @@
         <argument
             android:name="asset_id"
             app:argType="long" />
+        <argument
+            android:name="asset_log_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </dialog>
     <fragment
         android:id="@+id/asset_detail_fragment"

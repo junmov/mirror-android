@@ -14,7 +14,7 @@ class CopyVoucherUseCase(private val dao: VoucherDao) {
         val ids = SnowFlakeUtil.genIds(splits.size + 1)
         val voucherId = ids[0]
         val newVoucher = voucher.copy(
-            id = voucherId, profit = 0, audited = false, template = false, deleted = false,
+            id = voucherId, profit = 0, audited = false, deleted = false,
             dateAt = now.toLocalDate(), timeAt = now.toLocalTime(), createAt = now, modifiedAt = now
         )
         val newSplits = splits.mapIndexed { index, split ->

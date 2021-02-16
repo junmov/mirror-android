@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.core.utility.setupDismiss
+import cn.junmov.mirror.core.widget.DatePickerFragment
 import cn.junmov.mirror.core.widget.FullScreenDialog
 import cn.junmov.mirror.databinding.DialogAssetLogFormBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class AssetLogFormDialog : FullScreenDialog() {
@@ -17,6 +20,8 @@ class AssetLogFormDialog : FullScreenDialog() {
     private val viewModel: AssetLogFormViewModel by viewModels()
 
     private val args: AssetLogFormDialogArgs by navArgs()
+
+    private lateinit var dateAt: LocalDate
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +31,13 @@ class AssetLogFormDialog : FullScreenDialog() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@AssetLogFormDialog
+            ilAssetLogDateAt.setStartIconOnClickListener {
+                val picker = DatePickerFragment(dateAt) { viewModel.setDateAt(it) }
+                picker.show(parentFragmentManager, DatePickerFragment.TAG)
+            }
         }
-        viewModel.loadData(args.assetId)
+        viewModel.loadData(args.assetId, args.assetLogId)
+        viewModel.inputDateAt.observe(viewLifecycleOwner) { dateAt = TimeUtils.stringToDate(it) }
         return binding.root
     }
 

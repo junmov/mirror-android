@@ -8,7 +8,7 @@ import cn.junmov.mirror.core.data.model.VoucherType
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-object VoucherFactory {
+object DebtVoucherFactory {
 
     fun createVoucher(date: LocalDate, capital: Int, interest: Int): VoucherAndSplit {
         val now = LocalDateTime.now()
@@ -28,9 +28,9 @@ object VoucherFactory {
         if (interest == 0) return null
         return Split(
             id = id, voucherId = voucherId, amount = interest, debit = true,
-            accountId = AccountEnum.LI_XI_FEI_YONG.id,
-            accountType = AccountEnum.LI_XI_FEI_YONG.type,
-            accountName = AccountEnum.LI_XI_FEI_YONG.fullName,
+            accountId = AccountEnum.INTEREST.id,
+            accountType = AccountEnum.INTEREST.type,
+            accountName = AccountEnum.INTEREST.fullName,
             accountParentId = AccountEnum.QI_TA_ZHI_CHU.id,
             createAt = now, modifiedAt = now, deleted = false
         )
@@ -64,7 +64,7 @@ object VoucherFactory {
         return Voucher(
             id = id, summary = summary, dateAt = time.toLocalDate(), timeAt = time.toLocalTime(),
             thingId = ThingEnum.DEBT.id, thingName = ThingEnum.DEBT.thingName,
-            audited = false, type = VoucherType.EXPEND, template = false, profit = 0,
+            audited = false, type = VoucherType.EXPEND, profit = 0,
             createAt = time, modifiedAt = time, deleted = false
         )
     }

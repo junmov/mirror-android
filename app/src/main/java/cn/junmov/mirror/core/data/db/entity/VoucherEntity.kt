@@ -23,9 +23,6 @@ interface VoucherEntity : CommonField {
     /** 是否已入账 */
     var audited: Boolean
 
-    /** 是否为模板 */
-    var template: Boolean
-
     /**
      * 此交易产生的利润
      * 利润 = 收入 - 支出

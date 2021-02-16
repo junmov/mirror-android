@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.databinding.FragmentAssetDetailBinding
@@ -23,7 +24,14 @@ class AssetDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentAssetDetailBinding.inflate(inflater, container, false)
-        val adapter = AssetLogListAdapter()
+        val adapter = AssetLogListAdapter {
+            if (it.success) return@AssetLogListAdapter
+            findNavController().navigate(
+                AssetDetailFragmentDirections.actionAssetDetailFragmentToAssetLogFormDialog(
+                    args.assetId, it.id
+                )
+            )
+        }
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@AssetDetailFragment

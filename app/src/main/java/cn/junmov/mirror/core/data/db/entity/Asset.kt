@@ -28,7 +28,6 @@ data class Asset(
             sell += assetLog.amount
             count -= assetLog.count
         }
-        modifiedAt = assetLog.createAt
     }
 
 }

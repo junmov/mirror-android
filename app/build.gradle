@@ -14,8 +14,8 @@ android {
         applicationId "cn.junmov.mirror"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 54
-        versionName "3.8.7"
+        versionCode 55
+        versionName "3.9.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -85,7 +85,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     // 测试
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.2"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 }

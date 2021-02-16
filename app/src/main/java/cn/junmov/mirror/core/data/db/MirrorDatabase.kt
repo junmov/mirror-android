@@ -46,9 +46,38 @@ abstract class MirrorDatabase : RoomDatabase() {
             return Room.databaseBuilder(
                 context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
             ).addMigrations(
-                MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6
+                MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6,
+                MIGRATION_6_7
             ).build()
         }
+
+        private val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // 新增了 asset_log 的 dateAt 字段
+                // 新增了 asset_log 的 is_success 字段
+                // 新增了 asset_log 的 asset_name 字段
+                database.execSQL("ALTER TABLE `asset_log` ADD `is_success` INTEGER DEFAULT 1 NOT NULL ")
+                database.execSQL("ALTER TABLE `asset_log` ADD `date_at` TEXT DEFAULT '2020-07-01' NOT NULL ")
+                database.execSQL("ALTER TABLE `asset_log` ADD `asset_name` TEXT DEFAULT '' NOT NULL ")
+                database.execSQL("UPDATE `asset_log` SET `asset_name` = (SELECT `name` FROM `asset` WHERE row_id = asset_id ) ")
+                // 删除了 voucher 的 isTemplate 字段
+                database.execSQL("CREATE TABLE IF NOT EXISTS `new_voucher` (`row_id` INTEGER NOT NULL, `summary` TEXT NOT NULL, `date_at` TEXT NOT NULL, `time_at` TEXT NOT NULL, `thing_id` INTEGER NOT NULL, `thing_name` TEXT NOT NULL, `profit` INTEGER NOT NULL, `type` TEXT NOT NULL DEFAULT '', `is_audited` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))")
+                database.execSQL(
+                    """
+                    INSERT INTO `new_voucher`(
+                           `row_id`, `summary`, `date_at`, `time_at`, `thing_id`, `thing_name`, `profit`, `type`, `is_audited`, `create_at`, `modified_at`, `is_deleted` 
+                    )
+                    SELECT 
+                           `row_id`, `summary`, `date_at`, `time_at`, `thing_id`, `thing_name`, `profit`, `type`, `is_audited`, `create_at`, `modified_at`, `is_deleted` 
+                    FROM `voucher`
+                    """.trimIndent()
+                )
+                database.execSQL("DROP TABLE `voucher`")
+                database.execSQL("ALTER TABLE `new_voucher` RENAME TO `voucher`")
+                database.execSQL("CREATE INDEX IF NOT EXISTS `index_voucher_thing_id` ON `voucher` (`thing_id`)")
+            }
+        }
+
         /**
          * 删除了 account_id 字段
          */

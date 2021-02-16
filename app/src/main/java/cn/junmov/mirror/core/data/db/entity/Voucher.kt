@@ -28,7 +28,6 @@ data class Voucher(
     @ColumnInfo(name = Scheme.Voucher.PROFIT) override var profit: Int,
     @ColumnInfo(name = Scheme.Voucher.TYPE, defaultValue = "''") override var type: VoucherType,
     @ColumnInfo(name = Scheme.Voucher.IS_AUDITED) override var audited: Boolean,
-    @ColumnInfo(name = Scheme.Voucher.IS_TEMPLATE) override var template: Boolean,
     @ColumnInfo(name = Scheme.CREATE_AT) override val createAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.MODIFIED_AT) override var modifiedAt: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false,
