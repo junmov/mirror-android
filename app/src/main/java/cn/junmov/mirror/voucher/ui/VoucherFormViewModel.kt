@@ -6,6 +6,7 @@ import cn.junmov.mirror.core.data.db.entity.Thing
 import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.core.data.model.VoucherType
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
+import cn.junmov.mirror.core.utility.ThingEnum
 import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.thing.domain.FlowAllThingUseCase
 import cn.junmov.mirror.voucher.domain.FlowVoucherUseCase
@@ -57,12 +58,13 @@ class VoucherFormViewModel @ViewModelInject constructor(
         voucher.value = Voucher(
             id = SnowFlakeUtil.genId(), summary = "", dateAt = now.toLocalDate(),
             timeAt = now.toLocalTime(), type = VoucherType.TRANSFER,
-            thingId = 0, thingName = "", profit = 0, template = false, audited = false,
+            thingId = ThingEnum.USUAL.id, thingName = ThingEnum.USUAL.thingName,
+            profit = 0, template = false, audited = false,
             createAt = now, modifiedAt = now
         )
         inputDateAt.value = TimeUtils.dateToString(now.toLocalDate())
         inputTimeAt.value = TimeUtils.timeToString(now.toLocalTime())
-        inputThing.value = "未选择"
+        inputThing.value = ThingEnum.USUAL.thingName
         _isCreate = true
     }
 

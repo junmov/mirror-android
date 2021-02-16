@@ -60,8 +60,8 @@ object VoucherFactory {
             else -> "错误数据"
         }
         return Voucher(
-            id = id, summary = summary, dateAt = time.toLocalDate(),
-            timeAt = time.toLocalTime(), thingId = 782808878052331522L, thingName = "借贷账本",
+            id = id, summary = summary, dateAt = time.toLocalDate(), timeAt = time.toLocalTime(),
+            thingId = ThingEnum.DEBT.id, thingName = ThingEnum.DEBT.thingName,
             audited = false, type = VoucherType.EXPEND, template = false, profit = 0,
             createAt = time, modifiedAt = time, deleted = false
         )
