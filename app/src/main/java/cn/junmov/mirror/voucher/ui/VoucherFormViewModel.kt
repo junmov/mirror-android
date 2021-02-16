@@ -12,7 +12,9 @@ import cn.junmov.mirror.voucher.domain.FlowVoucherUseCase
 import cn.junmov.mirror.voucher.domain.SaveVoucherUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class VoucherFormViewModel @ViewModelInject constructor(
     private val flowAllThing: FlowAllThingUseCase,
@@ -26,6 +28,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
 
     val inputDateAt = MutableLiveData<String>()
     val inputTimeAt = MutableLiveData<String>()
+    val inputThing = MutableLiveData<String>()
 
     private var _isCreate = false
     val updated = MutableLiveData<Boolean>()
@@ -44,6 +47,7 @@ class VoucherFormViewModel @ViewModelInject constructor(
                 voucher.value = it
                 inputDateAt.value = TimeUtils.dateToString(it.dateAt)
                 inputTimeAt.value = TimeUtils.timeToString(it.timeAt)
+                inputThing.value = it.thingName
             }
         }
     }
@@ -58,12 +62,21 @@ class VoucherFormViewModel @ViewModelInject constructor(
         )
         inputDateAt.value = TimeUtils.dateToString(now.toLocalDate())
         inputTimeAt.value = TimeUtils.timeToString(now.toLocalTime())
+        inputThing.value = "未选择"
         _isCreate = true
     }
 
     fun selectThing(thing: Thing) {
         voucher.value?.thingId = thing.id
         voucher.value?.thingName = thing.name
+    }
+
+    fun setDate(date: LocalDate) {
+        inputDateAt.value = TimeUtils.dateToString(date)
+    }
+
+    fun setTime(timeAt: LocalTime) {
+        inputTimeAt.value = TimeUtils.timeToString(timeAt)
     }
 
     fun submitVoucher() {
@@ -77,5 +90,6 @@ class VoucherFormViewModel @ViewModelInject constructor(
             updated.value = true
         }
     }
+
 
 }

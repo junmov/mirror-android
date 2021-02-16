@@ -12,6 +12,7 @@ import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.debt.domain.CreateDebtUseCase
 import cn.junmov.mirror.debt.domain.FlowAllDebtAccountUseCase
 import kotlinx.coroutines.launch
+import java.sql.Time
 import java.time.LocalDate
 
 class DebtFormViewModel @ViewModelInject constructor(
@@ -28,6 +29,10 @@ class DebtFormViewModel @ViewModelInject constructor(
     val interest = MutableLiveData<String>()
 
     val updated = MutableLiveData<Boolean>()
+
+    fun setStartDateAt(date: LocalDate) {
+        startAt.value = TimeUtils.dateToString(date)
+    }
 
     fun submit() {
         val currentSummary = summary.value ?: return

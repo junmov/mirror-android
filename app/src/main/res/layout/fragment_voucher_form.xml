@@ -45,6 +45,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/spinner_voucher_thing"
+                noFilterText="@{vm.inputThing}"
                 hideKeyboardOnFocus="@{true}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +60,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_voucher_summary"
             app:layout_constraintStart_toStartOf="@+id/il_voucher_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_voucher_date_at">
+            app:layout_constraintTop_toBottomOf="@+id/il_voucher_date_at"
+            app:startIconCheckable="true"
+            app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -88,7 +91,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_voucher_summary"
             app:layout_constraintStart_toStartOf="@+id/il_voucher_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_voucher_thing">
+            app:layout_constraintTop_toBottomOf="@+id/il_voucher_thing"
+            app:startIconCheckable="true"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -97,17 +102,6 @@
                 android:inputType="date"
                 android:text="@={vm.inputDateAt}" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <CheckBox
-            android:id="@+id/cb_voucher_template"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:checked="@={vm.voucher.template}"
-            android:text="添加到模板"
-            app:layout_constraintEnd_toEndOf="@+id/il_voucher_summary"
-            app:layout_constraintStart_toStartOf="@+id/il_voucher_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_voucher_time_at" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

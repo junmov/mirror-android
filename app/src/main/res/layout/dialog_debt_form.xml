@@ -89,7 +89,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/il_debt_summary"
             app:layout_constraintStart_toStartOf="@+id/il_debt_summary"
-            app:layout_constraintTop_toBottomOf="@+id/il_debt_count">
+            app:layout_constraintTop_toBottomOf="@+id/il_debt_count"
+            app:startIconCheckable="true"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

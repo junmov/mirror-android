@@ -10,10 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.db.entity.Thing
+import cn.junmov.mirror.core.utility.TimeUtils
 import cn.junmov.mirror.core.utility.onClickItem
 import cn.junmov.mirror.core.utility.setupNavigateUp
+import cn.junmov.mirror.core.widget.DatePickerFragment
+import cn.junmov.mirror.core.widget.TimePickerFragment
 import cn.junmov.mirror.databinding.FragmentVoucherFormBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.LocalTime
 
 @AndroidEntryPoint
 class VoucherFormFragment : Fragment() {
@@ -21,6 +26,9 @@ class VoucherFormFragment : Fragment() {
     private val viewModel: VoucherFormViewModel by viewModels()
 
     private val args: VoucherFormFragmentArgs by navArgs()
+
+    private lateinit var date: LocalDate
+    private lateinit var time: LocalTime
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +42,19 @@ class VoucherFormFragment : Fragment() {
             lifecycleOwner = this@VoucherFormFragment
             spinnerVoucherThing.setAdapter(thingAdapter)
             spinnerVoucherThing.onClickItem { viewModel.selectThing(it as Thing) }
+            ilVoucherDateAt.setStartIconOnClickListener {
+                val fragment = DatePickerFragment(date) { dateAt -> viewModel.setDate(dateAt) }
+                fragment.show(parentFragmentManager, DatePickerFragment.TAG)
+            }
+            ilVoucherTimeAt.setStartIconOnClickListener {
+                val fragment = TimePickerFragment(time) { timeAt -> viewModel.setTime(timeAt) }
+                fragment.show(parentFragmentManager, TimePickerFragment.TAG)
+            }
         }
         viewModel.loadData(args.voucherId)
         viewModel.things.observe(viewLifecycleOwner) { thingAdapter.addAll(it) }
+        viewModel.inputDateAt.observe(viewLifecycleOwner) { date = TimeUtils.stringToDate(it) }
+        viewModel.inputTimeAt.observe(viewLifecycleOwner) { time = TimeUtils.stringToTime(it) }
         return binding.root
     }
 
