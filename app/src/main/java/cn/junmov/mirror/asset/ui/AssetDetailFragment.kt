@@ -25,7 +25,6 @@ class AssetDetailFragment : Fragment() {
     ): View {
         val binding = FragmentAssetDetailBinding.inflate(inflater, container, false)
         val adapter = AssetLogListAdapter {
-            if (it.success) return@AssetLogListAdapter
             findNavController().navigate(
                 AssetDetailFragmentDirections.actionAssetDetailFragmentToAssetLogFormDialog(
                     args.assetId, it.id
