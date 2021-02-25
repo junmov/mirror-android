@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AssetDao : BaseDao<Asset> {
-    @Query("select * from asset where is_deleted = 0")
+    @Query("select * from asset where is_deleted = 0 order by modified_at desc")
     fun flowAllAsset(): Flow<List<Asset>>
 
     @Query("select * from asset where row_id = :id")
     fun flowAsset(id: Long): Flow<Asset>
 
-    @Query("select * from asset_log where asset_id = :assetId and is_deleted = 0 ")
+    @Query("select * from asset_log where asset_id = :assetId and is_deleted = 0 order by date_at desc")
     fun flowAllAssetLog(assetId: Long): Flow<List<AssetLog>>
 
     @Query("select * from asset where row_id = :assetId")
