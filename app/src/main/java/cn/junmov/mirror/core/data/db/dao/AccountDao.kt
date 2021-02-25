@@ -40,7 +40,7 @@ interface AccountDao : BaseDao<Account> {
         """
         select v.row_id, v.is_audited, v.summary, v.date_at, v.time_at, v.profit, v.thing_name 
         from voucher v left join split s on s.voucher_id = v.row_id
-        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0
+        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0 and s.is_deleted = 0
         group by v.row_id
         order by v.date_at desc,v.time_at desc
         """
@@ -51,9 +51,9 @@ interface AccountDao : BaseDao<Account> {
         """
         select v.row_id, v.is_audited, v.summary, v.date_at, v.time_at, v.profit, v.thing_name 
         from voucher v left join split s on s.voucher_id = v.row_id
-        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0
+        where s.account_id = :accountId and v.is_audited = 1 and v.is_deleted = 0 and s.is_deleted = 0
         group by v.row_id
-        order by v.date_at desc,v.time_at desc
+        order by v.date_at desc, v.time_at desc
         limit :limit
         """
     )
