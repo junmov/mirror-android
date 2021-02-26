@@ -14,11 +14,15 @@ class ChangeAssetLogUseCase(private val dao: AssetDao) {
         var voucher: Voucher? = null
         var splits: List<Split>? = null
         val now = LocalDateTime.now()
-        assetLog.modifiedAt = now
-        assetLog.checkSuccess()
         val asset = dao.findAsset(assetLog.assetId)
         asset.change(assetLog.buy, newCount - assetLog.count, newAmount - assetLog.amount)
         asset.modifiedAt = now
+        assetLog.apply {
+            modifiedAt = now
+            count = newCount
+            amount = newAmount
+        }
+        assetLog.checkSuccess()
         if (shouldCreateVoucher && assetLog.amount > 0) {
             val voucherAndSplits = AssetVoucherFactory.createVoucher(assetLog)
             voucher = voucherAndSplits.voucher
