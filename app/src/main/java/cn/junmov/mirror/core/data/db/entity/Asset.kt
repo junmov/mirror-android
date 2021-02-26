@@ -20,13 +20,13 @@ data class Asset(
     @ColumnInfo(name = Scheme.DEL) override var deleted: Boolean = false
 ) : AssetEntity {
 
-    fun doLog(assetLog: AssetLog) {
-        if (assetLog.buy) {
-            buy += assetLog.amount
-            count += assetLog.count
+    fun change(isBuy: Boolean, countDelta: Int, amountDelta: Int) {
+        if (isBuy) {
+            buy += amountDelta
+            count += countDelta
         } else {
-            sell += assetLog.amount
-            count -= assetLog.count
+            sell += amountDelta
+            count -= countDelta
         }
     }
 

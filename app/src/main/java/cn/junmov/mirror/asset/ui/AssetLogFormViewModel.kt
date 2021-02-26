@@ -72,11 +72,12 @@ class AssetLogFormViewModel @ViewModelInject constructor(
         val currentDateAt = inputDateAt.value ?: return
         val currentCreateVoucher = shouldCreateVoucher.value ?: return
         val currentAssetLog = assetLog.value ?: return
-        currentAssetLog.amount = MoneyUtils.yuanToCent(currentAmount)
-        currentAssetLog.count = MoneyUtils.yuanToCent(currentCount)
         currentAssetLog.dateAt = TimeUtils.stringToDate(currentDateAt)
         viewModelScope.launch {
-            changeAssetLog(currentAssetLog, currentCreateVoucher)
+            changeAssetLog(
+                currentAssetLog, currentCreateVoucher,
+                MoneyUtils.yuanToCent(currentCount), MoneyUtils.yuanToCent(currentAmount)
+            )
             updated.value = true
         }
     }
