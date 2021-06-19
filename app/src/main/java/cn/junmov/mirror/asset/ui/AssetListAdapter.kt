@@ -1,29 +1,23 @@
 package cn.junmov.mirror.asset.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.core.data.db.entity.Asset
-import cn.junmov.mirror.core.utility.MoneyUtils
-import cn.junmov.mirror.core.utility.navTo
-import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
 
-class AssetListAdapter : ListAdapter<Asset, TwoLineListItemViewHolder>(DIFF_CALL_BACK) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TwoLineListItemViewHolder {
-        return TwoLineListItemViewHolder.create(parent)
+class AssetListAdapter(
+    private val click: (View, Asset) -> Unit
+) : ListAdapter<Asset, AssetListViewHolder>(DIFF_CALL_BACK) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetListViewHolder {
+        return AssetListViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: TwoLineListItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AssetListViewHolder, position: Int) {
         val data = getItem(position)
         with(holder) {
-            bind(
-                data.name,
-                "投入：${MoneyUtils.centToYuan(data.buy)} 回报：${MoneyUtils.centToYuan(data.sell)}",
-                MoneyUtils.centToYuan(data.count)
-            )
-            itemView.navTo(
-                AssetFragmentDirections.actionAssetFragmentToAssetDetailFragment(data.id)
-            )
+            bindData(data)
+            itemView.setOnClickListener { v -> click(v, data) }
         }
     }
 

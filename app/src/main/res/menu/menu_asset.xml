@@ -2,13 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/option_add_asset"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_add_24"
-        android:title="添加资产" />
-    <item
         android:id="@+id/option_filter_asset"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:title="过滤" />
 </menu>

@@ -17,7 +17,7 @@ class DebtViewModel @ViewModelInject constructor(
         if (show) {
             _debts
         } else {
-            _debts.map { list -> list.filter { !it.settled } }
+            _debts.map { list -> list.filter { !it.repaid } }
         }
     }
 

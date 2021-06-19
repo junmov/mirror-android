@@ -5,7 +5,9 @@ import cn.junmov.mirror.core.data.db.entity.AssetLog
 import kotlinx.coroutines.flow.Flow
 
 class FlowAllAssetLogUseCase(private val dao: AssetDao) {
-    operator fun invoke(assetId: Long): Flow<List<AssetLog>> {
-        return dao.flowAllAssetLog(assetId)
+
+    operator fun invoke(): Flow<List<AssetLog>> {
+        return dao.flowAllAssetLog()
     }
+
 }

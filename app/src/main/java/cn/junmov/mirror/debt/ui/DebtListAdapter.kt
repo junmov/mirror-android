@@ -1,25 +1,23 @@
 package cn.junmov.mirror.debt.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.core.data.db.entity.Debt
-import cn.junmov.mirror.core.utility.navTo
-import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
+import cn.junmov.mirror.core.widget.FourCellListItemHolder
 
-class DebtListAdapter : ListAdapter<Debt, TwoLineListItemViewHolder>(DIFF_CALL_BACK) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TwoLineListItemViewHolder {
-        return TwoLineListItemViewHolder.create(parent)
+class DebtListAdapter(
+    private val click: (Debt, View) -> Unit
+) : ListAdapter<Debt, FourCellListItemHolder>(DIFF_CALL_BACK) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FourCellListItemHolder {
+        return FourCellListItemHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: TwoLineListItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FourCellListItemHolder, position: Int) {
         val data = getItem(position)
-        with(holder) {
-            bind(data.twoLineData())
-            itemView.navTo(
-                BillTabFragmentDirections.actionBillTabFragmentToDebtDetailFragment(data.id)
-            )
-        }
+        holder.bindUiModel(data)
+        holder.itemView.setOnClickListener { click(data, it) }
     }
 
     companion object {

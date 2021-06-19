@@ -19,8 +19,11 @@ abstract class AbstractListFragment<T> : Fragment() {
         binding.listData.adapter = adapter
         data().observe(viewLifecycleOwner) { adapter.submitList(it) }
         setHasOptionsMenu(hasMenu())
+        whenAfterCreateView()
         return binding.root
     }
+
+    open fun whenAfterCreateView() {}
 
     open fun hasMenu(): Boolean = false
 

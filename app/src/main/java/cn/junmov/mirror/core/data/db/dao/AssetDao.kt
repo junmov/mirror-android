@@ -3,43 +3,43 @@ package cn.junmov.mirror.core.data.db.dao
 import androidx.room.*
 import cn.junmov.mirror.core.data.db.entity.Asset
 import cn.junmov.mirror.core.data.db.entity.AssetLog
-import cn.junmov.mirror.core.data.db.entity.Split
-import cn.junmov.mirror.core.data.db.entity.Voucher
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AssetDao : BaseDao<Asset> {
-    @Query("select * from asset where is_deleted = 0 order by modified_at desc")
+    @Query("select * from asset where is_deleted = 0 order by build_at desc")
     fun flowAllAsset(): Flow<List<Asset>>
 
-    @Query("select * from asset where row_id = :id")
-    fun flowAsset(id: Long): Flow<Asset>
-
     @Query("select * from asset_log where asset_id = :assetId and is_deleted = 0 order by date_at desc")
-    fun flowAllAssetLog(assetId: Long): Flow<List<AssetLog>>
+    fun flowAllLogOfAsset(assetId: Long): Flow<List<AssetLog>>
 
     @Query("select * from asset where row_id = :assetId")
     suspend fun findAsset(assetId: Long): Asset
 
     @Transaction
-    suspend fun createAssetLogTransaction(
-        asset: Asset?, assetLog: AssetLog, voucher: Voucher?, splits: List<Split>?
-    ) {
-        asset?.let { update(it) }
+    suspend fun createAssetTransaction(asset: Asset, assetLog: AssetLog) {
+        insert(asset)
         insertAssetLog(assetLog)
-        voucher?.let { insertVoucher(it) }
-        splits?.let { insertSplits(it) }
     }
 
-    @Insert
-    suspend fun insertSplits(it: List<Split>)
+    @Transaction
+    suspend fun submitAssetLogTransaction(asset: Asset, assetLog: AssetLog) {
+        update(asset)
+        updateAssetLog(assetLog)
+    }
+
+    @Update
+    suspend fun updateAssetLog(assetLog: AssetLog)
 
     @Insert
-    suspend fun insertVoucher(voucher: Voucher)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAssetLog(assetLog: AssetLog)
 
-    @Query("select * from asset_log where row_id = :assetLogId")
-    fun flowAssetLog(assetLogId: Long): Flow<AssetLog>
+    @Query("select * from asset_log where is_deleted = 0 order by date_at desc")
+    fun flowAllAssetLog(): Flow<List<AssetLog>>
+
+    @Query("select * from asset where is_active = 1 and is_deleted = 0")
+    fun flowAllHoldAssets(): Flow<List<Asset>>
+
+    @Query("select * from asset_log where row_id = :id")
+    suspend fun findAssetLog(id: Long): AssetLog
 }

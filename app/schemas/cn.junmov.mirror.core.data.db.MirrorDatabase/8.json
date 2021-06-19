@@ -1,0 +1,565 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 8,
+    "identityHash": "cbebf36fe95901c54eda227f1466d71d",
+    "entities": [
+      {
+        "tableName": "account",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL, `base` INTEGER NOT NULL, `budget` INTEGER NOT NULL, `debit` INTEGER NOT NULL, `credit` INTEGER NOT NULL, `trade_count` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "base",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "budget",
+            "columnName": "budget",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "debit",
+            "columnName": "debit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "credit",
+            "columnName": "credit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tradeCount",
+            "columnName": "trade_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_account_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_account_name` ON `${TABLE_NAME}` (`name`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "voucher",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `summary` TEXT NOT NULL, `amount` INTEGER NOT NULL, `debit_id` INTEGER NOT NULL, `debit_name` TEXT NOT NULL, `credit_id` INTEGER NOT NULL, `credit_name` TEXT NOT NULL, `date_at` TEXT NOT NULL, `time_at` TEXT NOT NULL, `thing` TEXT NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "debitId",
+            "columnName": "debit_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "debitName",
+            "columnName": "debit_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creditId",
+            "columnName": "credit_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creditName",
+            "columnName": "credit_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateAt",
+            "columnName": "date_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeAt",
+            "columnName": "time_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thing",
+            "columnName": "thing",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "debt",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `borrow_at` TEXT NOT NULL, `borrow_id` INTEGER NOT NULL, `borrow_name` TEXT NOT NULL, `capital` INTEGER NOT NULL, `capital_repay` INTEGER NOT NULL, `interest_repay` INTEGER NOT NULL, `remark` TEXT NOT NULL, `is_repaid` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borrowAt",
+            "columnName": "borrow_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borrowId",
+            "columnName": "borrow_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borrowName",
+            "columnName": "borrow_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capital",
+            "columnName": "capital",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capitalRepaid",
+            "columnName": "capital_repay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "interestRepaid",
+            "columnName": "interest_repay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "remark",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repaid",
+            "columnName": "is_repaid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "repay",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `debt_id` INTEGER NOT NULL, `capital` INTEGER NOT NULL, `interest` INTEGER NOT NULL, `date_at` TEXT NOT NULL, `is_settled` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, `borrowId` INTEGER NOT NULL, `borrowName` TEXT NOT NULL, `indexOfDebt` TEXT NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "debtId",
+            "columnName": "debt_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capital",
+            "columnName": "capital",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "interest",
+            "columnName": "interest",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateAt",
+            "columnName": "date_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repaid",
+            "columnName": "is_settled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borrowId",
+            "columnName": "borrowId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "borrowName",
+            "columnName": "borrowName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "indexOfDebt",
+            "columnName": "indexOfDebt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_repay_debt_id",
+            "unique": false,
+            "columnNames": [
+              "debt_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_repay_debt_id` ON `${TABLE_NAME}` (`debt_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "asset",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `build_at` TEXT NOT NULL, `is_active` INTEGER NOT NULL, `count` INTEGER NOT NULL, `buy_sum` INTEGER NOT NULL, `sell_sum` INTEGER NOT NULL, `expense` INTEGER NOT NULL, `profit` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "buildAt",
+            "columnName": "build_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "count",
+            "columnName": "count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "buySum",
+            "columnName": "buy_sum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sellSum",
+            "columnName": "sell_sum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expenseSum",
+            "columnName": "expense",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profit",
+            "columnName": "profit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "asset_log",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`row_id` INTEGER NOT NULL, `asset_id` INTEGER NOT NULL, `asset_name` TEXT NOT NULL, `date_at` TEXT NOT NULL, `is_buy` INTEGER NOT NULL, `count` INTEGER NOT NULL, `price` TEXT NOT NULL, `expense` INTEGER NOT NULL, `amount` INTEGER NOT NULL, `reason` TEXT NOT NULL, `is_success` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "row_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assetId",
+            "columnName": "asset_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assetName",
+            "columnName": "asset_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateAt",
+            "columnName": "date_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "buy",
+            "columnName": "is_buy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "count",
+            "columnName": "count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expense",
+            "columnName": "expense",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "success",
+            "columnName": "is_success",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "create_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "is_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "row_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [
+      {
+        "viewName": "item_voucher",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT row_id, summary, thing, date_at, time_at, amount, debit_name, credit_name,debit_id,credit_id\n        FROM voucher \n        WHERE is_deleted = 0"
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cbebf36fe95901c54eda227f1466d71d')"
+    ]
+  }
+}

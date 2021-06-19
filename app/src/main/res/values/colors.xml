@@ -4,4 +4,7 @@
     <color name="mirror_green_700">#0A784E</color>
     <color name="mirror_yellow_500">#FF6C29</color>
     <color name="white">#FFFFFF</color>
+    <color name="income">#FF0000</color>
+    <color name="expend">#008000</color>
+    <color name="zero">#444444</color>
 </resources>

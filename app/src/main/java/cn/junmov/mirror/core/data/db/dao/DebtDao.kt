@@ -1,9 +1,9 @@
 package cn.junmov.mirror.core.data.db.dao
 
 import androidx.room.*
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
-import cn.junmov.mirror.core.data.db.entity.Split
 import cn.junmov.mirror.core.data.db.entity.Voucher
 import cn.junmov.mirror.debt.data.DateRepay
 import cn.junmov.mirror.debt.data.RepayAndDebt
@@ -23,35 +23,36 @@ interface DebtDao : BaseDao<Debt> {
     suspend fun insertAllRepay(repays: List<Repay>)
 
     @Transaction
-    suspend fun createAgingDebtTransaction(debt: Debt, repays: List<Repay>) {
+    suspend fun createAgingDebtTransaction(
+        debt: Debt,
+        repays: List<Repay>,
+        voucher: Voucher?,
+        accounts: List<Account>
+    ) {
         insert(debt)
         insertAllRepay(repays)
+        voucher?.let {
+            insertVoucher(it)
+            updateAccounts(accounts)
+        }
     }
+
+    @Update
+    suspend fun updateAccounts(accounts: List<Account>)
+
+    @Insert
+    suspend fun insertVoucher(voucher: Voucher)
 
     @Query("select * from debt where row_id = :id")
     fun flowDebt(id: Long): Flow<Debt>
 
-    @Transaction
-    suspend fun stopLossTransaction(
-        debt: Debt, repays: List<Repay>, repay: Repay, voucher: Voucher, splits: List<Split>
-    ) {
-        updateAllRepay(repays)
-        insertRepay(repay)
-        update(debt)
-        insertVoucher(voucher)
-        insertSplits(splits)
-    }
-
     @Query("select * from repay where debt_id = :debtId and is_settled = 0")
     suspend fun listAllNoSettledRepay(debtId: Long): List<Repay>
-
-    @Query("select * from repay where row_id = :id")
-    fun flowRepay(id: Long): Flow<Repay>
 
     @Update
     suspend fun updateRepay(repay: Repay)
 
-    @Query("select * from debt where is_deleted = 0 order by start_at desc")
+    @Query("select * from debt where is_deleted = 0 order by borrow_at desc")
     fun flowAllDebt(): Flow<List<Debt>>
 
     @Transaction
@@ -59,20 +60,10 @@ interface DebtDao : BaseDao<Debt> {
     suspend fun findAllRepayAndDebtByDate(dateAt: LocalDate): List<RepayAndDebt>
 
     @Transaction
-    suspend fun payDateRepayTransaction(
-        debts: List<Debt>, repays: List<Repay>, voucher: Voucher, splits: List<Split>
-    ) {
+    suspend fun payDateRepayTransaction(debts: List<Debt>, repays: List<Repay>) {
         update(*debts.toTypedArray())
         updateAllRepay(repays)
-        insertVoucher(voucher)
-        insertSplits(splits)
     }
-
-    @Insert
-    suspend fun insertVoucher(voucher: Voucher)
-
-    @Insert
-    suspend fun insertSplits(splits: List<Split>)
 
     @Query(
         """select r.date_at, sum(r.capital) as capital, sum(r.interest) as interest 
@@ -87,9 +78,4 @@ interface DebtDao : BaseDao<Debt> {
     @Query("select * from repay where date_at = :dateAt and is_settled = 0 and is_deleted = 0")
     fun flowRepaysByDate(dateAt: LocalDate): Flow<List<Repay>>
 
-    @Transaction
-    suspend fun removeDebtTransaction(debt: Debt, repays: List<Repay>) {
-        update(debt)
-        updateAllRepay(repays)
-    }
 }

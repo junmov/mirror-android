@@ -1,40 +1,29 @@
 package cn.junmov.mirror.core.data.db.entity
 
-import cn.junmov.mirror.core.data.model.VoucherType
 import java.time.LocalDate
 import java.time.LocalTime
 
 interface VoucherEntity : CommonField {
-    /** 交易摘要 */
-    var summary: String
 
-    /** 交易日期 */
+    /** 时间 */
     var dateAt: LocalDate
-
-    /** 交易时间 */
     var timeAt: LocalTime
 
-    /** 项目ID */
-    var thingId: Long
+    /** 备注 */
+    var summary: String
 
-    /** 项目名称 */
-    var thingName: String
+    /** 交易金额 */
+    var amount: Int
 
-    /** 是否已入账 */
-    var audited: Boolean
+    /** 借方账户 */
+    var debitId: Long
+    var debitName: String
 
-    /**
-     * 此交易产生的利润
-     * 利润 = 收入 - 支出
-     */
-    var profit: Int
+    /** 贷方账户 */
+    var creditId: Long
+    var creditName: String
 
-    /**
-     * 交易类型，
-     * 正利润为收、
-     * 负利润为支、
-     * 0为转
-     */
-    var type: VoucherType
+    /** 活动项目 */
+    var thing: String
 
 }

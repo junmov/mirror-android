@@ -7,24 +7,24 @@
 
         <variable
             name="vm"
-            type="cn.junmov.mirror.sync.ui.SyncViewModel" />
+            type="cn.junmov.mirror.user.ui.SyncViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".sync.ui.SyncFragment">
+        tools:context=".user.ui.SyncFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/il_mine_ip_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_push"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_last_sync">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -34,48 +34,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/label_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Junmov"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/label_last_sync"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{vm.lastSync}"
-            app:layout_constraintStart_toStartOf="@+id/label_username"
-            app:layout_constraintTop_toBottomOf="@+id/label_username"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_sync"
+            app:layout_constraintStart_toStartOf="@+id/il_mine_ip_address"
+            app:layout_constraintTop_toTopOf="@+id/btn_sync"
             tools:text="上次同步时间:2020-11-11 21:33:12" />
 
         <ImageButton
-            android:id="@+id/btn_pull"
+            android:id="@+id/btn_sync"
             style="@style/Theme.Mirror.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin_normal"
             android:contentDescription="@string/empty_image_content"
-            android:onClick="@{() -> vm.pull()}"
-            app:layout_constraintBottom_toBottomOf="@+id/label_last_sync"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/label_username"
-            app:srcCompat="@drawable/ic_baseline_south_west_24" />
-
-        <ImageButton
-            android:id="@+id/btn_push"
-            style="@style/Theme.Mirror.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/empty_image_content"
-            android:onClick="@{() -> vm.push()}"
-            app:layout_constraintBottom_toBottomOf="@+id/il_mine_ip_address"
-            app:layout_constraintEnd_toEndOf="@+id/btn_pull"
-            app:layout_constraintTop_toTopOf="@+id/il_mine_ip_address"
-            app:srcCompat="@drawable/ic_baseline_north_east_24" />
+            android:onClick="@{() -> vm.sync()}"
+            app:layout_constraintEnd_toEndOf="@+id/il_mine_ip_address"
+            app:layout_constraintTop_toBottomOf="@+id/il_mine_ip_address"
+            app:srcCompat="@drawable/ic_outline_autorenew_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

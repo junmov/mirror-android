@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,25 +47,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/il_asset_log_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_date_at">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="金额"
-                android:inputType="numberDecimal"
-                android:text="@={vm.inputAmount}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/il_asset_log_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,12 +55,12 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_amount">
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_target">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="确认份额"
+                android:hint="买卖数量"
                 android:inputType="numberDecimal"
                 android:text="@={vm.inputCount}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,20 +70,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:checked="@={vm.assetLog.buy}"
-            android:text="买入"
+            android:checked="@={vm.inputBuy}"
+            android:text="买"
+            app:layout_constraintBottom_toBottomOf="@+id/il_asset_log_target"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_count" />
+            app:layout_constraintTop_toTopOf="@+id/il_asset_log_target" />
 
-        <CheckBox
-            android:id="@+id/cb_create_voucher"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_log_price"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="@={vm.shouldCreateVoucher}"
-            android:text="创建交易"
-            app:layout_constraintStart_toStartOf="@+id/cb_asset_log_is_buy"
-            app:layout_constraintTop_toBottomOf="@+id/cb_asset_log_is_buy" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_asset_log_date_at"
+            app:layout_constraintStart_toStartOf="@+id/il_asset_log_date_at"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_count">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="市场单价"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputPrice}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_log_reason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_asset_log_date_at"
+            app:layout_constraintStart_toStartOf="@+id/il_asset_log_date_at"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_price">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="买卖依据"
+                android:text="@={vm.inputReason}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_asset_log_target"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cb_asset_log_is_buy"
+            app:layout_constraintTop_toBottomOf="@+id/il_asset_log_date_at">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_asset_log_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="交易资产"
+                android:text="@={vm.inputAssetName}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

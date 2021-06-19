@@ -3,7 +3,7 @@ package cn.junmov.mirror.core.data.db
 object Scheme {
 
     const val DATABASE_NAME = "mirror.db"
-    const val DATABASE_VERSION = 7
+    const val DATABASE_VERSION = 8
 
     const val ID = "row_id"
     const val MODIFIED_AT = "modified_at"
@@ -12,61 +12,44 @@ object Scheme {
 
     object Account {
         const val TABLE_NAME = "account"
-        const val PARENT_ID = "parent_id"
         const val NAME = "name"
-        const val FULL_NAME = "full_name"
         const val TYPE = "type"
+        const val BALANCE = "base"
+        const val BUDGET = "budget"
+        const val DEBIT = "debit"
+        const val CREDIT = "credit"
         const val TRADE_COUNT = "trade_count"
-        const val TRAD_ABLE = "trad_able"
-        const val BASE = "base"
-        const val INFLOW = "inflow"
-        const val OUTFLOW = "outflow"
     }
 
     object Voucher {
         const val TABLE_NAME = "voucher"
+        const val VIEW_NAME = "item_voucher"
         const val SUMMARY = "summary"
         const val DATE_AT = "date_at"
         const val TIME_AT = "time_at"
-        const val THING_ID = "thing_id"
-        const val THING_NAME = "thing_name"
-        const val PROFIT = "profit"
-        const val TYPE = "type"
-        const val IS_AUDITED = "is_audited"
-    }
-
-    object Split {
-        const val TABLE_NAME = "split"
-        const val VOUCHER_ID = "voucher_id"
-        const val IS_DEBIT = "is_debit"
+        const val THING = "thing"
         const val AMOUNT = "amount"
-        const val ACCOUNT_ID = "account_id"
-        const val ACCOUNT_PARENT_ID = "account_parent_id"
-        const val ACCOUNT_NAME = "account_name"
-        const val ACCOUNT_TYPE = "account_type"
-    }
-
-    object Thing {
-        const val TABLE_NAME = "thing"
-        const val NAME = "name"
+        const val DEBIT_ID = "debit_id"
+        const val DEBIT_NAME = "debit_name"
+        const val CREDIT_ID = "credit_id"
+        const val CREDIT_NAME = "credit_name"
     }
 
     object Debt {
         const val TABLE_NAME = "debt"
-        const val SUMMARY = "summary"
-        const val START_AT = "start_at"
         const val CAPITAL = "capital"
-        const val COUNT = "count"
-        const val COUNT_REPAY = "count_repay"
         const val CAPITAL_REPAY = "capital_repay"
         const val INTEREST_REPAY = "interest_repay"
-        const val IS_SETTLED = "is_settled"
+        const val IS_REPAID = "is_repaid"
+        const val BORROW_AT = "borrow_at"
+        const val BORROW_ID = "borrow_id"
+        const val BORROW_NAME = "borrow_name"
+        const val REMARK = "remark"
     }
 
     object Repay {
         const val TABLE_NAME = "repay"
         const val DEBT_ID = "debt_id"
-        const val SUMMARY = "summary"
         const val INTEREST = "interest"
         const val DATE_AT = "date_at"
         const val CAPITAL = "capital"
@@ -76,9 +59,13 @@ object Scheme {
     object Asset {
         const val TABLE_NAME = "asset"
         const val NAME = "name"
+        const val BUILD_AT = "build_at"
         const val COUNT = "count"
-        const val BUY = "buy"
-        const val SELL = "sell"
+        const val EXPENSE = "expense"
+        const val BUY = "buy_sum"
+        const val SELL = "sell_sum"
+        const val PROFIT = "profit"
+        const val IS_ACTIVE = "is_active"
     }
 
     object AssetLog {
@@ -88,17 +75,11 @@ object Scheme {
         const val DATE_AT = "date_at"
         const val IS_BUY = "is_buy"
         const val COUNT = "count"
+        const val PRICE = "price"
+        const val EXPENSE = "expense"
         const val AMOUNT = "amount"
-        const val IS_SUCCESS = "is_success"
+        const val REASON = "reason"
+        const val SUCCESS = "is_success"
     }
 
-    object ToDo {
-        const val TABLE_NAME = "todo"
-        const val SUMMARY = "summary"
-        const val IS_ENABLED = "is_enabled"
-        const val RUN_AT = "run_at"
-        const val PERIOD = "period"
-        const val DONE_TIMES = "done_times"
-        const val DONE_TOTAL = "done_total"
-    }
 }

@@ -1,47 +1,27 @@
 package cn.junmov.mirror.asset.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
-import cn.junmov.mirror.core.utility.navTo
-import cn.junmov.mirror.databinding.FragmentAssetDetailBinding
+import androidx.recyclerview.widget.ListAdapter
+import cn.junmov.mirror.core.data.db.entity.AssetLog
+import cn.junmov.mirror.core.widget.AbstractListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AssetDetailFragment : Fragment() {
+class AssetDetailFragment : AbstractListFragment<AssetLog>() {
 
     private val viewModel: AssetDetailViewModel by viewModels()
 
     private val args: AssetDetailFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentAssetDetailBinding.inflate(inflater, container, false)
-        val adapter = AssetLogListAdapter {
-            findNavController().navigate(
-                AssetDetailFragmentDirections.actionAssetDetailFragmentToAssetLogFormDialog(
-                    args.assetId, it.id
-                )
-            )
-        }
-        binding.apply {
-            vm = viewModel
-            lifecycleOwner = this@AssetDetailFragment
-            listAssetLog.adapter = adapter
-            btnAdjustAssetCount.navTo(
-                AssetDetailFragmentDirections.actionAssetDetailFragmentToAssetLogFormDialog(args.assetId)
-            )
-        }
+    override fun whenAfterCreateView() {
         viewModel.loadData(args.assetId)
-        viewModel.assetLogs.observe(viewLifecycleOwner) { adapter.submitList(it) }
-        return binding.root
     }
+
+    override fun adapter(): ListAdapter<AssetLog, *> = AssetLogListAdapter { v, a ->
+    }
+
+    override fun data(): LiveData<List<AssetLog>> = viewModel.assetLogs
 
 }

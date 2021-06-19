@@ -8,37 +8,32 @@ import cn.junmov.mirror.R
 import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
-import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.utility.setString
-import cn.junmov.mirror.core.widget.ThreeLineListItemViewHolder
+import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
 
 class RepayListAdapter(
     private val itemClick: (View, Repay) -> Any
-) : ListAdapter<Repay, ThreeLineListItemViewHolder>(DIFF_CALL_BACK) {
+) : ListAdapter<Repay, TwoLineListItemViewHolder>(DIFF_CALL_BACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreeLineListItemViewHolder {
-        return ThreeLineListItemViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TwoLineListItemViewHolder {
+        return TwoLineListItemViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: ThreeLineListItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TwoLineListItemViewHolder, position: Int) {
         val data = getItem(position)
         with(holder) {
-            primary.text = data.summary
-            secondary.setString(
+            primaryText.text = TimeUtils.dateToString(data.dateAt)
+            secondaryText.setString(
                 R.string.repay_secondary,
                 MoneyUtils.centToYuan(data.capital + data.interest),
                 MoneyUtils.centToYuan(data.capital),
                 MoneyUtils.centToYuan(data.interest)
             )
-            tertiary.setString(
-                R.string.repay_tertiary,
-                TimeUtils.dateToString(data.dateAt)
-            )
-            action.setString(
-                if (data.settled) R.string.repay_settled
+            actionText.setString(
+                if (data.repaid) R.string.repay_settled
                 else R.string.repay_no_settled
             )
-            holder.itemView.setOnClickListener { itemClick(it, data) }
+            itemView.setOnClickListener { itemClick(it, data) }
         }
     }
 

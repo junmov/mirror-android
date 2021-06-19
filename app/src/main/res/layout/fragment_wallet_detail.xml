@@ -7,17 +7,17 @@
 
         <variable
             name="vm"
-            type="cn.junmov.mirror.wallet.ui.WalletDetailViewModel" />
+            type="cn.junmov.mirror.account.ui.wallet.WalletDetailViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="cn.junmov.mirror.wallet.ui.WalletDetailFragment">
+        tools:context=".account.ui.wallet.WalletDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/label_wallet_balance"
@@ -89,9 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_wallet_last_trade"
@@ -100,9 +98,9 @@
 
             <Button
                 android:id="@+id/btn_adjust_wallet_balance"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_marginEnd="8dp"
                 android:text="调整余额"
                 app:layout_constraintBottom_toBottomOf="@+id/wallet_balance"

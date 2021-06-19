@@ -7,25 +7,33 @@ import java.time.LocalDate
  */
 interface AssetLogEntity : CommonField {
 
-    /** 交易发起的日期 */
-    var dateAt: LocalDate
+    /** 日期 */
+    val dateAt: LocalDate
 
     /** 资产 */
-    var assetId: Long
+    val assetId: Long
 
     /** 资产名称 */
-    var assetName: String
+    val assetName: String
 
     /** 买或卖 */
-    var buy: Boolean
+    val buy: Boolean
 
     /** 数量 */
-    var count: Int
+    val count: Int
 
-    /** 买入或卖出的金额 */
+    /** 市场价 */
+    val price: String
+
+    /** 交易费用 */
+    var expense: Int
+
+    /** 发生金额 */
     var amount: Int
 
-    /** 交易成功标志 */
-    var success: Boolean
+    /** 买卖依据 */
+    var reason: String
 
+    /** 交易是否成功 */
+    var success: Boolean
 }

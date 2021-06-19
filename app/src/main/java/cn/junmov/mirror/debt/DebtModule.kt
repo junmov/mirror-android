@@ -14,12 +14,7 @@ object DebtModule {
     @Singleton
     @Provides
     fun createDebtUseCase(database: MirrorDatabase) =
-        CreateDebtUseCase(database.debtDao())
-
-    @Singleton
-    @Provides
-    fun flowAllDebtAccountUseCase(database: MirrorDatabase) =
-        FlowAllDebtAccountUseCase(database.accountDao())
+        CreateDebtUseCase(database.debtDao(),database.accountDao())
 
     @Singleton
     @Provides
@@ -35,10 +30,6 @@ object DebtModule {
 
     @Singleton
     @Provides
-    fun flowRepayUseCase(database: MirrorDatabase) = FlowRepayUseCase(database.debtDao())
-
-    @Singleton
-    @Provides
     fun flowDateRepayUseCase(database: MirrorDatabase) = FlowDateRepayUseCase(database.debtDao())
 
     @Singleton
@@ -47,17 +38,6 @@ object DebtModule {
 
     @Singleton
     @Provides
-    fun stopLossUseCase(database: MirrorDatabase) = StopLossUseCase(database.debtDao())
-
-    @Singleton
-    @Provides
-    fun updateRepayUseCase(database: MirrorDatabase) = UpdateRepayUseCase(database.debtDao())
-
-    @Singleton
-    @Provides
     fun flowRepaysUseCase(database: MirrorDatabase) = FlowRepaysUseCase(database.debtDao())
 
-    @Singleton
-    @Provides
-    fun removeDebtUseCase(database: MirrorDatabase) = RemoveDebtUseCase(database.debtDao())
 }

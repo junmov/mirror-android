@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:minHeight="@dimen/two_line_min_height">
+
+    <TextView
+        android:id="@+id/list_item_asset_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/list_item_asset_build_at"
+        app:layout_constraintStart_toEndOf="@+id/list_item_asset_build_at"
+        tools:text="士兰微" />
+
+    <TextView
+        android:id="@+id/list_item_asset_buy_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/list_item_asset_build_at"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_asset_build_at"
+        tools:text="买：30000.11" />
+
+    <TextView
+        android:id="@+id/list_item_asset_sell_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/list_item_asset_buy_sum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="卖：20000.01" />
+
+    <TextView
+        android:id="@+id/list_item_asset_build_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2021-01-09" />
+
+    <TextView
+        android:id="@+id/list_item_asset_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/list_item_asset_build_at"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="1000" />
+
+    <TextView
+        android:id="@+id/list_item_asset_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/list_item_asset_buy_sum"
+        app:layout_constraintEnd_toEndOf="@+id/list_item_asset_count"
+        tools:text="费：10000.01" />
+</androidx.constraintlayout.widget.ConstraintLayout>

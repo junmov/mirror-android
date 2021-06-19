@@ -1,37 +1,63 @@
 package cn.junmov.mirror.debt.domain
 
+import cn.junmov.mirror.core.data.db.dao.AccountDao
 import cn.junmov.mirror.core.data.db.dao.DebtDao
+import cn.junmov.mirror.core.data.db.entity.Account
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
+import cn.junmov.mirror.core.data.db.entity.Voucher
+import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.SnowFlakeUtil
+import cn.junmov.mirror.core.utility.Things
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
-class CreateDebtUseCase(private val dao: DebtDao) {
-    suspend operator fun invoke(debt: Debt, interest: Int) {
+class CreateDebtUseCase(private val dao: DebtDao, private val accountDao: AccountDao) {
+    suspend operator fun invoke(
+        debt: Debt, fund: Account?, startAt: LocalDate, count: Int
+    ) {
         val now = LocalDateTime.now()
 
         val repays = mutableListOf<Repay>()
-        val amountAvg: Int = debt.capital.div(debt.count)
-        val interestAvg: Int = interest.div(debt.count)
+        var voucher: Voucher? = null
+        val accounts = mutableListOf<Account>()
 
-        withContext(Dispatchers.Default) {
-            val size = debt.count
-            val ids = SnowFlakeUtil.genIds(size * 2)
-            val startAt = debt.startAt
-            for ((j, i) in (0 until debt.count).withIndex()) {
-                val dateAt = startAt.plusMonths(i.toLong())
-                val item = Repay(
-                    id = ids[j], summary = "${i + 1}/${size} ${debt.summary}", dateAt = dateAt,
-                    interest = interestAvg, capital = amountAvg, debtId = debt.id,
-                    settled = false, createAt = now, modifiedAt = now, deleted = false
-                )
-                repays.add(item)
-            }
+        val amountAvg: Int = debt.capital.div(count)
+
+        val ids = SnowFlakeUtil.genIds(count + 1)
+        for (i in 1..count) {
+            val dateAt = startAt.plusMonths(i - 1L)
+            val item = Repay(
+                id = ids[i], debtId = debt.id, indexOfDebt = "${i + 1}/$count",
+                borrowId = debt.borrowId, borrowName = debt.borrowName,
+                dateAt = dateAt, capital = amountAvg, interest = 0, repaid = false,
+                createAt = now, modifiedAt = now, deleted = false
+            )
+            repays.add(item)
+        }
+
+        if (fund != null) {
+            val payable = accountDao.findById(debt.borrowId)
+            voucher = Voucher(
+                id= ids[0], dateAt = debt.borrowAt, timeAt = LocalTime.MIDNIGHT,
+                summary = "${payable.name}分期${MoneyUtils.centToYuan(debt.capital)}元",
+                amount = debt.capital, thing = Things.DEBT,
+                debitId = fund.id, debitName = fund.name,
+                creditId = payable.id, creditName = payable.name,
+                createAt = now, modifiedAt = now, deleted = false
+            )
+            payable.plusAmount(false, debt.capital)
+            payable.modifiedAt = now
+            fund.plusAmount(true, debt.capital)
+            fund.modifiedAt = now
+            accounts.add(payable)
+            accounts.add(fund)
         }
         withContext(Dispatchers.IO) {
-            dao.createAgingDebtTransaction(debt, repays)
+            dao.createAgingDebtTransaction(debt, repays, voucher, accounts)
         }
     }
 

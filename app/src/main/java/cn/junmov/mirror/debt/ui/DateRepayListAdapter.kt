@@ -1,15 +1,17 @@
 package cn.junmov.mirror.debt.ui
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.core.utility.TimeUtils
-import cn.junmov.mirror.core.utility.navTo
 import cn.junmov.mirror.core.widget.TwoLineListItemViewHolder
 import cn.junmov.mirror.debt.data.DateRepay
 
-class DateRepayListAdapter : ListAdapter<DateRepay, TwoLineListItemViewHolder>(diff_call_back) {
+class DateRepayListAdapter(
+    private val click: (DateRepay, View) -> Unit
+) : ListAdapter<DateRepay, TwoLineListItemViewHolder>(diff_call_back) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -19,17 +21,14 @@ class DateRepayListAdapter : ListAdapter<DateRepay, TwoLineListItemViewHolder>(d
 
     override fun onBindViewHolder(holder: TwoLineListItemViewHolder, position: Int) {
         val data = getItem(position)
-        val first = TimeUtils.dateToString(data.dateAt)
-        val second =
-            "本金：${MoneyUtils.centToYuan(data.capital)} 利息：${MoneyUtils.centToYuan(data.interest)}"
-        val third = MoneyUtils.centToYuan(data.amount())
         with(holder) {
-            bind(first, second, third)
-            itemView.navTo(
-                BillTabFragmentDirections.actionBillTabFragmentToRepayDetailFragment(
-                    TimeUtils.dateToString(data.dateAt)
-                )
+            bind(
+                primary = TimeUtils.dateToString(data.dateAt),
+                secondary =
+                "本金：${MoneyUtils.centToYuan(data.capital)} 利息：${MoneyUtils.centToYuan(data.interest)}",
+                top = MoneyUtils.centToYuan(data.amount())
             )
+            itemView.setOnClickListener { click(data, it) }
         }
     }
 

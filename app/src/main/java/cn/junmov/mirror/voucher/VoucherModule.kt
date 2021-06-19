@@ -14,33 +14,23 @@ object VoucherModule {
 
     @Singleton
     @Provides
-    fun auditVoucherUseCase(database: MirrorDatabase) =
-        AuditVoucherUseCase(database.auditDao(), database.accountDao())
+    fun flowAllAccountTradeCountDescUseCase(database: MirrorDatabase) =
+        FlowAllAccountTradeCountDescUseCase(database.accountDao())
+
+    @Singleton
+    @Provides
+    fun flowAccountTradeLimitUseCase(database: MirrorDatabase) =
+        FlowAccountTradeLimitUseCase(database.voucherDao())
+
+    @Singleton
+    @Provides
+    fun flowLastThreeVoucherUseCase(database: MirrorDatabase) =
+        FlowLastThreeVoucherUseCase(database.voucherDao())
 
     @Singleton
     @Provides
     fun copyVoucherUseCase(database: MirrorDatabase) =
-        CopyVoucherUseCase(database.voucherDao())
-
-    @Singleton
-    @Provides
-    fun flowAllSplitByVoucher(database: MirrorDatabase) =
-        FlowAllSplitByVoucherUseCase(database.voucherDao())
-
-    @Singleton
-    @Provides
-    fun flowAllAccountByLeafUseCase(database: MirrorDatabase) =
-        FlowAllTradAbleAccountUseCase(database.accountDao())
-
-    @Singleton
-    @Provides
-    fun flowVoucherUseCase(database: MirrorDatabase) =
-        FlowVoucherUseCase(database.voucherDao())
-
-    @Singleton
-    @Provides
-    fun removeSplitUseCase(database: MirrorDatabase) =
-        RemoveSplitUseCase(database.voucherDao())
+        CopyVoucherUseCase(database.voucherDao(), database.accountDao())
 
     @Singleton
     @Provides
@@ -49,13 +39,12 @@ object VoucherModule {
 
     @Singleton
     @Provides
-    fun saveSplitUseCase(database: MirrorDatabase) =
-        SaveSplitUseCase(database.voucherDao())
+    fun saveVoucherUseCase(database: MirrorDatabase) =
+        CreateVoucherUseCase(database.voucherDao(), database.accountDao())
+
 
     @Singleton
     @Provides
-    fun saveVoucherUseCase(database: MirrorDatabase) =
-        SaveVoucherUseCase(database.voucherDao())
-
-
+    fun pagingAccountTradingUseCase(database: MirrorDatabase) =
+        PagingVoucherInAccountUseCase(database.voucherDao())
 }

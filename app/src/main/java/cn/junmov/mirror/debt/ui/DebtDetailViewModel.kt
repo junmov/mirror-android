@@ -7,13 +7,10 @@ import cn.junmov.mirror.core.data.db.entity.Repay
 import cn.junmov.mirror.core.utility.MoneyUtils
 import cn.junmov.mirror.debt.domain.FlowDebtRepaysUseCase
 import cn.junmov.mirror.debt.domain.FlowDebtUseCase
-import cn.junmov.mirror.debt.domain.RemoveDebtUseCase
-import kotlinx.coroutines.launch
 
 class DebtDetailViewModel @ViewModelInject constructor(
     private val flowDebt: FlowDebtUseCase,
     private val flowRepays: FlowDebtRepaysUseCase,
-    private val removeDebt: RemoveDebtUseCase
 ) : ViewModel() {
 
     private val _debtId = MutableLiveData<Long>()
@@ -23,13 +20,13 @@ class DebtDetailViewModel @ViewModelInject constructor(
     val repays: LiveData<List<Repay>> = _debtId.switchMap { flowRepays(it).asLiveData() }
 
     val noSettled: LiveData<String> = repays.map { list ->
-        val interest = list.filter { !it.settled }.sumOf { it.interest }
+        val interest = list.filter { !it.repaid }.sumOf { it.interest }
         "待还利息:${MoneyUtils.centToYuan(interest)}"
     }
-    val amount: LiveData<String> = debt.map { MoneyUtils.centToYuan(it.capital - it.capitalRepay) }
+    val amount: LiveData<String> = debt.map { MoneyUtils.centToYuan(it.capital - it.capitalRepaid) }
 
     val settled: LiveData<String> = debt.map {
-        "已还本金:${MoneyUtils.centToYuan(it.capitalRepay)},利息:${MoneyUtils.centToYuan(it.interestRepay)}"
+        "已还本金:${MoneyUtils.centToYuan(it.capitalRepaid)},利息:${MoneyUtils.centToYuan(it.interestRepaid)}"
     }
 
     val updated = MutableLiveData(false)
@@ -37,15 +34,6 @@ class DebtDetailViewModel @ViewModelInject constructor(
     fun loadData(id: Long) {
         if (id == 0L) return
         _debtId.value = id
-    }
-
-    fun removeDebt() {
-        val currentDebt = debt.value ?: return
-        val currentRepays = repays.value ?: return
-        viewModelScope.launch {
-            removeDebt(currentDebt, currentRepays)
-            updated.value = true
-        }
     }
 
 }

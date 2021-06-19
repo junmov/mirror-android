@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="cn.junmov.mirror.account.ui.budget.BudgetFormViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".account.ui.budget.BudgetFormDialog">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_budget_account"
+            style="@style/Theme.Mirror.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sheetTitle">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_budget_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="预算账户"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_budget_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/il_budget_account"
+            app:layout_constraintStart_toStartOf="@+id/il_budget_account"
+            app:layout_constraintTop_toBottomOf="@+id/il_budget_account">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="每月预算"
+                android:inputType="numberDecimal"
+                android:text="@={vm.inputAmount}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <cn.junmov.mirror.core.widget.SheetTitle
+            android:id="@+id/sheetTitle"
+            onDone="@{() -> vm.submitBudget()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="新建预算" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

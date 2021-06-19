@@ -2,7 +2,7 @@ package cn.junmov.mirror.core.data.remote
 
 import cn.junmov.mirror.core.data.db.entity.*
 import cn.junmov.mirror.core.utility.TimeUtils
-import cn.junmov.mirror.sync.data.TableData
+import cn.junmov.mirror.core.data.model.TableData
 import cn.junmov.mirror.user.data.BodySignIn
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
@@ -36,21 +36,21 @@ interface MirrorService {
         private val dateTimeSerializer = JsonSerializer<LocalDateTime> { src, _, _ ->
             JsonPrimitive(TimeUtils.dateTimeToString(src))
         }
-        private val dateTimeDeserializer = JsonDeserializer<LocalDateTime> { json, _, _ ->
+        private val dateTimeDeserializer = JsonDeserializer { json, _, _ ->
             TimeUtils.stringToDateTime(json.asJsonPrimitive.asString)
         }
 
         private val dateSerializer = JsonSerializer<LocalDate> { src, _, _ ->
             JsonPrimitive(TimeUtils.dateToString(src))
         }
-        private val dateDeserializer = JsonDeserializer<LocalDate> { json, _, _ ->
+        private val dateDeserializer = JsonDeserializer { json, _, _ ->
             TimeUtils.stringToDate(json.asJsonPrimitive.asString)
         }
 
         private val timeSerializer = JsonSerializer<LocalTime> { src, _, _ ->
             JsonPrimitive(TimeUtils.timeToString(src))
         }
-        private val timeDeserializer = JsonDeserializer<LocalTime> { json, _, _ ->
+        private val timeDeserializer = JsonDeserializer { json, _, _ ->
             TimeUtils.stringToTime(json.asJsonPrimitive.asString)
         }
 

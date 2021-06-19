@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.adapter.SingleLineModel
 
 class SingleLineListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -14,15 +13,9 @@ class SingleLineListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val action: TextView = itemView.findViewById(R.id.single_line_action_text)
     private var onClick: View.OnClickListener? = null
 
-
-    fun bind(data: SingleLineModel.UiData) {
-        primary.text = data.primary
-        action.text = data.action
-    }
-
-    fun onListItemClick(click: View.OnClickListener) {
-        onClick = click
-        itemView.setOnClickListener(onClick)
+    fun bindData(first: String, second: String) {
+        primary.text = first
+        action.text = second
     }
 
     companion object {

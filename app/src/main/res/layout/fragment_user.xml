@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_borrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="借款记录" />
+
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_repay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="还款日历" />
+
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_asset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="资产持仓" />
+
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_asset_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="投资记录" />
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="记账科目" />
+
+    <cn.junmov.mirror.core.widget.LinkText
+        android:id="@+id/link_user_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:nav_label="数据同步" />
+
+</LinearLayout>

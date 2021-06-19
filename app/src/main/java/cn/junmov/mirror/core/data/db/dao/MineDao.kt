@@ -39,24 +39,6 @@ interface MineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepay(repays: List<Repay>)
 
-    @Query("select * from split where modified_at > :modified")
-    suspend fun listSplit(modified: LocalDateTime): List<Split>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSplits(splits: List<Split>)
-
-    @Query("select * from thing where modified_at > :modified")
-    suspend fun listThing(modified: LocalDateTime): List<Thing>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertThing(things: List<Thing>)
-
-    @Query("select * from todo where modified_at > :modified")
-    suspend fun listTodo(modified: LocalDateTime): List<Todo>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTodo(toDos: List<Todo>)
-
     @Query("select * from voucher where modified_at > :modified")
     suspend fun listVoucher(modified: LocalDateTime): List<Voucher>
 

@@ -5,31 +5,27 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import cn.junmov.mirror.core.data.db.dao.*
 import cn.junmov.mirror.core.data.db.entity.*
+import cn.junmov.mirror.core.data.db.view.ItemVoucher
 
 @Database(
     entities = [
-        Account::class, Voucher::class, Split::class,
-        Thing::class,
+        Account::class,
+        Voucher::class,
         Debt::class, Repay::class,
         Asset::class, AssetLog::class,
-        Todo::class
     ],
+    views = [ItemVoucher::class],
     version = Scheme.DATABASE_VERSION,
     exportSchema = true,
 )
 @TypeConverters(DataTypeConverters::class)
 abstract class MirrorDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
-    abstract fun thingDao(): ThingDao
     abstract fun voucherDao(): VoucherDao
-    abstract fun auditDao(): AuditDao
     abstract fun debtDao(): DebtDao
     abstract fun assetDao(): AssetDao
-    abstract fun toDoDao(): TodoDao
     abstract fun mineDao(): MineDao
 
     companion object {
@@ -45,158 +41,8 @@ abstract class MirrorDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): MirrorDatabase {
             return Room.databaseBuilder(
                 context.applicationContext, MirrorDatabase::class.java, Scheme.DATABASE_NAME
-            ).addMigrations(
-                MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6,
-                MIGRATION_6_7
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
 
-        private val MIGRATION_6_7 = object : Migration(6, 7) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                // 新增了 asset_log 的 dateAt 字段
-                // 新增了 asset_log 的 is_success 字段
-                // 新增了 asset_log 的 asset_name 字段
-                database.execSQL("ALTER TABLE `asset_log` ADD `is_success` INTEGER DEFAULT 1 NOT NULL ")
-                database.execSQL("ALTER TABLE `asset_log` ADD `date_at` TEXT DEFAULT '2020-07-01' NOT NULL ")
-                database.execSQL("ALTER TABLE `asset_log` ADD `asset_name` TEXT DEFAULT '' NOT NULL ")
-                database.execSQL("UPDATE `asset_log` SET `asset_name` = (SELECT `name` FROM `asset` WHERE row_id = asset_id ) ")
-                // 删除了 voucher 的 isTemplate 字段
-                database.execSQL("CREATE TABLE IF NOT EXISTS `new_voucher` (`row_id` INTEGER NOT NULL, `summary` TEXT NOT NULL, `date_at` TEXT NOT NULL, `time_at` TEXT NOT NULL, `thing_id` INTEGER NOT NULL, `thing_name` TEXT NOT NULL, `profit` INTEGER NOT NULL, `type` TEXT NOT NULL DEFAULT '', `is_audited` INTEGER NOT NULL, `create_at` TEXT NOT NULL, `modified_at` TEXT NOT NULL, `is_deleted` INTEGER NOT NULL, PRIMARY KEY(`row_id`))")
-                database.execSQL(
-                    """
-                    INSERT INTO `new_voucher`(
-                           `row_id`, `summary`, `date_at`, `time_at`, `thing_id`, `thing_name`, `profit`, `type`, `is_audited`, `create_at`, `modified_at`, `is_deleted` 
-                    )
-                    SELECT 
-                           `row_id`, `summary`, `date_at`, `time_at`, `thing_id`, `thing_name`, `profit`, `type`, `is_audited`, `create_at`, `modified_at`, `is_deleted` 
-                    FROM `voucher`
-                    """.trimIndent()
-                )
-                database.execSQL("DROP TABLE `voucher`")
-                database.execSQL("ALTER TABLE `new_voucher` RENAME TO `voucher`")
-                database.execSQL("CREATE INDEX IF NOT EXISTS `index_voucher_thing_id` ON `voucher` (`thing_id`)")
-            }
-        }
-
-        /**
-         * 删除了 account_id 字段
-         */
-        private val MIGRATION_5_6 = object : Migration(5, 6) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    """CREATE TABLE IF NOT EXISTS `new_debt` (
-                    `row_id` INTEGER NOT NULL, 
-                    `summary` TEXT NOT NULL, 
-                    `start_at` TEXT NOT NULL, 
-                    `capital` INTEGER NOT NULL, 
-                    `capital_repay` INTEGER NOT NULL, 
-                    `count` INTEGER NOT NULL, 
-                    `count_repay` INTEGER NOT NULL, 
-                    `interest_repay` INTEGER NOT NULL, 
-                    `is_settled` INTEGER NOT NULL, 
-                    `create_at` TEXT NOT NULL, 
-                    `modified_at` TEXT NOT NULL, 
-                    `is_deleted` INTEGER NOT NULL, 
-                    PRIMARY KEY(`row_id`))""".trimMargin()
-                )
-                database.execSQL(
-                    """
-                    INSERT INTO `new_debt`(
-                       `row_id`, `summary`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted` 
-                    )
-                    SELECT 
-                       `row_id`, `summary`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted` 
-                    FROM `debt`
-                """.trimIndent()
-                )
-                database.execSQL("DROP TABLE `debt`")
-                database.execSQL("ALTER TABLE `new_debt` RENAME TO `debt`")
-            }
-        }
-
-        /**
-         * 删除了市场单价
-         */
-        private val MIGRATION_4_5 = object : Migration(4, 5) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    """CREATE TABLE IF NOT EXISTS `new_asset_log` (
-                    `row_id` INTEGER NOT NULL, 
-                    `asset_id` INTEGER NOT NULL, 
-                    `is_buy` INTEGER NOT NULL, 
-                    `count` INTEGER NOT NULL, 
-                    `amount` INTEGER NOT NULL, 
-                    `create_at` TEXT NOT NULL, 
-                    `modified_at` TEXT NOT NULL, 
-                    `is_deleted` INTEGER NOT NULL, 
-                    PRIMARY KEY(`row_id`))""".trimMargin()
-                )
-                database.execSQL(
-                    """
-                    INSERT INTO `new_asset_log`(
-                       `row_id`, `asset_id`, `is_buy`, `count`, `amount`, `create_at`, `modified_at`, `is_deleted`
-                    )
-                    SELECT 
-                       `row_id`, `asset_id`, `is_buy`, `count`, `amount`, `create_at`, `modified_at`, `is_deleted`
-                    FROM `asset_log`   
-                """.trimIndent()
-                )
-
-                database.execSQL("DROP TABLE `asset_log`")
-                database.execSQL("ALTER TABLE `new_asset_log` RENAME TO `asset_log`")
-            }
-        }
-
-        private val MIGRATION_3_4 = object : Migration(3, 4) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE `voucher` ADD `type` TEXT DEFAULT '' NOT NULL ")
-                database.execSQL("UPDATE `voucher` SET `type` = 'INCOME' WHERE `profit` > 0 ")
-                database.execSQL("UPDATE `voucher` SET `type` = 'EXPEND' WHERE `profit` < 0 ")
-                database.execSQL("UPDATE `voucher` SET `type` = 'TRANSFER' WHERE `profit` = 0 ")
-            }
-        }
-
-        private val MIGRATION_2_3 = object : Migration(2, 3) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("DROP TABLE `trade`")
-            }
-        }
-
-        /**
-         * 删除了 interest 字段
-         */
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    """CREATE TABLE IF NOT EXISTS `new_debt` (
-                    `row_id` INTEGER NOT NULL, 
-                    `summary` TEXT NOT NULL, 
-                    `account_id` INTEGER NOT NULL, 
-                    `start_at` TEXT NOT NULL, 
-                    `capital` INTEGER NOT NULL, 
-                    `capital_repay` INTEGER NOT NULL, 
-                    `count` INTEGER NOT NULL, 
-                    `count_repay` INTEGER NOT NULL, 
-                    `interest_repay` INTEGER NOT NULL, 
-                    `is_settled` INTEGER NOT NULL, 
-                    `create_at` TEXT NOT NULL, 
-                    `modified_at` TEXT NOT NULL, 
-                    `is_deleted` INTEGER NOT NULL, 
-                    PRIMARY KEY(`row_id`))""".trimMargin()
-                )
-                database.execSQL(
-                    """
-                    INSERT INTO `new_debt` ( 
-                        `row_id`, `summary`, `account_id`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted`
-                    ) 
-                    SELECT 
-                        `row_id`, `summary`, `account_id`, `start_at`, `capital`, `capital_repay`, `count`, `count_repay`, `interest_repay`, `is_settled`, `create_at`, `modified_at`, `is_deleted` 
-                    FROM `debt`
-                    """.trimIndent()
-                )
-                database.execSQL("DROP TABLE `debt`")
-                database.execSQL("ALTER TABLE `new_debt` RENAME TO `debt`")
-            }
-        }
     }
 }

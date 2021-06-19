@@ -6,24 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.junmov.mirror.R
-import cn.junmov.mirror.core.adapter.TwoLineModel
 
 class TwoLineListItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val primary: TextView = itemView.findViewById(R.id.two_line_primary_text)
-    private val secondary: TextView = itemView.findViewById(R.id.two_line_secondary_text)
-    private val action: TextView = itemView.findViewById(R.id.two_line_action_text)
+    val primaryText: TextView = itemView.findViewById(R.id.two_line_primary_text)
+    val secondaryText: TextView = itemView.findViewById(R.id.two_line_secondary_text)
+    val actionText: TextView = itemView.findViewById(R.id.two_line_action_text)
 
-    fun bind(data: TwoLineModel.UiData) {
-        primary.text = data.primary
-        secondary.text = data.secondary
-        action.text = data.action
-    }
-
-    fun bind(first: String, second: String, third: String) {
-        primary.text = first
-        secondary.text = second
-        action.text = third
+    fun bind(primary: String, secondary: String, top: String) {
+        primaryText.text = primary
+        secondaryText.text = secondary
+        actionText.text = top
     }
 
     companion object {

@@ -8,8 +8,6 @@ import cn.junmov.mirror.core.data.db.entity.Repay
 
 data class RepayAndDebt(
     @Embedded val repay: Repay,
-    @Relation(
-        parentColumn = Scheme.Repay.DEBT_ID, entityColumn = Scheme.ID
-    )
-    val debt: Debt
+
+    @Relation(parentColumn = Scheme.Repay.DEBT_ID, entityColumn = Scheme.ID) val debt: Debt
 )

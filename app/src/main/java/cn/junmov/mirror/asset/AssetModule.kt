@@ -14,11 +14,20 @@ object AssetModule {
 
     @Singleton
     @Provides
-    fun createAssetLogUseCase(database: MirrorDatabase) = ChangeAssetLogUseCase(database.assetDao())
+    fun createAssetLogUseCase(database: MirrorDatabase) = EntrustOrderUseCase(database.assetDao())
 
     @Singleton
     @Provides
-    fun createAssetUseCase(database: MirrorDatabase) = CreateAssetUseCase(database.assetDao())
+    fun flowAllLogOfAssetUseCase(database: MirrorDatabase) =
+        FlowAllLogOfAssetUseCase(database.assetDao())
+
+    @Singleton
+    @Provides
+    fun flowAllAssetUseCase(database: MirrorDatabase) = FlowAllAssetUseCase(database.assetDao())
+
+    @Singleton
+    @Provides
+    fun flowHoldAssetsUseCase(database: MirrorDatabase) = FlowHoldAssetsUseCase(database.assetDao())
 
     @Singleton
     @Provides
@@ -27,13 +36,5 @@ object AssetModule {
 
     @Singleton
     @Provides
-    fun flowAllAssetUseCase(database: MirrorDatabase) = FlowAllAssetUseCase(database.assetDao())
-
-    @Singleton
-    @Provides
-    fun flowAssetUseCase(database: MirrorDatabase) = FlowAssetUseCase(database.assetDao())
-
-    @Singleton
-    @Provides
-    fun flowAssetLogUseCase(database: MirrorDatabase) = FlowAssetLogUseCase(database.assetDao())
+    fun clinchOrderUseCase(database: MirrorDatabase) = ClinchOrderUseCase(database.assetDao())
 }

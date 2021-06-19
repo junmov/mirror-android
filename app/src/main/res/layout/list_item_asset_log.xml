@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:minHeight="@dimen/three_line_min_height">
+
+    <TextView
+        android:id="@+id/asset_log_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/asset_log_date"
+        app:layout_constraintStart_toEndOf="@+id/asset_log_date"
+        tools:text="买入" />
+
+    <TextView
+        android:id="@+id/asset_log_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2021-04-29" />
+
+    <TextView
+        android:id="@+id/asset_log_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/asset_log_date"
+        app:layout_constraintTop_toBottomOf="@+id/asset_log_type"
+        tools:text="数量：100" />
+
+    <TextView
+        android:id="@+id/asset_log_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/asset_log_count"
+        app:layout_constraintStart_toStartOf="@+id/asset_log_name"
+        tools:text="单价：1.213" />
+
+    <TextView
+        android:id="@+id/asset_log_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/asset_log_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="126.31" />
+
+    <TextView
+        android:id="@+id/asset_log_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/asset_log_count"
+        app:layout_constraintEnd_toEndOf="@+id/asset_log_amount"
+        tools:text="费用：5.01" />
+
+    <TextView
+        android:id="@+id/asset_log_reason"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/asset_log_amount"
+        app:layout_constraintStart_toStartOf="@+id/asset_log_date"
+        app:layout_constraintTop_toBottomOf="@+id/asset_log_count"
+        tools:text="热点龙头" />
+
+    <TextView
+        android:id="@+id/asset_log_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/asset_log_date"
+        app:layout_constraintStart_toEndOf="@+id/asset_log_type"
+        tools:text="沪深300ETF" />
+</androidx.constraintlayout.widget.ConstraintLayout>

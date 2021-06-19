@@ -9,6 +9,7 @@ enum class AccountEnum(val id: Long, val fullName: String, val type: AccountType
     JIE_BEI(782808877792284686L, "蚂蚁借呗", AccountType.PAYABLE),
     WANG_SHANG_DAI(782808877792284687L, "网商贷", AccountType.PAYABLE),
     INTEREST(782808877792284737L, "其他支出:利息费用", AccountType.EXPENSE),
+    CATERING(782808877792284696L, "餐饮美食:饮食服务", AccountType.EXPENSE),
     QI_TA_ZHI_CHU(782808877792284733L, "其他支出", AccountType.EXPENSE)
     ;
 }

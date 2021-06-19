@@ -3,7 +3,6 @@ package cn.junmov.mirror.debt.domain
 import cn.junmov.mirror.core.data.db.dao.DebtDao
 import cn.junmov.mirror.core.data.db.entity.Debt
 import cn.junmov.mirror.core.data.db.entity.Repay
-import cn.junmov.mirror.core.utility.DebtVoucherFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -18,7 +17,7 @@ class PayDateRepayUseCase(private val debtDao: DebtDao) {
         repayAndDebts.forEach {
             val repay = it.repay
             repay.modifiedAt = now
-            repay.settled = true
+            repay.repaid = true
             repays.add(repay)
             capital += repay.capital
             interest += repay.interest
@@ -26,9 +25,6 @@ class PayDateRepayUseCase(private val debtDao: DebtDao) {
             debt.repay(repay)
             debts.add(debt)
         }
-        val voucherAndSplits = DebtVoucherFactory.createVoucher(dateAt, capital, interest)
-        debtDao.payDateRepayTransaction(
-            debts, repays, voucherAndSplits.voucher, voucherAndSplits.splits
-        )
+        debtDao.payDateRepayTransaction(debts, repays)
     }
 }

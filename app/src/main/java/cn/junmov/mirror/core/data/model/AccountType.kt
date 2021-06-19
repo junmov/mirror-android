@@ -96,7 +96,7 @@ enum class AccountType(private val typeName: String) {
 
     companion object {
         val wallets = arrayOf(FUND, PAYABLE, RECEIVABLE, INVEST)
-        val categorys = arrayOf(CONSUME, EXPENSE, ACTIVE, PASSIVE)
+        val categories = arrayOf(CONSUME, EXPENSE, ACTIVE, PASSIVE)
     }
 
 }

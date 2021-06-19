@@ -5,12 +5,14 @@ import java.time.LocalDate
 /**
  * 债务分期还款
  */
-interface RepayEntity :CommonField{
+interface RepayEntity : CommonField {
     /** 债务ID */
     val debtId: Long
 
-    /** 本期摘要 */
-    val summary: String
+    val borrowId: Long
+    val borrowName: String
+
+    val indexOfDebt: String
 
     /** 本期本金 */
     var capital: Int
@@ -22,5 +24,5 @@ interface RepayEntity :CommonField{
     val dateAt: LocalDate
 
     /** 本期是否还清 */
-    var settled: Boolean
+    var repaid: Boolean
 }

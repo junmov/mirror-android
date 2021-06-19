@@ -3,46 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/page_home">
+    app:startDestination="@id/screen_voucher">
 
-    <action
-        android:id="@+id/action_global_voucher_form_fragment"
-        app:destination="@id/voucher_form_fragment" />
-    <action
-        android:id="@+id/action_global_voucher_detail_fragment"
-        app:destination="@id/voucher_detail_fragment" />
     <fragment
-        android:id="@+id/page_home"
-        android:name="cn.junmov.mirror.home.ui.HomeTabFragment"
-        android:label="@string/app_name" />
-    <fragment
-        android:id="@+id/page_budget"
-        android:name="cn.junmov.mirror.budget.ui.BudgetFragment"
+        android:id="@+id/screen_budget"
+        android:name="cn.junmov.mirror.account.ui.budget.BudgetFragment"
         android:label="预算">
         <action
-            android:id="@+id/action_page_budget_to_budget_secondary_fragment"
-            app:destination="@id/budget_secondary_fragment" />
-        <action
-            android:id="@+id/action_page_budget_to_budget_form_dialog"
-            app:destination="@id/budget_form_dialog" />
+            android:id="@+id/action_screen_budget_to_screen_create_budget"
+            app:destination="@id/screen_create_budget" />
     </fragment>
     <fragment
-        android:id="@+id/page_wallet"
-        android:name="cn.junmov.mirror.wallet.ui.WalletFragment"
+        android:id="@+id/screen_wallet"
+        android:name="cn.junmov.mirror.account.ui.wallet.WalletFragment"
         android:label="钱包">
         <action
-            android:id="@+id/action_page_account_to_account_form_dialog"
-            app:destination="@id/account_form_dialog" />
-        <action
-            android:id="@+id/action_page_account_to_account_detail_fragment"
-            app:destination="@id/account_detail_fragment" />
+            android:id="@+id/action_screen_wallet_to_screen_account_detail"
+            app:destination="@id/screen_account_detail" />
     </fragment>
     <dialog
-        android:id="@+id/account_form_dialog"
-        android:name="cn.junmov.mirror.wallet.ui.WalletFormDialog" />
+        android:id="@+id/screen_account_form"
+        android:name="cn.junmov.mirror.account.ui.setting.AccountFormDialog" />
     <fragment
-        android:id="@+id/account_detail_fragment"
-        android:name="cn.junmov.mirror.wallet.ui.WalletDetailFragment"
+        android:id="@+id/screen_account_detail"
+        android:name="cn.junmov.mirror.account.ui.wallet.WalletDetailFragment"
         android:label="{title}">
         <argument
             android:name="account_id"
@@ -51,59 +35,12 @@
             android:name="title"
             app:argType="string" />
         <action
-            android:id="@+id/action_account_detail_fragment_to_account_trading_fragment"
-            app:destination="@id/account_trading_fragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/budget_form_dialog"
-        android:name="cn.junmov.mirror.budget.ui.CategoryFormDialog" />
-    <fragment
-        android:id="@+id/budget_secondary_fragment"
-        android:name="cn.junmov.mirror.budget.ui.BudgetSecondaryFragment"
-        android:label="{title}">
-        <argument
-            android:name="budget_id"
-            app:argType="long" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_budget_secondary_fragment_to_budgetDeltaFragment"
-            app:destination="@id/budget_delta_fragment" />
+            android:id="@+id/action_screen_account_detail_to_screen_account_trading"
+            app:destination="@id/screen_account_trading" />
     </fragment>
     <fragment
-        android:id="@+id/thing_fragment"
-        android:name="cn.junmov.mirror.thing.ui.ThingFragment"
-        android:label="项目">
-        <action
-            android:id="@+id/action_thing_fragment_to_thing_detail_fragment"
-            app:destination="@id/thing_detail_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/thing_detail_fragment"
-        android:name="cn.junmov.mirror.thing.ui.ThingDetailFragment"
-        android:label="{title}">
-        <argument
-            android:name="thing_id"
-            app:argType="long" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/voucher_detail_fragment"
-        android:name="cn.junmov.mirror.voucher.ui.VoucherDetailFragment"
-        android:label="交易详情">
-        <argument
-            android:name="voucher_id"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_voucher_detail_fragment_to_split_form_fragment"
-            app:destination="@id/split_form_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/account_trading_fragment"
-        android:name="cn.junmov.mirror.statistics.ui.AccountTradingFragment"
+        android:id="@+id/screen_account_trading"
+        android:name="cn.junmov.mirror.voucher.ui.VoucherInAccountFragment"
         android:label="{title}">
         <argument
             android:name="account_id"
@@ -112,137 +49,107 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/screen_charge_up"
+        android:name="cn.junmov.mirror.voucher.ui.VoucherFragment" />
     <fragment
-        android:id="@+id/voucher_form_fragment"
-        android:name="cn.junmov.mirror.voucher.ui.VoucherFormFragment"
-        android:label="记账">
-        <argument
-            android:name="voucher_id"
-            android:defaultValue="0L"
-            app:argType="long" />
-    </fragment>
-    <fragment
-        android:id="@+id/split_form_fragment"
-        android:name="cn.junmov.mirror.voucher.ui.SplitFormFragment"
-        android:label="交易分录">
-        <argument
-            android:name="voucher_id"
-            app:argType="long" />
-    </fragment>
-    <fragment
-        android:id="@+id/budget_delta_fragment"
-        android:name="cn.junmov.mirror.budget.ui.BudgetDetailFragment"
-        android:label="{title}">
-        <argument
-            android:name="category_id"
-            app:argType="long" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/audit_plan_fragment"
-        android:name="cn.junmov.mirror.statistics.ui.AuditPlanFragment"
-        android:label="入账计划" />
-    <fragment
-        android:id="@+id/bill_tab_fragment"
-        android:name="cn.junmov.mirror.debt.ui.BillTabFragment"
-        android:label="我的债务">
-        <action
-            android:id="@+id/action_bill_tab_fragment_to_debt_form_dialog"
-            app:destination="@id/debt_form_dialog" />
-        <action
-            android:id="@+id/action_bill_tab_fragment_to_debt_detail_fragment"
-            app:destination="@id/debt_detail_fragment" />
-        <action
-            android:id="@+id/action_bill_tab_fragment_to_repay_detail_fragment"
-            app:destination="@id/repay_detail_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/debt_detail_fragment"
+        android:id="@+id/screen_debt_detail"
         android:name="cn.junmov.mirror.debt.ui.DebtDetailFragment"
         android:label="借款详情">
         <argument
             android:name="debt_id"
             app:argType="long" />
-        <action
-            android:id="@+id/action_debt_detail_fragment_to_repay_form_dialog"
-            app:destination="@id/repay_form_dialog" />
-        <action
-            android:id="@+id/action_debt_detail_fragment_to_stop_loss_dialog"
-            app:destination="@id/stop_loss_dialog" />
     </fragment>
-    <dialog
-        android:id="@+id/debt_form_dialog"
-        android:name="cn.junmov.mirror.debt.ui.DebtFormDialog" />
-    <dialog
-        android:id="@+id/repay_form_dialog"
-        android:name="cn.junmov.mirror.debt.ui.RepayFormDialog">
-        <argument
-            android:name="repay_id"
-            app:argType="long" />
-    </dialog>
-    <dialog
-        android:id="@+id/stop_loss_dialog"
-        android:name="cn.junmov.mirror.debt.ui.StopLossDialog">
-        <argument
-            android:name="debt_id"
-            app:argType="long" />
-    </dialog>
     <fragment
-        android:id="@+id/asset_fragment"
+        android:id="@+id/screen_asset"
         android:name="cn.junmov.mirror.asset.ui.AssetFragment"
-        android:label="我的投资">
+        android:label="我的持仓">
         <action
-            android:id="@+id/action_asset_fragment_to_asset_detail_fragment"
-            app:destination="@id/asset_detail_fragment" />
+            android:id="@+id/action_screen_asset_to_screen_asset_detail"
+            app:destination="@id/screen_asset_detail" />
     </fragment>
     <dialog
-        android:id="@+id/asset_log_form_dialog"
-        android:name="cn.junmov.mirror.asset.ui.AssetLogFormDialog">
-        <argument
-            android:name="asset_id"
-            app:argType="long" />
-        <argument
-            android:name="asset_log_id"
-            app:argType="long"
-            android:defaultValue="0L" />
-    </dialog>
+        android:id="@+id/screen_asset_log_form"
+        android:name="cn.junmov.mirror.asset.ui.AssetLogFormDialog"/>
     <fragment
-        android:id="@+id/asset_detail_fragment"
+        android:id="@+id/screen_asset_detail"
         android:name="cn.junmov.mirror.asset.ui.AssetDetailFragment"
-        android:label="资产详情">
-        <action
-            android:id="@+id/action_asset_detail_fragment_to_asset_log_form_dialog"
-            app:destination="@id/asset_log_form_dialog" />
+        android:label="{title}">
         <argument
             android:name="asset_id"
             app:argType="long" />
-    </fragment>
-    <dialog
-        android:id="@+id/todo_form_dialog"
-        android:name="cn.junmov.mirror.todo.ui.TodoFormDialog" />
-    <fragment
-        android:id="@+id/todo_fragment"
-        android:name="cn.junmov.mirror.todo.ui.TodoFragment"
-        android:label="我的计划">
-        <action
-            android:id="@+id/action_todo_fragment_to_todo_form_dialog"
-            app:destination="@id/todo_form_dialog" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/sync_fragment"
-        android:name="cn.junmov.mirror.sync.ui.SyncFragment"
+        android:id="@+id/screen_sync"
+        android:name="cn.junmov.mirror.user.ui.SyncFragment"
         android:label="数据同步" />
     <fragment
-        android:id="@+id/sign_in_fragment"
+        android:id="@+id/screen_sign_in"
         android:name="cn.junmov.mirror.user.ui.SignInFragment" />
     <fragment
-        android:id="@+id/repay_detail_fragment"
+        android:id="@+id/screen_repay_detail"
         android:name="cn.junmov.mirror.debt.ui.RepayDetailFragment"
-        android:label="还款详情" >
+        android:label="还款详情">
         <argument
             android:name="date_at"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/screen_user"
+        android:name="cn.junmov.mirror.user.ui.UserFragment"
+        android:label="我的" />
+    <fragment
+        android:id="@+id/screen_voucher"
+        android:name="cn.junmov.mirror.voucher.ui.RecentVoucherFragment"
+        android:label="最近交易" />
+    <fragment
+        android:id="@+id/screen_account_list"
+        android:name="cn.junmov.mirror.account.ui.setting.AccountListFragment"
+        android:label="科目管理">
+        <action
+            android:id="@+id/action_screen_account_list_to_screen_account_form"
+            app:destination="@id/screen_account_form" />
+    </fragment>
+    <dialog
+        android:id="@+id/screen_create_budget"
+        android:name="cn.junmov.mirror.account.ui.budget.BudgetFormDialog" />
+    <action
+        android:id="@+id/action_global_screen_sync"
+        app:destination="@id/screen_sync" />
+    <action
+        android:id="@+id/action_global_screen_account_list"
+        app:destination="@id/screen_account_list" />
+    <action
+        android:id="@+id/action_global_screen_asset"
+        app:destination="@id/screen_asset" />
+    <fragment
+        android:id="@+id/screen_borrow_list"
+        android:name="cn.junmov.mirror.debt.ui.BorrowFragment"
+        android:label="借款记录">
+        <action
+            android:id="@+id/action_screen_borrow_list_to_screen_debt_detail"
+            app:destination="@id/screen_debt_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_date_repay_list"
+        android:name="cn.junmov.mirror.debt.ui.DateRepayListFragment"
+        android:label="还款日历">
+        <action
+            android:id="@+id/action_dateRepayListFragment_to_screen_repay_detail"
+            app:destination="@id/screen_repay_detail" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_dateRepayListFragment"
+        app:destination="@id/screen_date_repay_list" />
+    <action
+        android:id="@+id/action_global_borrowFragment"
+        app:destination="@id/screen_borrow_list" />
+    <action android:id="@+id/action_global_screen_asset_log_form" app:destination="@id/screen_asset_log_form" />
+    <fragment
+        android:id="@+id/screen_asset_log_list"
+        android:name="cn.junmov.mirror.asset.ui.AssetLogListFragment"
+        android:label="AssetLogListFragment" /><action android:id="@+id/action_global_screen_asset_log_list" app:destination="@id/screen_asset_log_list"/>
 </navigation>
